@@ -13,8 +13,6 @@ import ujson
 from app.utils.cas import get_cas
 from app.utils.token import verify_token
 from app.utils.mongodb import get_database
-from app.models.user import StateInResponse, Audit
-from app.models.questionnaire import QuestionnaireInResponse
 from config import SECRET_KEY
 
 router = APIRouter()

@@ -3,6 +3,7 @@ LABEL author=pk13055 version=1.0
 
 RUN pip3 install pip-tools \
     && apk add --update build-base \ 
+    libxml2-dev libxslt-dev \
     && rm -rf /var/cache/apk/*
 
 WORKDIR /app
@@ -12,6 +13,6 @@ RUN pip-compile requirements.in > requirements.txt \
 
 
 COPY . /app
-EXPOSE 8080
-ENTRYPOINT ["uvicorn", "--host", "0.0.0.0", "--port", "8080", "--reload", "main:app"]
+EXPOSE 5000
+ENTRYPOINT ["uvicorn", "--host", "0.0.0.0", "--port", "5000", "--reload", "main:app"]
 

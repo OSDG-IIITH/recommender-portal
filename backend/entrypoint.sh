@@ -7,7 +7,7 @@ if [ -z "$DEBUG" ]; then
 fi  
 
 if [ "$DEBUG" = 1 ] ; then
-    uvicorn --host 0.0.0.0 --port 8080 main:app --log-level debug --reload
+    uvicorn --host 0.0.0.0 --port 5000 main:app --log-level debug --reload
 else
-    uvicorn --host 0.0.0.0 --port 8080 --workers 4 --log-level info main:app
+    uvicorn --host 0.0.0.0 --port 5000 --workers 4 --log-level info main:app
 fi

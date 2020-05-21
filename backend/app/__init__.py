@@ -21,7 +21,8 @@ app = FastAPI(openapi_prefix="/api",
               docs_url=None, redoc_url=None)
 
 # handling static files
-app.mount("/static", StaticFiles(directory="static"), name="static")
+# uncomment if not decoupled
+# app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # adding schema documentation routes
 
