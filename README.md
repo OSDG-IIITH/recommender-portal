@@ -33,6 +33,4 @@ the API docs are hosted at `/api/docs`.
 ### DB Interface
 
 For easy debugging purposes, there is an express mongodb interface provided at
-`/db_interface/`. This will probably be obselete since the actual courier portal
-database is probably going to be mySQL, but has been included for now for easy
-testing
+`/db_interface/`.

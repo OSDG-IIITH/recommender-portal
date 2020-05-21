@@ -33,7 +33,7 @@ services:
                 volumes:
                         - ./backend:/app
                 environment:
-                        PORT: 8080
+                        PORT: 5000
                         DEBUG: $DEBUG
                         SECRET_KEY: $SECRET_KEY
                         DATABASE_URL: $DATABASE_URL
@@ -48,16 +48,16 @@ services:
                         context: ./frontend
                         args:
                             DEBUG: $DEBUG   
+                            NODE_ENV: $NODE_ENV
                 entrypoint: ./entrypoint.sh
                 restart: unless-stopped
-                environment:
-                    NODE_ENV: development  # OR [production]
                 volumes:
                         - web-root:/home/node/app/dist
                         - ./frontend:/home/node/app
-                        - /home/node/app/node_modules
+                        - node-modules:/home/node/app/node_modules
                 environment:
-                        PORT: 5000
+                        NODE_ENV: $NODE_ENV 
+                        PORT: 8080
                         DEBUG: $DEBUG
                 depends_on:
                         - backend
@@ -86,4 +86,6 @@ networks:
 
 volumes:
         web-root:
+        node-modules:
         db_vol:
+
