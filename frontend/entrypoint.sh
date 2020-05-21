@@ -1,6 +1,5 @@
 #!/bin/sh
 # determine development/production
-# TODO edit depending on Vue-cli
 
 if [ -z "$DEBUG" ]; then
     echo "Need to set \$DEBUG"
@@ -10,5 +9,5 @@ fi
 if [ "$DEBUG" = 1 ] ; then
     npm run-script dev
 else
-    npm run-script build && serve .
+    npm run-script build && npm run-script serve
 fi
