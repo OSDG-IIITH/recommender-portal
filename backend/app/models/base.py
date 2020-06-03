@@ -1,7 +1,7 @@
 from datetime import datetime, timezone
 from enum import IntEnum
 
-from pydantic import BaseConfig, BaseModel, SecretStr, AnyUrl
+from pydantic import BaseConfig, BaseModel
 from bson.objectid import ObjectId
 
 
@@ -46,8 +46,4 @@ class Base(BaseModel):
             .isoformat()
             .replace("+00:00", "Z"),
             ObjectId: ObjectID,
-            SecretStr: lambda secret: repr(secret),
-            RatingEnum: lambda e: e.value,
-            LikeEnum: lambda e: e.value,
-            AnyUrl: lambda url: str(url)
         }

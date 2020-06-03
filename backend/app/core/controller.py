@@ -40,6 +40,3 @@ async def login_route(next: str = "/", ticket: str = None, cas_client: CASClient
         # TODO add additional login functionality here
         redirect_url = f"{next}#/?user={_user}"
         return RedirectResponse(url=redirect_url)
-
-
-# TODO add aditional routes here

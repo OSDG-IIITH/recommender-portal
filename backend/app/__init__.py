@@ -10,6 +10,8 @@ from starlette.status import HTTP_422_UNPROCESSABLE_ENTITY
 from starlette.staticfiles import StaticFiles
 
 from .core import core as core_router
+from .user import user as user_router
+from .categories import category as category_router
 from app.utils.db_loader import connect_db, disconnect_db
 from app.utils.error_handlers import http_error_handler, http_422_error_handler
 
@@ -21,8 +23,7 @@ app = FastAPI(openapi_prefix="/api",
               docs_url=None, redoc_url=None)
 
 # handling static files
-# uncomment if not decoupled
-# app.mount("/static", StaticFiles(directory="static"), name="static")
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # adding schema documentation routes
 
@@ -73,3 +74,5 @@ app.add_exception_handler(
 
 # include various routes
 app.include_router(core_router, prefix="/core", tags=["core"])
+app.include_router(user_router, prefix="/user", tags=["users"])
+app.include_router(category_router, tags=["categories"])
