@@ -7,7 +7,7 @@ from .base import Base, ObjectID, RatingEnum
 
 
 class Rating(Base):
-    id: ObjectID = Field(ObjectId(), alias="_id")
+    id: ObjectID = Field(None, alias="_id")
     rating: RatingEnum
     item_id: ObjectID
     user_id: ObjectID

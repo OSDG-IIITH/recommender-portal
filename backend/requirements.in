@@ -7,7 +7,6 @@ motor
 fastapi
 aiofiles
 fastapi_contrib[ujson,mongo,pytz]
-typing_extensions
 
 # authentication
 python-cas
