@@ -2,20 +2,19 @@ from enum import Enum
 
 from pydantic import AnyUrl, Field
 from typing import List, Optional, Set
-from typing_extensions import Literal
 
 from bson.objectid import ObjectId
-from .base import Base, ObjectID
+from .base import Base, ObjectID, MusicEnum, VideoEnum, CategoryEnum
 
 
 class Category(Base):
     """Category definiton"""
-    _id: Literal['anime', 'movies', 'music', 'shows', 'books']
+    _id: CategoryEnum
 
 
 class ItemBase(Base):
     """Base fields for any item"""
-    id: ObjectID = Field(ObjectId(), alias="_id")
+    id: ObjectID = Field(None, alias="_id")
     flags: List[str] = list()
     hidden: bool = False
     title: str
@@ -29,8 +28,7 @@ class Show(ItemBase):
     seasons: int
     episode_length: int
     season_length: int
-    streaming: Optional[Literal['netflix', 'hotstar', 'torrent',
-                                'prime', 'youtube', 'other']] = 'netflix'
+    streaming: Optional[VideoEnum]
 
 
 class Anime(Show):
@@ -43,16 +41,14 @@ class Movie(ItemBase):
     """Movie category definition"""
     language: str
     director: str
-    streaming: Optional[Literal['netflix', 'hotstar', 'torrent',
-                                'prime', 'youtube', 'other']]
+    streaming: Optional[VideoEnum]
 
 
 class Music(ItemBase):
     """Music category definiton"""
     artist: str
     album: Optional[str]
-    streaming = Optional[Literal['youtube', 'spotify', 'gaana',
-                                 'prime', 'apple', 'saavn']]
+    streaming: Optional[MusicEnum]
 
 
 class Book(ItemBase):

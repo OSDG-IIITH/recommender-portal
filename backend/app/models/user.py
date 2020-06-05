@@ -20,7 +20,7 @@ class Like(Base):
 
 
 class User(Base):
-    id: ObjectID = Field(ObjectId(), alias="_id")
+    id: ObjectID = Field(None, alias="_id")
     username: str
     password: SecretStr
     ratings: List[UserRating] = list()

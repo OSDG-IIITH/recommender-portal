@@ -1,8 +1,34 @@
 from datetime import datetime, timezone
-from enum import IntEnum
+from enum import IntEnum, Enum
 
 from pydantic import BaseConfig, BaseModel
 from bson.objectid import ObjectId
+
+
+class CategoryEnum(Enum):
+    anime = 'anime'
+    books = 'books'
+    movies = 'movies'
+    music = 'music'
+    shows = 'shows'
+
+
+class MusicEnum(Enum):
+    youtube = 'youtube'
+    spotify = 'spotify'
+    gaana = 'gaana'
+    prime = 'prime'
+    apple = 'apple'
+    saavn = 'saavn'
+
+
+class VideoEnum(Enum):
+    netflix = 'netflix'
+    hotstar = 'hotstar'
+    torrent = 'torrent'
+    prime = 'prime'
+    youtube = 'youtube'
+    other = 'other'
 
 
 class LikeEnum(IntEnum):
@@ -46,4 +72,5 @@ class Base(BaseModel):
             .isoformat()
             .replace("+00:00", "Z"),
             ObjectId: ObjectID,
+
         }
