@@ -9,7 +9,7 @@ from .base import Base, ObjectID, MusicEnum, VideoEnum, CategoryEnum
 
 class Category(Base):
     """Category definiton"""
-    _id: CategoryEnum
+    id: CategoryEnum = Field(None, alias="_id")
 
 
 class ItemBase(Base):

@@ -1,14 +1,14 @@
-from typing import List, Union, Dict
+from typing import Dict, List, Union
 
 from fastapi import APIRouter, Depends, HTTPException
 from motor.motor_asyncio import AsyncIOMotorClient
 
-from app.utils.token import verify_token
-from app.utils.mongodb import get_database
-from app.models.base import ObjectID
-from app.models.responses import ResponseBase, ItemInResponse, ItemsInResponse
-from app.models.category import Movie, Anime, Show, Music
-
+from ..models.base import ObjectID
+from ..models.category import Anime, Category, Movie, Music, Show
+from ..models.responses import (CategorysInResponse, ItemInResponse,
+                                ItemsInResponse, ResponseBase)
+from ..utils.mongodb import get_database
+from ..utils.token import verify_token
 
 router = APIRouter()
 

@@ -22,6 +22,5 @@ class Like(Base):
 class User(Base):
     id: ObjectID = Field(None, alias="_id")
     username: str
-    password: SecretStr
     ratings: List[UserRating] = list()
     likes: List[Like] = list()
