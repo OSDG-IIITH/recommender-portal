@@ -3,11 +3,11 @@ from typing import Dict
 from fastapi import APIRouter, Depends, HTTPException
 from motor.motor_asyncio import AsyncIOMotorClient
 
-from app.utils.token import verify_token
-from app.utils.mongodb import get_database
-from app.models.base import ObjectID
-from app.models.user import User, LikeEnum
-from app.models.responses import UserInResponse, UsersInResponse, LikeInResponse
+from ..models.base import ObjectID
+from ..models.responses import LikeInResponse, UserInResponse, UsersInResponse
+from ..models.user import LikeEnum, User
+from ..utils.mongodb import get_database
+from ..utils.token import verify_token
 
 router = APIRouter()
 
@@ -15,15 +15,8 @@ router = APIRouter()
 @router.post("/signup", tags=["signup", "auth", "testing"])
 async def signup_route(user: User, db: AsyncIOMotorClient = Depends(get_database)):
     """Signup route (for testing)"""
-    # TODO signup functionality
     return {"success": True}
 
-
-@router.get("/", response_model=UsersInResponse, dependencies=[Depends(verify_token)], tags=["fetch", "bulk"])
-async def get_users_route(db: AsyncIOMotorClient = Depends(get_database)) -> UsersInResponse:
-    """Get user information for logged in user"""
-    # TODO fetch users functionality
-    return {"success": True}
 
 
 @router.get("/{user_id}", response_model=UserInResponse, tags=["fetch"])

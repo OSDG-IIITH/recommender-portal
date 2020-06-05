@@ -1,14 +1,15 @@
-from typing import List, Optional, Union
+from typing import List, Optional, Union, Dict
 
 from .base import Base, ObjectID
-from .category import Anime, Movie, Music, Show, Book
+from .category import Anime, Movie, Music, Show, Book, Category
 from .user import User, Like
 
 
 class ResponseBase(Base):
     """Base return response"""
     success: bool = True
-    error: Optional[List] = None
+    error: Optional[List]
+    data: Optional[Union[List, Dict[str, str]]]
 
 
 class ItemInResponse(ResponseBase):
@@ -31,3 +32,7 @@ class UsersInResponse(ResponseBase):
 
 class LikeInResponse(ResponseBase):
     data: Like
+
+
+class CategorysInResponse(ResponseBase):
+    data: List[Category]

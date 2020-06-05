@@ -7,7 +7,7 @@ import jwt
 from config import SECRET_KEY
 
 
-async def verify_token(authorization: str = Header(None)):
+async def verify_token(authorization: str = Header("Authorization")):
     """Verify JWT token for protected routes"""
     # NOTE: remove if extra jwt auth not required
     try:
