@@ -2,7 +2,6 @@ from typing import Dict
 
 from fastapi import APIRouter, Depends, HTTPException
 from motor.motor_asyncio import AsyncIOMotorClient
-from typing_extensions import Literal
 
 from app.utils.token import verify_token
 from app.utils.mongodb import get_database

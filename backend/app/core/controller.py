@@ -18,7 +18,7 @@ from config import SECRET_KEY
 router = APIRouter()
 
 
-@router.get("/login", tags=["auth"])
+@router.get("/login", tags=["auth"], include_in_schema=False)
 async def login_route(next: str = "/", ticket: str = None, cas_client: CASClient = Depends(get_cas),
                       db: AsyncIOMotorClient = Depends(get_database)):
     """login using CAS login
