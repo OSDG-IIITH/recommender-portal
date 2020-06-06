@@ -19,6 +19,7 @@ async def get_category_route(category_id: str,
     """Get the items under a given category"""
     # TODO add fetching from category
     return ItemsInResponse()
+    #lol
 
 
 @router.get("/{category_id}/{item_id}", response_model=ItemInResponse, tags=["fetch", "item"])
