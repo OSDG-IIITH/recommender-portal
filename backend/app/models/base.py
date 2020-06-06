@@ -5,7 +5,7 @@ from pydantic import BaseConfig, BaseModel
 from bson.objectid import ObjectId
 
 
-class CategoryEnum(Enum):
+class CategoryEnum(str, Enum):
     anime = 'anime'
     books = 'books'
     movies = 'movies'
@@ -13,7 +13,7 @@ class CategoryEnum(Enum):
     shows = 'shows'
 
 
-class MusicEnum(Enum):
+class MusicEnum(str, Enum):
     youtube = 'youtube'
     spotify = 'spotify'
     gaana = 'gaana'
@@ -22,7 +22,7 @@ class MusicEnum(Enum):
     saavn = 'saavn'
 
 
-class VideoEnum(Enum):
+class VideoEnum(str, Enum):
     netflix = 'netflix'
     hotstar = 'hotstar'
     torrent = 'torrent'
@@ -72,5 +72,6 @@ class Base(BaseModel):
             .isoformat()
             .replace("+00:00", "Z"),
             ObjectId: ObjectID,
-
+            LikeEnum: lambda lE: lE.value,
+            RatingEnum: lambda rE: rE.value
         }

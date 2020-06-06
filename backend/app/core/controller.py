@@ -23,9 +23,9 @@ from ..utils.token import verify_token
 router = APIRouter()
 
 
-@router.get("/login", tags=["auth"], include_in_schema=False)
+@router.get("/login", tags=["auth"], response_model=ResponseBase, include_in_schema=False)
 async def login_route(next: str = "/", ticket: str = None, cas_client: CASClient = Depends(get_cas),
-                      db: AsyncIOMotorClient = Depends(get_database)):
+                      db: AsyncIOMotorClient = Depends(get_database)) -> ResponseBase:
     """login using CAS login
 
     """
@@ -36,28 +36,25 @@ async def login_route(next: str = "/", ticket: str = None, cas_client: CASClient
 
     _user, attributes, _ = cas_client.verify_ticket(ticket)
     if not _user:
-        return {
-            "success": 0,
-            "message": "Invalid user! Retry logging in!"
-        }
-    else:
-        logging.debug(f"CAS verify ticket response: user: {_user}")
-        if await db["core"]["users"].find_one({"username": _user}):
-            _res = await db["core"]["users"].update_one({
-                "last_login": attributes["authenticationDate"]
-            })
-        else:
-            _res = await db["core"]["users"].insert_one({
-                "username": _user,
-                "last_login": attributes["authenticationDate"],
-                "first_login": attributes["authenticationDate"],
-            })
+        return ResponseBase(success=False, error=[f"Invalid user! {_user}", attributes])
 
-        jwt_token = jwt.encode({'username': _user}, str(
-            SECRET_KEY), algorithm="HS256").decode()
-        return ResponseBase(data={
-            "token": jwt_token
-        })
+    logging.debug(f"CAS verify ticket response: user: {_user}")
+
+    _update = await db.core.users.update_one({"username": _user}, {
+        "$set": {
+            "last_login": attributes["authenticationDate"]
+        }
+    })
+    if _update.matched_count == 0:
+        user = User(username=_user, first_login=attributes["authenticationDate"],
+                    last_login=attributes["authenticationDate"])
+        _res = await db.core.users.insert_one(user.dict())
+
+    jwt_token = jwt.encode({'username': _user}, str(
+        SECRET_KEY), algorithm="HS256").decode()
+    return ResponseBase(data={
+        "token": jwt_token
+    })
 
 
 @router.get("/categories", response_model=CategorysInResponse, dependencies=[Depends(verify_token)], tags=["fetch", "categories"])
