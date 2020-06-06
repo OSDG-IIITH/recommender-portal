@@ -18,6 +18,7 @@ async def get_category_route(category_id: str,
                              db: AsyncIOMotorClient = Depends(get_database)) -> ItemsInResponse:
     """Get the items under a given category"""
     # TODO add fetching from category
+    from ..models.base import CategoryEnum
     for x in CategoryEnum:
         if category_id == x.value:
             # do what you have to
