@@ -4,7 +4,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from motor.motor_asyncio import AsyncIOMotorClient
 
 from ..models.base import ObjectID
-from ..models.category import Anime, Category, Movie, Music, Show
+from ..models.category import Anime, Category, Movie, Music, Show, Book
 from ..models.responses import (CategorysInResponse, ItemInResponse,
                                 ItemsInResponse, ResponseBase)
 from ..utils.mongodb import get_database
