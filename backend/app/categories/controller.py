@@ -18,9 +18,11 @@ async def get_category_route(category_id: str,
                              db: AsyncIOMotorClient = Depends(get_database)) -> ItemsInResponse:
     """Get the items under a given category"""
     # TODO add fetching from category
-    return ItemsInResponse()
-    #lol
-
+    for x in CategoryEnum:
+        if category_id == x.value:
+            # do what you have to
+            return ItemsInResponse()
+    return ItemsInResponse(success=False, error=["Invalid category!"])
 
 @router.get("/{category_id}/{item_id}", response_model=ItemInResponse, tags=["fetch", "item"])
 async def get_category_item_route(category_id: str, item_id: ObjectID,
