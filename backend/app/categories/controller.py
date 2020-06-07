@@ -34,7 +34,7 @@ async def get_category_route(category_id: str,
 
     for x in CategoryEnum:
         if category_id == x.value:
-            return ItemsInResponse(error=["No Errors!"], data = [loader(**item) async for item in db[category_id]["data"].find()])
+            return ItemsInResponse(data = [loader(**item) async for item in db[category_id]["data"].find()])
     return ItemsInResponse(success=False, error=["Invalid category!"])
 
 @router.get("/{category_id}/{item_id}", response_model=ItemInResponse, tags=["fetch", "item"])
