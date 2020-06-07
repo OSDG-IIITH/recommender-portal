@@ -9,16 +9,29 @@ from ..models.responses import (CategorysInResponse, ItemInResponse,
                                 ItemsInResponse, ResponseBase)
 from ..utils.mongodb import get_database
 from ..utils.token import verify_token
+from ..models.base import CategoryEnum
 
 router = APIRouter()
 
 
 @router.get("/{category_id}", response_model=ItemsInResponse, tags=["fetch"])
-async def get_category_route(category_id: str,
+async def get_category_route(category_id: CategoryEnum,
                              db: AsyncIOMotorClient = Depends(get_database)) -> ItemsInResponse:
     """Get the items under a given category"""
-    # TODO add fetching from category
-    return ItemsInResponse()
+
+    loader = None
+    if category_id == CategoryEnum.movies:
+        loader = Movie
+    elif category_id == CategoryEnum.anime:
+        loader = Anime
+    elif category_id == CategoryEnum.music:
+        loader = Music
+    elif category_id == CategoryEnum.shows:
+        loader = Show
+    elif category_id == CategoryEnum.books:
+        loader = Book
+    items = [loader(**item) async for item in db[category_id]["data"].find()]
+    return ItemsInResponse(data=items)
 
 
 @router.get("/{category_id}/{item_id}", response_model=ItemInResponse, tags=["fetch", "item"])
