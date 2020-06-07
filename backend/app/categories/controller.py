@@ -23,15 +23,15 @@ async def get_category_route(category_id: str,
         return ItemsInResponse(success=False, error=[f"Invalid category {category_id}"])
     
     loader = None
-    if category_id == CategoryEnum.movies.value:
+    if category_id == CategoryEnum.movies:
         loader = Movie
-    if category_id == CategoryEnum.anime.value:
+    elif category_id == CategoryEnum.anime:
         loader = Anime
-    if category_id == CategoryEnum.music.value:
+    elif category_id == CategoryEnum.music:
         loader = Music
-    if category_id == CategoryEnum.shows.value:
+    elif category_id == CategoryEnum.shows:
         loader = Show
-    if category_id == CategoryEnum.books.value:
+    elif category_id == CategoryEnum.books:
         loader = Book
     items = [loader(**item) async for item in db[category_id]["data"].find()]
     return ItemsInResponse(data=items)
