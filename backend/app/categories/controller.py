@@ -3,7 +3,7 @@ from typing import Dict, List, Union
 from fastapi import APIRouter, Depends, HTTPException
 from motor.motor_asyncio import AsyncIOMotorClient
 
-from ..models.base import ObjectID
+from ..models.base import ObjectID, CategoryEnum
 from ..models.category import Anime, Category, Movie, Music, Show, Book
 from ..models.responses import (CategorysInResponse, ItemInResponse,
                                 ItemsInResponse, ResponseBase)
@@ -46,8 +46,25 @@ async def get_category_item_route(category_id: CategoryEnum, item_id: ObjectID,
 async def add_item_route(category_id: CategoryEnum, item: Union[Movie, Anime, Show, Music],
                          db: AsyncIOMotorClient = Depends(get_database)) -> ItemInResponse:
     """Add item to a given category"""
-    # TODO add item to db
-    return {"success": True}
+
+    # creating dict for checking response body
+    classof = {
+        CategoryEnum.movies: Movie,
+        CategoryEnum.shows: Show,
+        CategoryEnum.anime: Anime,
+        CategoryEnum.books: Book,
+        CategoryEnum.music: Music
+    }
+
+    # checking if request body is of correct type
+    if not isinstance(item, classof[category_id]):
+        raise HTTPException(
+            status_code=400, detail=f'item does not match {category_id} schema')
+
+    # Adding into db
+    _res = await db[category_id]["data"].insert_one(item.dict())
+
+    return ItemInResponse(data=item)
 
 
 @router.patch("/{category_id}/{item_id}", response_model=ItemInResponse, dependencies=[Depends(verify_token)], tags=["update"])
