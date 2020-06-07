@@ -4,7 +4,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from motor.motor_asyncio import AsyncIOMotorClient
 
 from ..models.base import ObjectID
-from ..models.category import Anime, Category, Movie, Music, Show
+from ..models.category import Anime, Category, Movie, Music, Show, Book
 from ..models.responses import (CategorysInResponse, ItemInResponse,
                                 ItemsInResponse, ResponseBase)
 from ..utils.mongodb import get_database
@@ -19,10 +19,22 @@ async def get_category_route(category_id: str,
     """Get the items under a given category"""
     # TODO add fetching from category
     from ..models.base import CategoryEnum
+    
+    loader = None
+    if category_id == CategoryEnum.movies.value:
+        loader = Movie
+    if category_id == CategoryEnum.anime.value:
+        loader = Anime
+    if category_id == CategoryEnum.music.value:
+        loader = Music
+    if category_id == CategoryEnum.shows.value:
+        loader = Show
+    if category_id == CategoryEnum.books.value:
+        loader = Book
+
     for x in CategoryEnum:
         if category_id == x.value:
-            # do what you have to
-            return ItemsInResponse()
+            return ItemsInResponse(error=["No Errors!"], data = [loader(**item) async for item in db[category_id]["data"].find()])
     return ItemsInResponse(success=False, error=["Invalid category!"])
 
 @router.get("/{category_id}/{item_id}", response_model=ItemInResponse, tags=["fetch", "item"])
