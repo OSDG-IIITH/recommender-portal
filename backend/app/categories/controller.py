@@ -21,20 +21,20 @@ async def get_category_route(category_id: str,
         
     if category_id not in CategoryEnum.__members__:
         return ItemsInResponse(success=False, error=[f"Invalid category {category_id}"])
-    else:
-        loader = None
-        if category_id == CategoryEnum.movies.value:
-            loader = Movie
-        if category_id == CategoryEnum.anime.value:
-            loader = Anime
-        if category_id == CategoryEnum.music.value:
-            loader = Music
-        if category_id == CategoryEnum.shows.value:
-            loader = Show
-        if category_id == CategoryEnum.books.value:
-            loader = Book
-        items = [loader(**item) async for item in db[category_id]["data"].find()]
-        return ItemsInResponse(data=items)
+    
+    loader = None
+    if category_id == CategoryEnum.movies.value:
+        loader = Movie
+    if category_id == CategoryEnum.anime.value:
+        loader = Anime
+    if category_id == CategoryEnum.music.value:
+        loader = Music
+    if category_id == CategoryEnum.shows.value:
+        loader = Show
+    if category_id == CategoryEnum.books.value:
+        loader = Book
+    items = [loader(**item) async for item in db[category_id]["data"].find()]
+    return ItemsInResponse(data=items)
 
 @router.get("/{category_id}/{item_id}", response_model=ItemInResponse, tags=["fetch", "item"])
 async def get_category_item_route(category_id: str, item_id: ObjectID,
