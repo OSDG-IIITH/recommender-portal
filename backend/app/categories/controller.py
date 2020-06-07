@@ -43,7 +43,7 @@ async def get_category_item_route(category_id: CategoryEnum, item_id: ObjectID,
 
 
 @router.post("/{category_id}", response_model=ItemInResponse, dependencies=[Depends(verify_token)], tags=["add"])
-async def add_item_route(category_id: CategoryEnum, item: Union[Movie, Anime, Show, Music],
+async def add_item_route(category_id: CategoryEnum, item: Union[Movie, Anime, Show, Music, Book],
                          db: AsyncIOMotorClient = Depends(get_database)) -> ItemInResponse:
     """Add item to a given category"""
 
