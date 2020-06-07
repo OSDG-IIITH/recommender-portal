@@ -31,7 +31,10 @@ class UsersInResponse(ResponseBase):
 
 
 class LikeInResponse(ResponseBase):
+    """Response wrapper for like object"""
     data: Like
+    category_id: str
+    item_id: ObjectID
 
 
 class CategorysInResponse(ResponseBase):

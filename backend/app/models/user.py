@@ -1,7 +1,7 @@
 from enum import IntEnum
 
 from pydantic import SecretStr, Field
-from typing import List
+from typing import List, Dict
 
 from bson.objectid import ObjectId
 
@@ -14,13 +14,13 @@ class UserRating(Base):
 
 
 class Like(Base):
-    category_id: ObjectID
-    item_id: ObjectID
     value: LikeEnum
 
 
 class User(Base):
     id: ObjectID = Field(None, alias="_id")
     username: str
+    first_login: str
+    last_login: str
     ratings: List[UserRating] = list()
-    likes: List[Like] = list()
+    likes: Dict[str, Dict[ObjectID, LikeEnum]] = dict()

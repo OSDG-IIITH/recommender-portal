@@ -72,5 +72,6 @@ class Base(BaseModel):
             .isoformat()
             .replace("+00:00", "Z"),
             ObjectId: ObjectID,
-
+            LikeEnum: lambda lE: lE.value,
+            RatingEnum: lambda rE: rE.value
         }
