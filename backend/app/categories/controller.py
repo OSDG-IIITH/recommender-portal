@@ -35,7 +35,7 @@ async def get_category_route(category_id: CategoryEnum,
 
 
 @router.get("/{category_id}/{item_id}", response_model=ItemInResponse, tags=["fetch", "item"])
-async def get_category_item_route(category_id: str, item_id: ObjectID,
+async def get_category_item_route(category_id: CategoryEnum, item_id: ObjectID,
                                   db: AsyncIOMotorClient = Depends(get_database)) -> ItemInResponse:
     """Get the details about a particular item"""
     # TODO: add particular item fetching
@@ -43,7 +43,7 @@ async def get_category_item_route(category_id: str, item_id: ObjectID,
 
 
 @router.post("/{category_id}", response_model=ItemInResponse, dependencies=[Depends(verify_token)], tags=["add"])
-async def add_item_route(category_id: str, item: Union[Movie, Anime, Show, Music],
+async def add_item_route(category_id: CategoryEnum, item: Union[Movie, Anime, Show, Music],
                          db: AsyncIOMotorClient = Depends(get_database)) -> ItemInResponse:
     """Add item to a given category"""
     # TODO add item to db
@@ -51,7 +51,7 @@ async def add_item_route(category_id: str, item: Union[Movie, Anime, Show, Music
 
 
 @router.patch("/{category_id}/{item_id}", response_model=ItemInResponse, dependencies=[Depends(verify_token)], tags=["update"])
-async def update_item_route(category_id: str, item_id: ObjectID,
+async def update_item_route(category_id: CategoryEnum, item_id: ObjectID,
                             db: AsyncIOMotorClient = Depends(get_database)) -> ItemInResponse:
     """Update a given item"""
     # TODO add update route
@@ -59,7 +59,7 @@ async def update_item_route(category_id: str, item_id: ObjectID,
 
 
 @router.post("/{category_id}/rate/{item_id}", response_model=ResponseBase, tags=["user", "rate"])
-async def rate_item_route(category_id: str, item_id: ObjectID, rating: float,
+async def rate_item_route(category_id: CategoryEnum, item_id: ObjectID, rating: float,
                           token: dict = Depends(verify_token),
                           db: AsyncIOMotorClient = Depends(get_database)) -> ResponseBase:
     """"Rate a given item"""

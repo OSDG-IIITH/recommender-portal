@@ -1,6 +1,6 @@
 from typing import List, Optional, Union, Dict
 
-from .base import Base, ObjectID
+from .base import Base, ObjectID, CategoryEnum
 from .category import Anime, Movie, Music, Show, Book, Category
 from .user import User, Like
 
@@ -33,7 +33,7 @@ class UsersInResponse(ResponseBase):
 class LikeInResponse(ResponseBase):
     """Response wrapper for like object"""
     data: Like
-    category_id: str
+    category_id: CategoryEnum
     item_id: ObjectID
 
 
