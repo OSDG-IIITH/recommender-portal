@@ -1,7 +1,7 @@
 from enum import Enum
 
 from pydantic import AnyUrl, Field
-from typing import List, Optional, Set
+from typing import List, Optional
 
 from bson.objectid import ObjectId
 from .base import Base, ObjectID, MusicEnum, VideoEnum, CategoryEnum
@@ -20,7 +20,7 @@ class ItemBase(Base):
     title: str
     url: AnyUrl
     year_release: int
-    genres: Set[str] = set()
+    genres: List[str] = list()
 
 
 class Show(ItemBase):
