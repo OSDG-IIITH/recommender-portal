@@ -19,22 +19,22 @@ async def get_category_route(category_id: str,
                              db: AsyncIOMotorClient = Depends(get_database)) -> ItemsInResponse:
     """Get the items under a given category"""
         
-    loader = None
-    if category_id == CategoryEnum.movies.value:
-        loader = Movie
-    if category_id == CategoryEnum.anime.value:
-        loader = Anime
-    if category_id == CategoryEnum.music.value:
-        loader = Music
-    if category_id == CategoryEnum.shows.value:
-        loader = Show
-    if category_id == CategoryEnum.books.value:
-        loader = Book
-    if category_id in CategoryEnum.__members__:
+    if category_id not in CategoryEnum.__members__:
+        return ItemsInResponse(success=False, error=[f"Invalid category {category_id}"])
+    else:
+        loader = None
+        if category_id == CategoryEnum.movies.value:
+            loader = Movie
+        if category_id == CategoryEnum.anime.value:
+            loader = Anime
+        if category_id == CategoryEnum.music.value:
+            loader = Music
+        if category_id == CategoryEnum.shows.value:
+            loader = Show
+        if category_id == CategoryEnum.books.value:
+            loader = Book
         items = [loader(**item) async for item in db[category_id]["data"].find()]
         return ItemsInResponse(data=items)
-    else:
-        return ItemsInResponse(success=False, error=[f"Invalid category {category_id}"])
 
 @router.get("/{category_id}/{item_id}", response_model=ItemInResponse, tags=["fetch", "item"])
 async def get_category_item_route(category_id: str, item_id: ObjectID,
