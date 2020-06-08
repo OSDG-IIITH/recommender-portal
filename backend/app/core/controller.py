@@ -48,7 +48,7 @@ async def login_route(next: str = "/", ticket: str = None, cas_client: CASClient
     if _update.matched_count == 0:
         user = User(username=_user, first_login=attributes["authenticationDate"],
                     last_login=attributes["authenticationDate"])
-        _res = await db.core.users.insert_one(User.dict())
+        _res = await db.core.users.insert_one(user.dict())
 
     jwt_token = jwt.encode({'username': _user}, str(
         SECRET_KEY), algorithm="HS256").decode()
