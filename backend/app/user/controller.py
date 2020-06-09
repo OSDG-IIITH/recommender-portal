@@ -17,8 +17,8 @@ router = APIRouter()
 async def get_user_route(user_id: ObjectID,
                          db: AsyncIOMotorClient = Depends(get_database)) -> UserInResponse:
     """Get user information for logged in user"""
-    # TODO fetch user functionality
-    return {"success": True}
+    usr = await db.core.users.find_one({"_id": user_id})
+    return UserInResponse(data=usr)
 
 
 # NOTE: not required as of now
