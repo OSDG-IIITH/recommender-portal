@@ -2,6 +2,7 @@ from datetime import datetime, timezone
 from enum import IntEnum, Enum
 
 from pydantic import BaseConfig, BaseModel
+from fastapi import HTTPException
 from bson.objectid import ObjectId
 
 
@@ -59,7 +60,7 @@ class ObjectID(str):
     @classmethod
     def validate(cls, v):
         if not ObjectId.is_valid(str(v)):
-            return ValueError(f"Not a valid ObjectId: {v}")
+            raise HTTPException(status_code=400, detail=f"Not a valid ID {v}")
         return ObjectId(str(v))
 
 
