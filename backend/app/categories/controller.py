@@ -84,10 +84,6 @@ async def rate_item_route(category_id: CategoryEnum, item_id: ObjectID, rating: 
                           db: AsyncIOMotorClient = Depends(get_database)) -> ResponseBase:
     """"Rate a given item"""
 
-    # return success false if category is invalid
-    if category_id not in CategoryEnum.__members__:
-        return {"success": False}
-
     # return success false if item is invalid
     item_test = await db[category_id]["data"].find_one({'_id': item_id})
     if item_test == None:
@@ -113,7 +109,7 @@ async def rate_item_route(category_id: CategoryEnum, item_id: ObjectID, rating: 
 
     # ensure one rating per person per item
     existing = await db[category_id]["ratings"].find_one({'item_id': item_id, 'user_id': user_id})
-    
+
     # if it does not already exist, existing will be None
     if existing == None:
         # insert new rating in {category}.ratings
@@ -134,5 +130,5 @@ async def rate_item_route(category_id: CategoryEnum, item_id: ObjectID, rating: 
             rating_id=existing["_id"], rating=rating).dict())
         # update new rating in core.users.rating
         db.core.users.update_one(token, {"$set": {"ratings": rating_list}})
-        
+
     return {"success": True}
