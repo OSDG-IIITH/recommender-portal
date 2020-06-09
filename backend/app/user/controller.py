@@ -1,6 +1,7 @@
 import logging
 from typing import Dict
 
+from bson import ObjectId
 from fastapi import APIRouter, Depends, HTTPException
 from motor.motor_asyncio import AsyncIOMotorClient
 
@@ -17,8 +18,11 @@ router = APIRouter()
 async def get_user_route(user_id: ObjectID,
                          db: AsyncIOMotorClient = Depends(get_database)) -> UserInResponse:
     """Get user information for logged in user"""
-    # TODO fetch user functionality
-    return {"success": True}
+    _user = await db.core.users.find_one({"_id": user_id})
+    if _user:
+        return UserInResponse(data=_user)
+    raise HTTPException(
+        status_code=400, detail="UserID doesn't exist in DB")
 
 
 # NOTE: not required as of now

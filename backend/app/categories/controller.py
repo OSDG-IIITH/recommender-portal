@@ -1,5 +1,6 @@
 from typing import Dict, List, Union
 
+from bson import ObjectId
 from fastapi import APIRouter, Depends, HTTPException
 from motor.motor_asyncio import AsyncIOMotorClient
 
@@ -68,11 +69,26 @@ async def add_item_route(category_id: CategoryEnum, item: Union[Movie, Anime, Sh
 
 
 @router.patch("/{category_id}/{item_id}", response_model=ItemInResponse, dependencies=[Depends(verify_token)], tags=["update"])
-async def update_item_route(category_id: CategoryEnum, item_id: ObjectID,
-                            db: AsyncIOMotorClient = Depends(get_database)) -> ItemInResponse:
+async def update_item_route(category_id: CategoryEnum,item_id: ObjectID, 
+                            item: Union[Movie, Anime, Show, Music, Book],db: AsyncIOMotorClient = Depends(get_database)) -> ItemInResponse:
     """Update a given item"""
-    # TODO add update route
-    return {"success": True}
+    classof = {
+        CategoryEnum.movies: Movie,
+        CategoryEnum.shows: Show,
+        CategoryEnum.anime: Anime,
+        CategoryEnum.books: Book,
+        CategoryEnum.music: Music
+    }
+
+    # checking if request body is of correct type
+    if not isinstance(item, classof[category_id]):
+        raise HTTPException(
+            status_code=400, detail=f'Item does not match {category_id} schema')
+    _res = await db[category_id]["data"].update_one({"_id": item_id},{"$set":item.dict()})
+    if (_res.matched_count==0):
+        raise HTTPException(
+            status_code=400, detail=f'ObjectID {item_id} not found in {category_id}')
+    return ItemInResponse(data=item.dict())    
 
 
 @router.post("/{category_id}/rate/{item_id}", response_model=ResponseBase, tags=["user", "rate"])
