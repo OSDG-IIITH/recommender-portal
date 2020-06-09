@@ -13,7 +13,7 @@
       <!-- Provides the application the proper gutter -->
       <v-container fluid>
         <div id="app">
-          <img src="./assets/logo.png">
+          <img src="../assets/logo.png">
           <router-view />
         </div>
       </v-container>
@@ -27,7 +27,6 @@
 
 <script>
 export default {
-  name: 'App'
 }
 </script>
 
