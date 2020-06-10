@@ -1,7 +1,6 @@
 import logging
 from typing import Dict
 
-from bson import ObjectId
 from fastapi import APIRouter, Depends, HTTPException
 from motor.motor_asyncio import AsyncIOMotorClient
 
