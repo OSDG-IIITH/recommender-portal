@@ -38,8 +38,12 @@ async def get_category_route(category_id: CategoryEnum,
 async def get_category_item_route(category_id: CategoryEnum, item_id: ObjectID,
                                   db: AsyncIOMotorClient = Depends(get_database)) -> ItemInResponse:
     """Get the details about a particular item"""
-    # TODO: add particular item fetching
-    return {"success": True}
+
+    _res = await db[category_id]["data"].find_one({"_id": item_id})
+    if _res:
+        return ItemInResponse(data=_res)    
+    raise HTTPException(
+        status_code=404, detail=f'ObjectID {item_id} not found in {category_id}')
 
 
 @router.post("/{category_id}", response_model=ItemInResponse, dependencies=[Depends(verify_token)], tags=["add"])
