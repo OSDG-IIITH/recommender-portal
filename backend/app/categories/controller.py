@@ -68,8 +68,15 @@ async def add_item_route(category_id: CategoryEnum, item: Union[Movie, Anime, Sh
         raise HTTPException(status_code=400,
                             detail=f'item does not match {category_id} schema')
 
+    # current item.id is set to None, should be removed
+    item_dict = item.dict()
+    item_dict.pop('id')
+
     # Adding into db
-    _res = await db[category_id]["data"].insert_one(item.dict())
+    _res = await db[category_id]["data"].insert_one(item_dict)
+
+    # update id to the inserted id
+    item.id = _res.inserted_id
 
     return ItemInResponse(data=item)
 
@@ -97,6 +104,9 @@ async def update_item_route(category_id: CategoryEnum, item_id: ObjectID,
         raise HTTPException(
             status_code=400,
             detail=f'ObjectID {item_id} not found in {category_id}')
+
+    # add id to the item
+    item.id = item_id
     return ItemInResponse(data=item.dict())
 
 
@@ -108,6 +118,7 @@ async def rate_item_route(category_id: CategoryEnum, item_id: ObjectID, _rating:
     """"Rate a given item"""
     rating = _rating.get("rating", None)
     item = await db[category_id]["data"].find_one({"_id": item_id})
+    print(repr(category_id))
     if item and rating:
         # update/insert a rating into the `ratings` collection
         token.update({"item_id": item_id})

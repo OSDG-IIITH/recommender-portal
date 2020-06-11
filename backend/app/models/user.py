@@ -19,5 +19,5 @@ class User(Base):
     username: str
     first_login: str
     last_login: str
-    ratings: Dict[CategoryEnum, Dict[ObjectID, UserRating]] = dict()
+    ratings: Dict[str, Dict[ObjectID, UserRating]] = dict()
     likes: Dict[str, Dict[ObjectID, LikeEnum]] = dict()
