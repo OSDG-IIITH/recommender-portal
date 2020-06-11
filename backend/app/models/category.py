@@ -1,9 +1,8 @@
 from enum import Enum
-
-from pydantic import AnyUrl, Field
 from typing import List, Optional
 
-from bson.objectid import ObjectId
+from pydantic import AnyUrl, Field
+
 from .base import Base, ObjectID, MusicEnum, VideoEnum, CategoryEnum
 
 

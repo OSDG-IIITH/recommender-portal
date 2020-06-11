@@ -6,16 +6,15 @@ from fastapi.openapi.docs import (
 )
 from starlette.exceptions import HTTPException
 from starlette.middleware.cors import CORSMiddleware
-from starlette.status import HTTP_422_UNPROCESSABLE_ENTITY
 from starlette.staticfiles import StaticFiles
+from starlette.status import HTTP_422_UNPROCESSABLE_ENTITY
 
+from .categories import category as category_router
+import config
 from .core import core as core_router
 from .user import user as user_router
-from .categories import category as category_router
-from app.utils.db_loader import connect_db, disconnect_db
-from app.utils.error_handlers import http_error_handler, http_422_error_handler
-
-import config
+from .utils.db_loader import connect_db, disconnect_db
+from .utils.error_handlers import http_error_handler, http_422_error_handler
 
 
 app = FastAPI(openapi_prefix="/api",

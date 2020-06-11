@@ -1,5 +1,6 @@
+from typing import Dict
+
 from pydantic import Field
-from typing import List, Dict
 
 from .base import Base, ObjectID, LikeEnum, CategoryEnum
 

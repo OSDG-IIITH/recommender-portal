@@ -1,17 +1,15 @@
-import logging
 from typing import Dict, List, Union
 
 from fastapi import APIRouter, Depends, HTTPException
 from motor.motor_asyncio import AsyncIOMotorClient
 
-from ..models.base import ObjectID, CategoryEnum, RatingEnum
-from ..models.category import Anime, Category, Movie, Music, Show, Book
+from ..models.base import ObjectID, CategoryEnum
+from ..models.category import Anime, Movie, Music, Show, Book
 from ..models.ratings import Rating
-from ..models.responses import (CategorysInResponse, ItemInResponse,
+from ..models.responses import (ItemInResponse,
                                 ItemsInResponse, ResponseBase)
 from ..utils.mongodb import get_database
 from ..utils.token import verify_token
-from ..models.base import CategoryEnum
 
 router = APIRouter()
 
@@ -36,7 +34,8 @@ async def get_category_route(category_id: CategoryEnum,
     return ItemsInResponse(data=items)
 
 
-@router.get("/{category_id}/{item_id}", response_model=ItemInResponse, tags=["fetch", "item"])
+@router.get("/{category_id}/{item_id}",
+            response_model=ItemInResponse, tags=["fetch", "item"])
 async def get_category_item_route(category_id: CategoryEnum, item_id: ObjectID,
                                   db: AsyncIOMotorClient = Depends(get_database)) -> ItemInResponse:
     """Get the details about a particular item"""
@@ -45,10 +44,12 @@ async def get_category_item_route(category_id: CategoryEnum, item_id: ObjectID,
     if _res:
         return ItemInResponse(data=_res)
     raise HTTPException(
-        status_code=404, detail=f'ObjectID {item_id} not found in {category_id}')
+        status_code=404,
+        detail=f'ObjectID {item_id} not found in {category_id}')
 
 
-@router.post("/{category_id}", response_model=ItemInResponse, dependencies=[Depends(verify_token)], tags=["add"])
+@router.post("/{category_id}", response_model=ItemInResponse,
+             dependencies=[Depends(verify_token)], tags=["add"])
 async def add_item_route(category_id: CategoryEnum, item: Union[Movie, Anime, Show, Music, Book],
                          db: AsyncIOMotorClient = Depends(get_database)) -> ItemInResponse:
     """Add item to a given category"""
@@ -64,8 +65,8 @@ async def add_item_route(category_id: CategoryEnum, item: Union[Movie, Anime, Sh
 
     # checking if request body is of correct type
     if not isinstance(item, classof[category_id]):
-        raise HTTPException(
-            status_code=400, detail=f'item does not match {category_id} schema')
+        raise HTTPException(status_code=400,
+                            detail=f'item does not match {category_id} schema')
 
     # Adding into db
     _res = await db[category_id]["data"].insert_one(item.dict())
@@ -73,9 +74,11 @@ async def add_item_route(category_id: CategoryEnum, item: Union[Movie, Anime, Sh
     return ItemInResponse(data=item)
 
 
-@router.patch("/{category_id}/{item_id}", response_model=ItemInResponse, dependencies=[Depends(verify_token)], tags=["update"])
+@router.patch("/{category_id}/{item_id}", response_model=ItemInResponse,
+              dependencies=[Depends(verify_token)], tags=["update"])
 async def update_item_route(category_id: CategoryEnum, item_id: ObjectID,
-                            item: Union[Movie, Anime, Show, Music, Book], db: AsyncIOMotorClient = Depends(get_database)) -> ItemInResponse:
+                            item: Union[Movie, Anime, Show, Music, Book],
+                            db: AsyncIOMotorClient = Depends(get_database)) -> ItemInResponse:
     """Update a given item"""
     classof = {
         CategoryEnum.movies: Movie,
@@ -87,16 +90,18 @@ async def update_item_route(category_id: CategoryEnum, item_id: ObjectID,
 
     # checking if request body is of correct type
     if not isinstance(item, classof[category_id]):
-        raise HTTPException(
-            status_code=400, detail=f'Item does not match {category_id} schema')
+        raise HTTPException(status_code=400,
+                            detail=f'Item does not match {category_id} schema')
     _res = await db[category_id]["data"].update_one({"_id": item_id}, {"$set": item.dict()})
     if _res.matched_count == 0:
         raise HTTPException(
-            status_code=400, detail=f'ObjectID {item_id} not found in {category_id}')
+            status_code=400,
+            detail=f'ObjectID {item_id} not found in {category_id}')
     return ItemInResponse(data=item.dict())
 
 
-@router.post("/{category_id}/rate/{item_id}", response_model=ResponseBase, tags=["user", "rate"])
+@router.post("/{category_id}/rate/{item_id}",
+             response_model=ResponseBase, tags=["user", "rate"])
 async def rate_item_route(category_id: CategoryEnum, item_id: ObjectID, _rating: Dict[str, float],
                           token: dict = Depends(verify_token),
                           db: AsyncIOMotorClient = Depends(get_database)) -> ResponseBase:
@@ -111,7 +116,8 @@ async def rate_item_route(category_id: CategoryEnum, item_id: ObjectID, _rating:
         }, upsert=True)
 
         if _res.upserted_id:
-            # first time a document is inserted, add `rating_id` as well to user collection
+            # first time a document is inserted, add `rating_id` as well to
+            # user collection
             update_key = f"ratings.{category_id}.{item_id}"
             _rating.update({"rating_id": _res.upserted_id})
         else:
@@ -130,4 +136,5 @@ async def rate_item_route(category_id: CategoryEnum, item_id: ObjectID, _rating:
             'username'), rating=rating)
         return ResponseBase(data=[rate.dict()])
 
-    return ResponseBase(success=False, error=[f"Item not found in {category_id} schema!"])
+    return ResponseBase(success=False, error=[
+                        f"Item not found in {category_id} schema!"])

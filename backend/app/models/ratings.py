@@ -1,9 +1,4 @@
-from enum import IntEnum
-
-from bson.objectid import ObjectId
-from pydantic import Field
-
-from .base import Base, ObjectID, RatingEnum
+from .base import Base, ObjectID
 
 
 class Rating(Base):
