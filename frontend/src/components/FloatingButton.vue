@@ -22,7 +22,7 @@
         </v-btn>
       </template>
 
-      <v-bottom-sheet v-model="sheet" inset>
+      <v-bottom-sheet v-model="sheet1" inset>
         <template v-slot:activator="{ on, attrs }">
           <v-btn
             fab
@@ -35,22 +35,22 @@
             <v-icon>mdi-film</v-icon>
           </v-btn>
         </template>
-        <v-sheet class="text-center" height="70vw">
-          <v-btn
+        <v-sheet class="text-center" height="120vw">
+          <!-- <v-btn
             class="mt-6"
             text
             color="red"
-            @click="sheet = !sheet"
+            @click="sheet1 = !sheet1"
           >
             close
-          </v-btn>
+          </v-btn> -->
           <div class="py-3">
             <StepperSheet :steppersheet="steppersheet"/>
           </div>
         </v-sheet>
       </v-bottom-sheet>
 
-      <v-bottom-sheet v-model="sheet" inset>
+      <v-bottom-sheet v-model="sheet2" inset>
         <template v-slot:activator="{ on, attrs }">
           <v-btn
             fab
@@ -63,22 +63,22 @@
             <v-icon>mdi-fire</v-icon>
           </v-btn>
         </template>
-        <v-sheet class="text-center" height="70vw">
-          <v-btn
+        <v-sheet class="text-center" height="120vw">
+          <!-- <v-btn
             class="mt-6"
             text
             color="red"
-            @click="sheet = !sheet"
+            @click="sheet2 = !sheet2"
           >
             close
-          </v-btn>
+          </v-btn> -->
           <div class="py-3">
             <StepperSheet :steppersheet="steppersheet"/>
           </div>
         </v-sheet>
       </v-bottom-sheet>
 
-      <v-bottom-sheet v-model="sheet" inset>
+      <v-bottom-sheet v-model="sheet3" inset>
 
         <template v-slot:activator="{ on, attrs }">
           <v-btn
@@ -93,22 +93,22 @@
           </v-btn>
         </template>
 
-        <v-sheet class="text-center" height="70vw">
-          <v-btn
+        <v-sheet class="text-center" height="120vw">
+          <!-- <v-btn
             class="mt-6"
             text
             color="red"
-            @click="sheet = !sheet"
+            @click="sheet3 = !sheet3"
           >
             close
-          </v-btn>
+          </v-btn> -->
           <div class="py-3">
             <StepperSheet :steppersheet="steppersheet"/>
           </div>
         </v-sheet>
       </v-bottom-sheet>
 
-      <v-bottom-sheet v-model="sheet" inset>
+      <v-bottom-sheet v-model="sheet4" inset>
         <template v-slot:activator="{ on, attrs }">
           <v-btn
             fab
@@ -121,22 +121,22 @@
             <v-icon>mdi-music-note</v-icon>
           </v-btn>
         </template>
-        <v-sheet class="text-center" height="70vw">
-          <v-btn
+        <v-sheet class="text-center" height="120vw">
+          <!-- <v-btn
             class="mt-6"
             text
             color="red"
-            @click="sheet = !sheet"
+            @click="sheet4 = !sheet4"
           >
             close
-          </v-btn>
+          </v-btn> -->
           <div class="py-3">
             <StepperSheet :steppersheet="steppersheet"/>
           </div>
         </v-sheet>
       </v-bottom-sheet>
 
-      <v-bottom-sheet v-model="sheet" inset>
+      <v-bottom-sheet v-model="sheet5" inset>
         <template v-slot:activator="{ on, attrs }">
           <v-btn
             fab
@@ -149,15 +149,15 @@
             <v-icon>mdi-book-variant</v-icon>
           </v-btn>
         </template>
-        <v-sheet class="text-center" height="70vw">
-          <v-btn
+        <v-sheet class="text-center" height="120vw">
+          <!-- <v-btn
             class="mt-6"
             text
             color="red"
-            @click="sheet = !sheet"
+            @click="sheet5 = !sheet5"
           >
             close
-          </v-btn>
+          </v-btn> -->
           <div class="py-3">
             <StepperSheet :steppersheet="steppersheet"/>
           </div>
