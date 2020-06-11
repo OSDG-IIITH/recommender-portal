@@ -1,6 +1,6 @@
 <template>
   <v-container>
-   Hi! This is Home Page.
+   Hi! This is a Page.
   </v-container>
 </template>
 

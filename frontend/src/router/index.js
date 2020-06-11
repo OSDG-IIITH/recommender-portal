@@ -13,7 +13,22 @@ Vue.use(VueRouter)
   {
     path: '/books',
     name: 'Books',
-    component: () => import('../views/Books.vue')
+    component: () => import('@/views/Books.vue')
+  },
+  {
+    path: '/movies',
+    name: 'Movies',
+    component: () => import('@/views/Movies.vue')
+  },
+  {
+    path: '/anime',
+    name: 'Anime',
+    component: () => import('@/views/Anime.vue')
+  },
+  {
+    path: '/shows',
+    name: 'Shows',
+    component: () => import('@/views/Shows.vue')
   }
 ]
 
