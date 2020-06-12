@@ -21,6 +21,11 @@ Vue.use(VueRouter)
     component: () => import('@/views/Movies.vue')
   },
   {
+    path: '/music',
+    name: 'Music',
+    component: () => import('@/views/Music.vue')
+  },
+  {
     path: '/anime',
     name: 'Anime',
     component: () => import('@/views/Anime.vue')

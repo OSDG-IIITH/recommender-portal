@@ -1,14 +1,6 @@
 <template>
   <v-app>
-    <Navbar :drawer="drawer"/>
-    <v-app-bar
-      app
-      color="indigo"
-      dark
-    >
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-toolbar-title>Recommender@IIIT-H</v-toolbar-title>
-    </v-app-bar>
+    <Navbar/>
     <v-content>
       <router-view/>
       <FloatingButton :openSheet="openSheet" />
