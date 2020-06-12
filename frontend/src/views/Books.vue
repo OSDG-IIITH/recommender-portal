@@ -9,14 +9,12 @@
                 </v-col>
             </v-row>
         </v-card>
-        <FloatingButton :floatingbutton="floatingbutton"/>
     </v-content>  
 </template>
 
 <script>
 import axios from 'axios'
 import Card from '../components/Card'
-import FloatingButton from '../components/FloatingButton'
 export default {
     data() {
         return {
@@ -25,7 +23,6 @@ export default {
     },
     components: {
         Card,
-        FloatingButton
     },
     mounted: function(){
         let data = null
