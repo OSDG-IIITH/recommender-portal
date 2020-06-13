@@ -51,10 +51,3 @@ export default {
 }
 
 </script>
-
-<style scoped>
-  .base,.mx-auto,.card {
-    background-color: bisque;
-  }
-  
-</style>

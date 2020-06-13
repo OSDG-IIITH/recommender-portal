@@ -2,6 +2,7 @@
   <v-app>
     <Navbar/>
     <v-content>
+      <SearchBox/>
       <router-view/>
       <FloatingButton :openSheet="openSheet" />
       <v-bottom-sheet v-model="sheet" inset>
@@ -15,6 +16,7 @@
 import Navbar from './components/Navbar'
 import FloatingButton from './components/FloatingButton'
 import StepperSheet from './components/StepperSheet'
+import SearchBox from './components/SearchBox'
 
 export default {
   name: 'App',
@@ -24,7 +26,8 @@ export default {
   components: {
     Navbar,
     FloatingButton,
-    StepperSheet
+    StepperSheet,
+    SearchBox
   },
   data: () => ({
     drawer: null,
