@@ -8,33 +8,35 @@
     ></v-img>
 
     <v-card-title>
-      title
+      Title
     </v-card-title>
 
     <v-card-text>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-        sed do eiusmod tempor incididunt ut labore et dolore
-        magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      Post description
     </v-card-text>
 
     <v-card-actions>
-        <v-btn 
-        text
-        >
-            <v-icon color = "red">mdi-heart</v-icon>
-            {{ likes }}
-        </v-btn>
       <v-spacer></v-spacer>
-
-      <v-btn
-        color="purple"
+      
+      <v-btn 
         text
-        text-align = "center"
       >
-            <v-icon>mdi-share</v-icon>
-            share
+        <v-icon color = "red">mdi-heart</v-icon>
+        {{ likes }}
       </v-btn>
 
+      <v-btn 
+        color="purple"
+        icon
+        >
+        <v-icon>mdi-bookmark</v-icon>
+      </v-btn>
+      <v-btn
+        color="purple"
+        icon
+      >
+        <v-icon>mdi-link</v-icon>
+      </v-btn>
 
       <v-btn
         color="blue"

@@ -42,6 +42,7 @@
           <v-list-item
             v-for="(item, index) in profileitems"
             :key="index"
+            :to="item.path"
           >
             <v-list-item-title>{{ item.title }}</v-list-item-title>
           </v-list-item>
@@ -87,6 +88,7 @@
         <v-list-item
           v-for="(item, index) in profileitems"
           :key="index"
+          :to="item.path"
         >
           <v-list-item-title>{{ item.title }}</v-list-item-title>
         </v-list-item>
@@ -113,9 +115,9 @@ export default {
           { title: 'Shows', path: '/shows', icon: 'mdi-television-classic'},
      ],
      profileitems: [
-          { index: 1, title: 'Profile' },
-          { index: 2, title: 'Settings'},
-          { index: 3, title: 'Logout'}
+          { index: 1, title: 'Profile', path: '#' },
+          { index: 2, title: 'Settings', path: '#'},
+          { index: 3, title: 'Logout', path: '#'}
      ]
     }
   },

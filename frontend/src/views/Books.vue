@@ -4,7 +4,8 @@
             <v-row dense v-for="row in cards" :key="row[0].title">
                 <v-col v-for="card in row" :key="card.title" :cols="3">
                     <v-card class="pa-2 card">
-                        <Card :card="card"/>
+                        <!-- <Card :card="card"/> -->
+                        <Post/>
                     </v-card>
                 </v-col>
             </v-row>
@@ -14,7 +15,9 @@
 
 <script>
 import axios from 'axios'
-import Card from '../components/Card'
+import Card from '@/components/Card'
+import Post from '@/components/Post'
+
 export default {
     data() {
         return {
@@ -23,6 +26,7 @@ export default {
     },
     components: {
         Card,
+        Post
     },
     mounted: function(){
         let data = null
