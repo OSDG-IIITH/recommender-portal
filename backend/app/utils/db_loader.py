@@ -1,6 +1,7 @@
 import logging
 
 from motor.motor_asyncio import AsyncIOMotorClient
+
 from config import DATABASE_URL, MIN_CONNECTIONS_COUNT, MAX_CONNECTIONS_COUNT
 from .mongodb import db
 
