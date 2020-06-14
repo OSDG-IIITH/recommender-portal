@@ -4,7 +4,7 @@
     <v-content>
       <SearchBox/>
       <router-view/>
-      <FloatingButton :openSheet="openSheet" />
+      <FloatingButton :openSheet="openSheet" :currPage="currPage" />
       <v-bottom-sheet v-model="sheet" inset>
         <StepperSheet :closeSheet="closeSheet" :sheetType="sheetType" :stepNum="stepNum"/>
       </v-bottom-sheet>
@@ -33,6 +33,7 @@ export default {
     drawer: null,
     sheet: false,
     stepNum: 1,
+    currPage: 'Movies'
   }),
   methods: {
     closeSheet: function() {
