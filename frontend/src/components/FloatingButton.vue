@@ -10,25 +10,26 @@
     >
       <template v-slot:activator>
         <div v-if="currPage === 'Home'">
-        <v-btn
-          v-model="fab"
-          color="blue darken-3"
-          dark
-          fab
-        >
-          <v-icon v-if="fab">mdi-close</v-icon>
-          <v-icon v-else>mdi-plus</v-icon>
-        </v-btn>
+          <v-btn
+            v-model="fab"
+            color="blue darken-3"
+            dark
+            fab
+          >
+            <v-icon v-if="fab">mdi-close</v-icon>
+            <v-icon v-else>mdi-plus</v-icon>
+          </v-btn>
         </div>
+
         <div v-else>
           <div v-for="item in categories" :key="item.title">
             <v-btn
-            v-if="item.title === currPage"
-            fab
-            dark
-            small
-            :color="item.color"
-            @click="openSheet(item.title)"
+              v-if="item.title === currPage"
+              v-model="fab"
+              fab
+              dark
+              :color="item.color"
+              @click="openSheet(item.title)"
             >
               <v-icon>{{ item.icon }}</v-icon>
             </v-btn>
@@ -37,16 +38,16 @@
       </template>
       
       <div v-for="item in categories" :key="item.title">
-      <v-btn
-          v-if="item.title !== currPage"
-          fab
-          dark
-          small
-          :color="item.color"
-          @click="openSheet(item.title)"
-      >
-        <v-icon>{{ item.icon }}</v-icon>
-      </v-btn>
+        <v-btn
+            v-if="item.title !== currPage"
+            fab
+            dark
+            small
+            :color="item.color"
+            @click="openSheet(item.title)"
+        >
+          <v-icon>{{ item.icon }}</v-icon>
+        </v-btn>
       </div>
 
       <!-- <v-btn
@@ -105,7 +106,7 @@
 
 <script>
   export default {
-    name: 'FloatingButtonTemp',
+    name: 'FloatingButton',
     props: {
       openSheet: Function,
       currPage: String
