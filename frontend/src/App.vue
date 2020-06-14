@@ -1,10 +1,10 @@
 <template>
   <v-app>
-    <Navbar/>
+    <Navbar />
     <v-content>
       <SearchBox/>
       <router-view/>
-      <FloatingButton :openSheet="openSheet" :currPage="currPage" />
+      <FloatingButton :openSheet="openSheet" :currPage="$route.name" />
       <v-bottom-sheet v-model="sheet" inset>
         <StepperSheet :closeSheet="closeSheet" :sheetType="sheetType" :stepNum="stepNum"/>
       </v-bottom-sheet>
@@ -33,7 +33,7 @@ export default {
     drawer: null,
     sheet: false,
     stepNum: 1,
-    currPage: 'Movies'
+    currPage: 'Home'
   }),
   methods: {
     closeSheet: function() {
@@ -43,6 +43,9 @@ export default {
       this.stepNum = 1;
       this.sheetType = sheetType;
       this.sheet = true;
+    },
+    changeCurrPage: function(newCurrPage) {
+      this.currPage = newCurrPage;
     }
   }
 };
