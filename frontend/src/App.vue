@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <Navbar />
+    <Navbar :current="$route.name"/>
     <v-content>
       <router-view/>
       <FloatingButton :openSheet="openSheet" :currPage="$route.name" />
@@ -31,7 +31,8 @@ export default {
     drawer: null,
     sheet: false,
     stepNum: 1,
-    currPage: 'Home'
+    currPage: 'Home',
+    current: 'Home'
   }),
   methods: {
     closeSheet: function() {

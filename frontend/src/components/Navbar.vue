@@ -1,6 +1,14 @@
 <template>
   <div>
-  <v-app-bar app>
+  <div 
+  v-for="item in menu"
+  :key="item.title"
+  :to="item.path"
+  >
+  <v-app-bar 
+  app
+  v-if="item.title === current"
+  :color= item.color>
     <!-- <span class="hidden-md-and-up">
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
     </span> -->
@@ -115,6 +123,7 @@
     </v-menu>
   </v-navigation-drawer> -->
   </div>
+  </div>
 </template>
 
 
@@ -125,17 +134,20 @@ export default {
   components: {
     SearchBox
   },
+  props: {
+    current: String
+  },
   data(){
     return {
       appTitle: 'Recommender@IIIT-H',
       drawer: false,
       menu: [
-          { title: 'Home', path: '/', icon: 'mdi-home'},
-          { title: 'Books', path: '/books', icon: 'mdi-book'},
-          { title: 'Movies', path: '/movies', icon: 'mdi-movie'},
-          { title: 'Music', path: '/music', icon: 'mdi-music-note'},
-          { title: 'Anime', path: '/anime', icon: 'mdi-fire'},
-          { title: 'Shows', path: '/shows', icon: 'mdi-television-classic'},
+          { title: 'Home', path: '/', icon: 'mdi-home', color: 'white'},
+          { title: 'Books', path: '/books', icon: 'mdi-book', color: 'green'},
+          { title: 'Movies', path: '/movies', icon: 'mdi-movie', color: 'pink darken-2'},
+          { title: 'Music', path: '/music', icon: 'mdi-music-note', color: '#006699'},
+          { title: 'Anime', path: '/anime', icon: 'mdi-fire', color: '#ffd24d'},
+          { title: 'Shows', path: '/shows', icon: 'mdi-television-classic', color: 'grey'},
      ],
      profileitems: [
           { index: 1, title: 'Profile', path: '#' },
