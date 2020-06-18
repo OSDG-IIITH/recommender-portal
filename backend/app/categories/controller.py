@@ -99,7 +99,10 @@ async def update_item_route(category_id: CategoryEnum, item_id: ObjectID,
     if not isinstance(item, classof[category_id]):
         raise HTTPException(status_code=400,
                             detail=f'Item does not match {category_id} schema')
-    _res = await db[category_id]["data"].update_one({"_id": item_id}, {"$set": item.dict()})
+    # current item.id is set to None, should be removed
+    item_dict = item.dict()
+    item_dict.pop('id')
+    _res = await db[category_id]["data"].update_one({"_id": item_id}, {"$set": item_dict})
     if _res.matched_count == 0:
         raise HTTPException(
             status_code=400,
@@ -118,7 +121,6 @@ async def rate_item_route(category_id: CategoryEnum, item_id: ObjectID, _rating:
     """"Rate a given item"""
     rating = _rating.get("rating", None)
     item = await db[category_id]["data"].find_one({"_id": item_id})
-    print(repr(category_id))
     if item and rating:
         # update/insert a rating into the `ratings` collection
         token.update({"item_id": item_id})
