@@ -1,16 +1,14 @@
 <template>
-    <v-content class="base">
-        <v-card class="mx-auto px-1">
-            <v-row dense v-for="row in cards" :key="row[0].title">
-                <v-col v-for="card in row" :key="card.title" :cols="3">
-                    <v-card class="pa-2 card">
-                        <!-- <Card :card="card"/> -->
-                        <Post/>
-                    </v-card>
-                </v-col>
-            </v-row>
-        </v-card>
-    </v-content>  
+    <v-card class="mx-auto">
+        <v-row dense v-for="row in cards" :key="row[0].title">
+            <v-col v-for="card in row" :key="card.title" :cols="3">
+                <v-card class="pa-2 card">
+                    <!-- <Card :card="card"/> -->
+                    <Post/>
+                </v-card>
+            </v-col>
+        </v-row>
+    </v-card>
 </template>
 
 <script>
@@ -18,6 +16,7 @@ import axios from 'axios'
 import Post from '@/components/Post'
 
 export default {
+    name: 'ItemsDisplay',
     data() {
         return {
             cards : []

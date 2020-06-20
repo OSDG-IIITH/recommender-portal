@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import ItemsDisplay from '@/views/ItemsDisplay.vue'
+import CategoryPage from '@/views/CategoryPage.vue'
 import Home from '@/views/Home.vue'
 
 Vue.use(VueRouter)
@@ -14,27 +14,27 @@ Vue.use(VueRouter)
   {
     path: '/books',
     name: 'Books',
-    component: ItemsDisplay
+    component: CategoryPage
   },
   {
     path: '/movies',
     name: 'Movies',
-    component: ItemsDisplay
+    component: CategoryPage
   },
   {
     path: '/music',
     name: 'Music',
-    component: ItemsDisplay
+    component: CategoryPage
   },
   {
     path: '/anime',
     name: 'Anime',
-    component: ItemsDisplay
+    component: CategoryPage
   },
   {
     path: '/shows',
     name: 'Shows',
-    component: ItemsDisplay
+    component: CategoryPage
   }
 ]
 
