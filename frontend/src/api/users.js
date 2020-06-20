@@ -1,47 +1,35 @@
-/**
- * Get user information, likes, ratings, etc
- */
-
-import axios from "axios";
+import api from "./helper";
 
 export default {
-  getUsers() {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const config = {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization:
-              "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6Imd1cmtpcmF0LnNpbmdoQHN0dWRlbnRzLmlpaXQuYWMuaW4ifQ.my7VTpp7glcJLaW-64679UULOah3Cx2pXo_X-7O8iJE"
-          }
-        };
-        const _res = await axios.get("/api/core/users", config);
-        resolve(_res.data);
-      } catch (err) {
-        reject(err);
-      }
-    });
-  },
+    async getUsers() {
+        return await api
+            .get(`/api/core/users`, {
+                json: false,
+                auth: true
+            })
+            .then(res => res.data)
+            .then(users => {
+                if (!users.success) throw new Error(users.error);
+                return users;
+            })
+            .catch(err => {
+                throw err.isAxiosError ? err.response.data : err;
+            });
+    },
 
-  getCurrentUser() {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const config = {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization:
-              "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6Imd1cmtpcmF0LnNpbmdoQHN0dWRlbnRzLmlpaXQuYWMuaW4ifQ.my7VTpp7glcJLaW-64679UULOah3Cx2pXo_X-7O8iJE"
-          }
-        };
-        const _res = await axios.get("/api/user/me", config);
-        resolve(_res.data);
-      } catch (err) {
-        reject(err);
-      }
-    });
-  },
-
-  getRating(ratingId) {},
-
-  getLikes(userId) {}
+    async getCurrentUser() {
+        return await api
+            .get(`/api/user/me`, {
+                json: false,
+                auth: true
+            })
+            .then(res => res.data)
+            .then(user => {
+                if (!user.success) throw new Error(user.error);
+                return user;
+            })
+            .catch(err => {
+                throw err.isAxiosError ? err.response.data : err;
+            });
+    }
 };

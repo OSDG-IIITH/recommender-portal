@@ -1,126 +1,113 @@
 /**
  * Item handling API routes
  */
-import axios from "axios";
+import api from "./helper";
+import { config } from "shelljs";
 
 export default {
-  // get all items of category
-  getItems(categoryId) {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const _res = await axios.get(`/api/${categoryId}`);
-        resolve(_res.data);
-      } catch (err) {
-        reject(err);
-      }
-    });
-  },
-  searchItem() {},
+    // get all items of category
+    async getItems(categoryId) {
+        return await api
+            .get(`/api/${categoryId}`, {
+                json: false,
+                auth: false
+            })
+            .then(res => res.data)
+            .then(items => {
+                if (!items.success) throw new Error(items.error);
+                return items;
+            })
+            .catch(err => {
+                throw err.isAxiosError ? err.response.data : err;
+            });
+    },
 
-  // get item with id itemId in category
-  getItem(categoryId, itemId) {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const _res = await axios.get(`/api/${categoryId}/${itemId}`);
-        resolve(_res.data);
-      } catch (err) {
-        reject(err);
-      }
-    });
-  },
+    // get item with id itemId in category
+    async getItem(categoryId, itemId) {
+        return await api
+            .get(`/api/${categoryId}/${itemId}`, {
+                json: false,
+                auth: false
+            })
+            .then(res => res.data)
+            .then(item => {
+                if (!item.success) throw new Error(item.error);
+                return item;
+            })
+            .catch(err => {
+                throw err.isAxiosError ? err.response.data : err;
+            });
+    },
 
-  // Add item in category
-  addItem(categoryId, data) {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const config = {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization:
-              "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6Imd1cmtpcmF0LnNpbmdoQHN0dWRlbnRzLmlpaXQuYWMuaW4ifQ.my7VTpp7glcJLaW-64679UULOah3Cx2pXo_X-7O8iJE"
-          }
-        };
-        const body = JSON.stringify(data);
-        const _res = await axios.post(`/api/${categoryId}`, body, config);
-        resolve(_res.data);
-      } catch (err) {
-        reject(err);
-      }
-    });
-  },
+    // Add item in category
+    async addItem(categoryId, data) {
+        return await api
+            .post(`/api/${categoryId}`, {
+                body: JSON.stringify(data),
+                auth: true,
+                json: true
+            })
+            .then(res => res.data)
+            .then(item => {
+                if (!item.success) throw new Error(item.error);
+                return item;
+            })
+            .catch(err => {
+                throw err.isAxiosError ? err.response.data : err;
+            });
+    },
 
-  // Update item with itemId in category
-  updateItem(categoryId, itemId, data) {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const config = {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization:
-              "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6Imd1cmtpcmF0LnNpbmdoQHN0dWRlbnRzLmlpaXQuYWMuaW4ifQ.my7VTpp7glcJLaW-64679UULOah3Cx2pXo_X-7O8iJE"
-          }
-        };
+    // Update item with itemId in category
+    async updateItem(categoryId, itemId, data) {
+        return await api
+            .patch(`/api/${categoryId}/${itemId}`, {
+                body: JSON.stringify(data),
+                auth: true,
+                json: true
+            })
+            .then(res => res.data)
+            .then(item => {
+                if (!item.success) throw new Error(item.error);
+                return item;
+            })
+            .catch(err => {
+                throw err.isAxiosError ? err.response.data : err;
+            });
+    },
 
-        const body = JSON.stringify(data);
-        const _res = await axios.patch(
-          `/api/${categoryId}/${itemId}`,
-          body,
-          config
-        );
-        resolve(_res.data);
-      } catch (err) {
-        reject(err);
-      }
-    });
-  },
+    // Rate item
+    async rateItem(categoryId, itemId, rating) {
+        return await api
+            .post(`/api/${categoryId}/rate/${itemId}`, {
+                body: JSON.stringify({ rating }),
+                auth: true,
+                json: true
+            })
+            .then(res => res.data)
+            .then(rate => {
+                if (!rate.success) throw new Error(rate.error);
+                return rate;
+            })
+            .catch(err => {
+                throw err.isAxiosError ? err.response.data : err;
+            });
+    },
 
-  // Rate item
-  rateItem(categoryId, itemId, rating) {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const config = {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization:
-              "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6Imd1cmtpcmF0LnNpbmdoQHN0dWRlbnRzLmlpaXQuYWMuaW4ifQ.my7VTpp7glcJLaW-64679UULOah3Cx2pXo_X-7O8iJE"
-          }
-        };
-
-        const body = JSON.stringify({ rating });
-        const _res = await axios.post(
-          `/api/${categoryId}/rate/${itemId}`,
-          body,
-          config
-        );
-        resolve(_res.data);
-      } catch (err) {
-        reject(err);
-      }
-    });
-  },
-
-  //Like item if like the value 1 else its -1
-  likeItem(categoryId, itemId, value) {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const config = {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization:
-              "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6Imd1cmtpcmF0LnNpbmdoQHN0dWRlbnRzLmlpaXQuYWMuaW4ifQ.my7VTpp7glcJLaW-64679UULOah3Cx2pXo_X-7O8iJE"
-          }
-        };
-
-        const body = JSON.stringify({ value });
-        const _res = await axios.post(
-          `/api/user/like/${categoryId}/${itemId}`,
-          body,
-          config
-        );
-        resolve(_res.data);
-      } catch (err) {
-        reject(err);
-      }
-    });
-  }
+    //Like item if like the value 1 else its -1
+    async likeItem(categoryId, itemId, value) {
+        return await api
+            .post(`/api/user/like/${categoryId}/${itemId}`, {
+                body: JSON.stringify({ value }),
+                auth: true,
+                json: true
+            })
+            .then(res => res.data)
+            .then(like => {
+                if (!like.success) throw new Error(like.error);
+                return like;
+            })
+            .catch(err => {
+                throw err.isAxiosError ? err.response.data : err;
+            });
+    }
 };

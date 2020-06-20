@@ -1,17 +1,39 @@
-import users from '../../api/users'
+import usersApi from "../../api/users";
 
 const state = () => ({
-    user: {},
-    likes: {},
-    ratings: []
-})
+    userData: {}
+});
 
-const getters = {}
+const getters = {};
 
-const actions = {}
+const actions = {
+    async getCurrentUserData({ commit }) {
+        await usersApi
+            .getCurrentUser()
+            .then(currentUser => {
+                commit("ADD_USERDATA", { userData: currentUser.data });
+                commit(
+                    "likes/INIT_LIKES",
+                    { likes: currentUser.data.likes },
+                    { root: true }
+                );
+                commit(
+                    "ratings/INIT_RATINGS",
+                    { ratings: currentUser.data.ratings },
+                    { root: true }
+                );
+            })
+            .catch(err => {
+                console.error(err);
+            });
+    }
+};
 
-const mutations = {}
-
+const mutations = {
+    ADD_USERDATA: (state, { userData }) => {
+        state.userData = userData;
+    }
+};
 
 export default {
     namespaced: true,
@@ -19,4 +41,4 @@ export default {
     getters,
     actions,
     mutations
-}
+};

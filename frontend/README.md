@@ -1,41 +1,34 @@
-# VueJS docker Template
+# VueJS frontend
 
-> VueJS template project with production docker support
+## Setup
 
-## Build Setup
+1.  Start the recommendor portal project with docker-compose
+2.  Copy the env.example to .env running the following <br />
 
-- Without Docker (standalone)
-``` bash
-# install dependencies
-npm install
+    ```bash
+    $ cp -rv env.example .env
+    ```
 
-# serve with hot reload at localhost:8080
-npm run dev
+3.  Go to `localhost:8000/api/core/login` and login using CAS, you will recieve a token, add that to .env created in step 2
+4.  Install the dependicies in frontend by going into folder and running `npm install`
+5.  Start the frontend by running the following
 
-# serve for production at 0.0.0.0:8080
-npm run serve
+    ```bash
+    $ DEBUG=1 ./entrypoint.sh
+    ```
 
-# build for production with minification
-npm run build
+    Your app would be running at `localhost:8080`
 
-# build for production and view the bundle analyzer report
-npm run build --report
-```
+## Add dummy items in db
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+Go to `localhost:8000/db_interface` after starting the recommender portal project
 
-- With Docker
+If you have recieved the token as told earlier. you will see a `core` database inside that you will find your user object inside users collections.
 
-```bash
-docker build -t image-tag:latest .
-docker run --rm --init -e DEBUG=1 -p 8080:8080 image-tag:latest
-```
+To add a dummy item
 
-- With docker-compose
+1. Create a db with your the categoryId.
+2. Create a collection named data inside the db
+3. Add your item to collection
 
-```bash
-docker-compose up --build -d
-# OR only frontend
-docker-compose build frontend
-docker-compose up -d
-```
+The item schema can be found by going to `localhost:8000/api/redoc` inside the add item route documentation. The request body schema for each item is shown properly.
