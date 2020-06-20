@@ -35,6 +35,44 @@
         hover
         size="1.5vw"
       ></v-rating>
+    <v-spacer></v-spacer>
+    <v-row
+      class="px-1 py-3 ml-3"
+    >
+      <v-menu
+        v-model="menu"
+        bottom
+        right
+        transition="scale-transition"
+        origin="top left"
+      >
+        <template v-slot:activator="{ on }">
+          <v-icon
+            v-on="on"
+            color="orange"
+          >mdi-more</v-icon>
+        </template>
+        <v-card width="200">
+          <v-list>
+            <v-list-item>
+              <v-list-item-content>
+                <v-list-item-title>Title</v-list-item-title>
+                <v-list-item-subtitle>Post Description</v-list-item-subtitle>
+              </v-list-item-content>
+              <v-list-item-action>
+                <v-btn
+                  icon
+                  @click="menu = false"
+                >
+                  <v-icon>mdi-close-circle</v-icon>
+                </v-btn>
+              </v-list-item-action>
+            </v-list-item>
+          </v-list>
+        </v-card>
+      </v-menu>
+    </v-row>
+    
     </v-card-actions>
     
     <v-card-actions class="pa-0">
@@ -60,6 +98,7 @@
       </v-btn>
       <v-spacer></v-spacer>
       <v-btn
+        class="mr-4"
         color="blue darken-2"
         @click="show = !show"
         icon
@@ -92,7 +131,8 @@ import CommentTimeline from '@/components/CommentTimeline'
 
     data: () => ({
       rating: 4.3,
-      show: false
+      show: false,
+      menu: false,
     }),
   }
 </script>
