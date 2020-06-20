@@ -9,7 +9,7 @@
       transition='slide-y-reverse-transition'
     >
       <template v-slot:activator>
-        <div v-if="currPage === 'Home'">
+        <div v-if="currPage === 'Home' || currPage==='Search'">
           <v-btn
             v-model="fab"
             color="blue darken-3"
@@ -49,56 +49,6 @@
           <v-icon>{{ item.icon }}</v-icon>
         </v-btn>
       </div>
-
-      <!-- <v-btn
-          fab
-          dark
-          small
-          color="grey darken-2"
-          @click="openSheet('Shows')"
-      >
-        <v-icon>mdi-film</v-icon>
-      </v-btn>
-
-      <v-btn
-          fab
-          dark
-          small
-          color="yellow darken-3"
-          @click="openSheet('Anime')"
-      >
-        <v-icon>mdi-fire</v-icon>
-      </v-btn>
-
-      <v-btn
-          fab
-          dark
-          small
-          color="indigo"
-          @click="openSheet('Music')"
-      >
-        <v-icon>mdi-music-note</v-icon>
-      </v-btn>
-
-      <v-btn
-          fab
-          dark
-          small
-          color="pink"
-          @click="openSheet('Movies')"
-      >
-        <v-icon>mdi-movie</v-icon>
-      </v-btn>
-
-      <v-btn
-          fab
-          dark
-          small
-          color="green darken-2"
-          @click="openSheet('Books')"
-      >
-        <v-icon>mdi-book</v-icon>
-      </v-btn> -->
 
     </v-speed-dial>
   </div>

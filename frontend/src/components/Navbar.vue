@@ -66,6 +66,12 @@
         >
           <v-list-item-title>{{ item.title }}</v-list-item-title>
         </v-list-item>
+        <v-list-item to="/search">
+          <v-list-item-icon>
+              <v-icon>mdi-magnify</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>Search</v-list-item-title>
+        </v-list-item>
       </v-list>
     </v-menu>
     </v-toolbar-items>
@@ -89,12 +95,6 @@
           </v-list-item-icon>
           <v-list-item-title>{{ item.title }}</v-list-item-title>
         </v-list-item>
-      <v-list-item>
-        <v-list-item-icon>
-            <v-icon>mdi-magnify</v-icon>
-        </v-list-item-icon>
-        <v-list-item-title>Search</v-list-item-title>
-      </v-list-item>
       </v-list-item-group>
     </v-list>
     <v-menu offset-y>
@@ -117,6 +117,12 @@
           :to="item.path"
         >
           <v-list-item-title>{{ item.title }}</v-list-item-title>
+        </v-list-item>
+        <v-list-item to="/search">
+          <v-list-item-icon>
+              <v-icon>mdi-magnify</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>Search</v-list-item-title>
         </v-list-item>
       </v-list>
     </v-menu>

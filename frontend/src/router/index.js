@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import CategoryPage from '@/views/CategoryPage.vue'
+import SearchPage from '@/views/SearchPage.vue'
 import Home from '@/views/Home.vue'
 
 Vue.use(VueRouter)
@@ -35,6 +36,11 @@ Vue.use(VueRouter)
     path: '/shows',
     name: 'Shows',
     component: CategoryPage
+  },
+  {
+    path: '/search',
+    name: 'Search',
+    component: SearchPage
   }
 ]
 
