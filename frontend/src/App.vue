@@ -3,22 +3,14 @@
     <Navbar :current="$route.name"/>
     <v-content>
       <router-view/>
-      <!-- <FloatingButton :openSheet="openSheet" :currPage="$route.name" />
-      <v-bottom-sheet v-model="sheet" inset>
-        <StepperSheet :closeSheet="closeSheet" :sheetType="sheetType" :stepNum="stepNum"/>
-      </v-bottom-sheet> -->
       <AddPost :currPage="$route.name"/>
     </v-content>
   </v-app>
 </template>
 
 <script>
-import Navbar from './components/Navbar'
-import AddPost from './components/AddPost'
-// import FloatingButton from './components/FloatingButton'
-// import StepperSheet from './components/StepperSheet'
-
-
+import Navbar from '@/components/Navbar'
+import AddPost from '@/components/AddPost'
 
 export default {
   name: 'App',
@@ -28,8 +20,6 @@ export default {
   components: {
     Navbar,
     AddPost
-    // FloatingButton,
-    // StepperSheet
   },
   data: () => ({
     drawer: null,

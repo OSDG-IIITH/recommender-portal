@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import ItemsDisplay from '@/views/ItemsDisplay.vue'
+import Home from '@/views/Home.vue'
 
 Vue.use(VueRouter)
 
@@ -13,27 +14,27 @@ Vue.use(VueRouter)
   {
     path: '/books',
     name: 'Books',
-    component: () => import('@/views/Books.vue')
+    component: ItemsDisplay
   },
   {
     path: '/movies',
     name: 'Movies',
-    component: () => import('@/views/Movies.vue')
+    component: ItemsDisplay
   },
   {
     path: '/music',
     name: 'Music',
-    component: () => import('@/views/Music.vue')
+    component: ItemsDisplay
   },
   {
     path: '/anime',
     name: 'Anime',
-    component: () => import('@/views/Anime.vue')
+    component: ItemsDisplay
   },
   {
     path: '/shows',
     name: 'Shows',
-    component: () => import('@/views/Shows.vue')
+    component: ItemsDisplay
   }
 ]
 

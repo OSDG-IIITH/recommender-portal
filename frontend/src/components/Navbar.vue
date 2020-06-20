@@ -1,21 +1,15 @@
 <template>
   <div>
-  <div 
-  v-for="item in menu"
-  :key="item.title"
-  :to="item.path"
-  >
   <v-app-bar 
   app
-  v-if="item.title === current"
-  :color= item.color>
-    <!-- <span class="hidden-md-and-up">
+  >
+    <span class="hidden-md-and-up">
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-    </span> -->
+    </span>
 
     <v-toolbar-title>
       <router-link to="/" tag="span" 
-      style="cursor: pointer; font-size:2.5vw">
+      style="cursor: pointer; font-size:20px">
         {{ appTitle }}
       </router-link>
     </v-toolbar-title>
@@ -24,34 +18,33 @@
     <SearchBox/>
     <v-spacer></v-spacer>
 
-     <template v-slot:extension class="hidden-md-and-down">
-        <v-tabs
+     <template v-slot:extension
+      >
+        <v-tabs 
+          class="hidden-sm-and-down"
           v-model="tabs"
           fixed-tabs
         >
         <v-tabs-slider></v-tabs-slider>
+        
           <v-tab 
           class="primary--text"
           v-for="item in menu"
           :key="item.title"
           :to="item.path"
           >
-            <v-icon> {{ item.icon }} </v-icon>
+          <div v-if="item.title === current">
+            <v-icon :color = item.color> {{ item.icon }} </v-icon>
+          </div>
+          <div v-else>
+            <v-icon :color="black"> {{ item.icon }} </v-icon>
+          </div>
           </v-tab>
         </v-tabs>
       </template>
 
-    <!-- <v-toolbar-items>
-      <v-btn
-        flat
-        class="hidden-sm-and-down"
-        active-class="deep-purple--text text--accent-4"
-        v-for="item in menu"
-        :key="item.title"
-        :to="item.path">
-        {{ item.title }}
-      </v-btn> -->
-    <v-toolbar-items>
+    <v-toolbar-items
+    class="hidden-sm-and-down">
       <v-menu offset-y>
       <template v-slot:activator="{ on, attrs }">
         <v-btn
@@ -61,7 +54,7 @@
           v-on="on"
           style="width:95%; margin-left:2.5%;"
         >
-          My Profile
+          <v-icon size="3vw"> mdi-account-circle </v-icon>
         </v-btn>
       </template>
 
@@ -77,7 +70,7 @@
     </v-menu>
     </v-toolbar-items>
   </v-app-bar>
-  <!-- <v-navigation-drawer
+  <v-navigation-drawer
     v-model="drawer"
     absolute
     temporary
@@ -96,6 +89,12 @@
           </v-list-item-icon>
           <v-list-item-title>{{ item.title }}</v-list-item-title>
         </v-list-item>
+      <v-list-item>
+        <v-list-item-icon>
+            <v-icon>mdi-magnify</v-icon>
+        </v-list-item-icon>
+        <v-list-item-title>Search</v-list-item-title>
+      </v-list-item>
       </v-list-item-group>
     </v-list>
     <v-menu offset-y>
@@ -121,8 +120,7 @@
         </v-list-item>
       </v-list>
     </v-menu>
-  </v-navigation-drawer> -->
-  </div>
+  </v-navigation-drawer>
   </div>
 </template>
 
@@ -142,7 +140,7 @@ export default {
       appTitle: 'Recommender@IIIT-H',
       drawer: false,
       menu: [
-          { title: 'Home', path: '/', icon: 'mdi-home', color: 'white'},
+          { title: 'Home', path: '/', icon: 'mdi-home', color: 'black'},
           { title: 'Books', path: '/books', icon: 'mdi-book', color: 'green'},
           { title: 'Movies', path: '/movies', icon: 'mdi-movie', color: 'pink darken-2'},
           { title: 'Music', path: '/music', icon: 'mdi-music-note', color: '#006699'},

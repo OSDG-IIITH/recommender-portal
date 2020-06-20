@@ -15,7 +15,6 @@
 
 <script>
 import axios from 'axios'
-import Card from '@/components/Card'
 import Post from '@/components/Post'
 
 export default {
@@ -25,7 +24,6 @@ export default {
         }
     },
     components: {
-        Card,
         Post
     },
     mounted: function(){
