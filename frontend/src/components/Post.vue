@@ -12,7 +12,7 @@
         src="https://cdn.vuetifyjs.com/images/cards/halcyon.png"
     ></v-img>
     <v-divider light></v-divider>
-    <v-row>
+    <!--v-row>
       <v-col>
         <v-card-title primary-title style="font-size:2vw">
           
@@ -20,7 +20,12 @@
             
         </v-card-title>
       </v-col>
-    </v-row>
+    </v-row-->
+    <div style="display: flex; flex-direction: row;">
+    <div class="display-1">Halcyon Days</div>
+    <v-spacer></v-spacer>
+    <v-chip light>{{ $route.name }}</v-chip>
+    </div>
     <v-divider light></v-divider>
     <v-card-actions class="pa-0">
       
