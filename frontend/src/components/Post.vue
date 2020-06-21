@@ -22,9 +22,9 @@
       </v-col>
     </v-row-->
     <div style="display: flex; flex-direction: row;">
-    <div class="display-1">Halcyon Days</div>
+    <div class="display-0">TITLE</div>
     <v-spacer></v-spacer>
-    <v-chip light>{{ $route.name }}</v-chip>
+    <v-chip small light>{{ $route.name }}</v-chip>
     </div>
     <v-divider light></v-divider>
     <v-card-actions class="pa-0">
@@ -115,7 +115,20 @@
      <v-expand-transition>
       <div v-show="show">
         <v-divider></v-divider>
-        <CommentTimeline/>
+        <v-container
+          id="scroll-target"
+          style="max-height: 400px"
+          class="overflow-y-auto"
+        >
+          <v-row
+            v-scroll:#scroll-target="onScroll"
+            align="center"
+            justify="center"
+            style="height: 1000px"
+          >
+            <CommentTimeline/>
+          </v-row>
+        </v-container>
       </div>
     </v-expand-transition>
   </v-card>

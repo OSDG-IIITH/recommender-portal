@@ -74,6 +74,6 @@
 
 <style>
   .comment-timeline {
-    width: 90%;
+    width: 18vw;
   }
 </style>
