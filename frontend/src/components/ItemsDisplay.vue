@@ -1,54 +1,51 @@
 <template>
-    <v-card class="mx-auto">
-        <v-row dense v-for="row in cards" :key="row[0].title">
-            <v-col v-for="card in row" :key="card.title" :cols="3">
-                <v-card class="pa-2 card">
-                    <!-- <Card :card="card"/> -->
-                    <Post/>
-                </v-card>
-            </v-col>
-        </v-row>
-    </v-card>
+  <v-container fluid>
+    <v-row :align="start" :justify="space-between" class="grey lighten-5 masonry">
+      <v-col
+        cols="12"
+        xs="12"
+        sm="6"
+        md="4"
+        lg="3"
+        xl="2"
+        v-for="card in cards"
+        :key="card.title"
+        class="child"
+      >
+        <Post />
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
-import axios from 'axios'
-import Post from '@/components/Post'
-
+import axios from "axios";
+import Post from "@/components/Post";
 export default {
-    name: 'ItemsDisplay',
-    data() {
-        return {
-            cards : []
-        }
-    },
-    components: {
-        Post
-    },
-    mounted: function(){
-        let data = null
-        axios
-            .get('https://www.googleapis.com/books/v1/volumes?q=+subject:thriller&maxResults=20')
-            .then(response => {
-                data = response.data.items
-                for (let i = 0; i<data.length / 4; i++) {
-                    const temp = []
-                    for (let j = 0; j < 4 ; j++) {
-                        if ( i * 4 + j > data.length - 1){
-                            break
-                        }
-                        const tempObj = {
-                        title: data[i * 4 + j].volumeInfo.title,
-                        image: data[i * 4 + j].volumeInfo.imageLinks.thumbnail,
-                        description: data[i * 4 + j].volumeInfo.description
-                    }
-                    temp.push(tempObj)
-                }
-                this.cards.push(temp)
-            }
-            console.log(this.cards)
-        })
-    }
-}
-
+  name: "ItemsDisplay",
+  data() {
+    return {
+      cards: []
+    };
+  },
+  components: {
+    Post
+  },
+  mounted: function() {
+    let data = null;
+    axios
+      .get(
+        "https://www.googleapis.com/books/v1/volumes?q=+subject:thriller&maxResults=20"
+      )
+      .then(response =>
+        response.data.items.forEach(item =>
+          this.cards.push({
+            title: item.volumeInfo.title,
+            image: item.volumeInfo.imageLinks.thumbnail,
+            description: item.volumeInfo.description
+          })
+        )
+      );
+  }
+};
 </script>
