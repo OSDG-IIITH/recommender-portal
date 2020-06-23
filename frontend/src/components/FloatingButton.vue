@@ -12,7 +12,7 @@
         <div v-if="currPage === 'Home' || currPage==='Search'">
           <v-btn
             v-model="fab"
-            color="blue darken-3"
+            color="#8080bb"
             dark
             fab
           >
@@ -64,12 +64,12 @@
     data: () => ({
       fab: false,
       categories: [
-          { title: 'Shows', path: '/shows', icon: 'mdi-television-classic', color: 'grey darken-2'},
-          { title: 'Anime', path: '/anime', icon: 'mdi-fire', color: 'yellow darken-3'},
-          { title: 'Music', path: '/music', icon: 'mdi-music-note', color: 'indigo'},
-          { title: 'Movies', path: '/movies', icon: 'mdi-movie', color: 'pink'},
-          { title: 'Books', path: '/books', icon: 'mdi-book', color: 'green darken-2'},
-     ],
+        { title: 'Shows', path: '/shows', icon: 'mdi-television-classic', color: 'grey darken-2'},
+        { title: 'Anime', path: '/anime', icon: 'mdi-fire', color: 'yellow darken-3'},
+        { title: 'Music', path: '/music', icon: 'mdi-music-note', color: 'blue lighten-1'},
+        { title: 'Movies', path: '/movies', icon: 'mdi-movie', color: 'pink lighten-2'},
+        { title: 'Books', path: '/books', icon: 'mdi-book', color: '#009999'}  
+      ]
     })
   };
 </script>

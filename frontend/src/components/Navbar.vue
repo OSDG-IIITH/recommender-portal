@@ -1,7 +1,10 @@
 <template>
   <div>
+  <div v-for="page in menu" :key="page.title">
+  <div v-if="page.title === current">
   <v-app-bar 
   app
+  :color="page.color"
   >
     <span class="hidden-md-and-up">
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
@@ -10,7 +13,7 @@
     <v-toolbar-title>
       <router-link to="/" tag="span" 
       style="cursor: pointer; font-size:20px">
-        {{ appTitle }}
+        <b>{{ appTitle }}</b>
       </router-link>
     </v-toolbar-title>
 
@@ -33,28 +36,24 @@
           :key="item.title"
           :to="item.path"
           >
-          <div v-if="item.title === current">
-            <v-icon :color = item.color> {{ item.icon }} </v-icon>
-          </div>
-          <div v-else>
-            <v-icon :color="black"> {{ item.icon }} </v-icon>
-          </div>
+            <v-icon> {{ item.icon }} </v-icon>
           </v-tab>
         </v-tabs>
       </template>
 
     <v-toolbar-items
     class="hidden-sm-and-down">
-      <v-menu offset-y>
+      <v-menu offset-y open-on-hover transition="slide-x-reverse-transition">
       <template v-slot:activator="{ on, attrs }">
         <v-btn
-          color="primary"
+          color="black"
           dark
+          icon
           v-bind="attrs"
           v-on="on"
-          style="width:95%; margin-left:2.5%;"
+          class="mr-2"
         >
-          <v-icon size="3vw"> mdi-account-circle </v-icon>
+          <v-icon size="4vw"> mdi-account-circle </v-icon>
         </v-btn>
       </template>
 
@@ -80,6 +79,7 @@
     v-model="drawer"
     absolute
     temporary
+    :color="page.color"
   >
     <v-list
       nav
@@ -87,7 +87,7 @@
     >
       <v-list-item-group
         v-model="group"
-        active-class="deep-purple--text text--accent-4"
+        active-class="white--text text--accent-4"
       >
         <v-list-item v-for="item in menu" :key="item.title" :to="item.path">
           <v-list-item-icon>
@@ -97,14 +97,14 @@
         </v-list-item>
       </v-list-item-group>
     </v-list>
-    <v-menu offset-y>
+    <v-menu offset-y open-on-hover>
       <template v-slot:activator="{ on, attrs }">
         <v-btn
-          color="primary"
+          class="ml-12"
+          color="grey darken-2"
           dark
           v-bind="attrs"
           v-on="on"
-          style="width:95%; margin-left:2.5%;"
         >
           My Profile
         </v-btn>
@@ -128,6 +128,8 @@
     </v-menu>
   </v-navigation-drawer>
   </div>
+  </div>
+  </div>
 </template>
 
 
@@ -146,12 +148,12 @@ export default {
       appTitle: 'Recommender@IIIT-H',
       drawer: false,
       menu: [
-          { title: 'Home', path: '/', icon: 'mdi-home', color: 'black'},
-          { title: 'Books', path: '/books', icon: 'mdi-book', color: 'green'},
-          { title: 'Movies', path: '/movies', icon: 'mdi-movie', color: 'pink darken-2'},
-          { title: 'Music', path: '/music', icon: 'mdi-music-note', color: '#006699'},
-          { title: 'Anime', path: '/anime', icon: 'mdi-fire', color: '#ffd24d'},
-          { title: 'Shows', path: '/shows', icon: 'mdi-television-classic', color: 'grey'},
+          { title: 'Home', path: '/', icon: 'mdi-home', color: '#c2c2d6'},
+          { title: 'Books', path: '/books', icon: 'mdi-book', color: '#00aaaa'},
+          { title: 'Movies', path: '/movies', icon: 'mdi-movie', color: '#ff99a0'},
+          { title: 'Music', path: '/music', icon: 'mdi-music-note', color: '#8cb3d9'},
+          { title: 'Anime', path: '/anime', icon: 'mdi-fire', color: '#ffaa66'},
+          { title: 'Shows', path: '/shows', icon: 'mdi-television-classic', color: '#b3b3b3'},
      ],
      profileitems: [
           { index: 1, title: 'Profile', path: '#' },
