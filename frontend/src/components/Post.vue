@@ -1,7 +1,8 @@
 <template>
    <v-card
     class="xs-12 sm-6 md-4 lg-3 xl-2 elevation-20"
-    color="green darken-2"
+    color="#4d2600"
+    shaped
     dark
   >
     <v-img
@@ -11,7 +12,7 @@
     ></v-img>
     <v-card-title class="display-1">{{name}} &nbsp; <v-chip small light>{{ $route.name }}</v-chip></v-card-title>
     <v-card-text>
-      {{description}}
+      {{ description }}
       <p>
       <span class="text--lighten-2 display-0">
         ({{ rating }})
@@ -91,3 +92,9 @@ export default {
   })
 }
 </script>
+
+<style scoped>
+  .v-card--shaped {
+  border-radius: 2em 0em;
+  }
+</style>
