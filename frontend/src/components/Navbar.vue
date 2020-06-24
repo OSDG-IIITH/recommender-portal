@@ -61,7 +61,7 @@
             </v-btn>
           </v-list-item>
           <v-list nav dense>
-            <v-list-item-group v-model="group">
+            <v-list-item-group>
               <v-list-item v-for="item in menu" :key="item.title" :to="item.path">
                 <v-list-item-icon>
                   <v-icon>{{ item.icon }}</v-icon>

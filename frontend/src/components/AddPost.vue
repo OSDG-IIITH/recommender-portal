@@ -2,7 +2,7 @@
   <v-content>
     <FloatingButton :openSheet="openSheet" :currPage="currPage" />
     <v-bottom-sheet v-model="sheet" inset>
-        <StepperSheet :closeSheet="closeSheet" :sheetType="sheetType" :stepNum="stepNum"/>
+      <StepperSheet :closeSheet="closeSheet" :sheetType="sheetType" :stepNum="stepNum" />
     </v-bottom-sheet>
   </v-content>
 </template>
@@ -14,7 +14,7 @@ import StepperSheet from "./StepperSheet";
 export default {
   name: "AddPost",
   props: {
-    currPage: String,
+    currPage: String
   },
   components: {
     FloatingButton,
@@ -24,8 +24,8 @@ export default {
     drawer: null,
     sheet: false,
     stepNum: 1,
-    currPage: 'Home',
-    current: 'Home'
+    currPage: "Home",
+    current: "Home"
   }),
   methods: {
     closeSheet: function() {

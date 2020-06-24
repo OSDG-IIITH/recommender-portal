@@ -11,7 +11,6 @@
 <script>
 import Navbar from "@/components/Navbar";
 import AddPost from "@/components/AddPost";
-
 export default {
   name: "App",
   props: {

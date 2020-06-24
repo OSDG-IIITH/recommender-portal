@@ -1,27 +1,33 @@
 <template>
   <v-container fluid>
-    <v-virtual-scroll :items="cards">
-      <v-row :align="start" :justify="space-between" dark>
-        <v-col
-          cols="12"
-          xs="12"
-          sm="6"
-          md="4"
-          lg="3"
-          xl="2"
-          v-for="card in cards"
-          :key="card.title"
-        >
-          <Post />
-        </v-col>
-      </v-row>
-    </v-virtual-scroll>
+    <!-- TODO figure out issue with `v-virtual-scroll` -->
+    <!-- <v-virtual-scroll :items="cards"> -->
+    <v-row align="start" justify="space-between" dark class="masonry">
+      <v-col
+        cols="12"
+        xs="12"
+        sm="6"
+        md="4"
+        lg="3"
+        xl="2"
+        class="child"
+        v-for="card in cards"
+        :key="card.title"
+      >
+        <Post />
+      </v-col>
+    </v-row>
+    <!-- </v-virtual-scroll> -->
   </v-container>
 </template>
 
 <script>
 import axios from "axios";
 import Post from "@/components/Post";
+var msnry = new Masonry(".masonry", {
+  // options
+  itemSelector: "[class*='col-']"
+});
 export default {
   name: "ItemsDisplay",
   data() {

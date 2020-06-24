@@ -1,5 +1,5 @@
 <template>
-  <v-stepper v-model="stepNum" vertical dark="$vuetify.theme.dark">
+  <v-stepper v-model="stepNum" vertical dark>
     <h3 class="pa-2 ma-1 text-center text-sm-left text-overline">Add {{ sheetType }}</h3>
     <v-stepper-step :complete="stepNum > 1" step="1">
       Step 1
