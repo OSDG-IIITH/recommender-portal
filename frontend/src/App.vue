@@ -1,21 +1,21 @@
 <template>
-  <v-app>
-    <Navbar :current="$route.name"/>
+  <v-app color="#EDEBD7">
+    <Navbar :current="$route.name" />
     <v-content>
-      <router-view/>
-      <AddPost :currPage="$route.name"/>
+      <router-view />
+      <AddPost :currPage="$route.name" />
     </v-content>
   </v-app>
 </template>
 
 <script>
-import Navbar from '@/components/Navbar'
-import AddPost from '@/components/AddPost'
+import Navbar from "@/components/Navbar";
+import AddPost from "@/components/AddPost";
 
 export default {
-  name: 'App',
+  name: "App",
   props: {
-      source: String,
+    source: String
   },
   components: {
     Navbar,
@@ -25,8 +25,8 @@ export default {
     drawer: null,
     sheet: false,
     stepNum: 1,
-    currPage: 'Home',
-    current: 'Home'
+    currPage: "Home",
+    current: "Home"
   }),
   methods: {
     closeSheet: function() {

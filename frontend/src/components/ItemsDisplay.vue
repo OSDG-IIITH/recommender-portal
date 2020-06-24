@@ -1,20 +1,21 @@
 <template>
   <v-container fluid>
-    <v-row :align="start" :justify="space-between" class="grey lighten-5 masonry">
-      <v-col
-        cols="12"
-        xs="12"
-        sm="6"
-        md="4"
-        lg="3"
-        xl="2"
-        v-for="card in cards"
-        :key="card.title"
-        class="child"
-      >
-        <Post />
-      </v-col>
-    </v-row>
+    <v-virtual-scroll :items="cards">
+      <v-row :align="start" :justify="space-between" dark>
+        <v-col
+          cols="12"
+          xs="12"
+          sm="6"
+          md="4"
+          lg="3"
+          xl="2"
+          v-for="card in cards"
+          :key="card.title"
+        >
+          <Post />
+        </v-col>
+      </v-row>
+    </v-virtual-scroll>
   </v-container>
 </template>
 
