@@ -13,9 +13,9 @@ const getters = {
 
 const actions = {
     async addItem({ commit }, item) {
-        const item_res = await itemsApi
+        await itemsApi
             .addItem(item.category, item)
-            .then(() => {
+            .then(item_res => {
                 commit("ADD_ITEM", { item: item_res });
             })
             .catch(err => console.error(err));

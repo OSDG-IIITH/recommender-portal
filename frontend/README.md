@@ -9,9 +9,16 @@
     $ cp -rv env.example .env
     ```
 
-3.  Go to `localhost:8000/api/core/login` and login using CAS, you will recieve a token, add that to .env created in step 2
-4.  Install the dependicies in frontend by going into folder and running `npm install`
-5.  Start the frontend by running the following
+3.  Go to `localhost:8000/api/core/login` and login using CAS, you will recieve a token, add that to .env created in step 2.
+
+4.  Export .env variablesusing the following command <br>
+
+    ```bash
+    $ export $(grep -v '^#' ./.env | xargs -d '\n')
+    ```
+
+5.  Install the dependicies in frontend by going into folder and running `npm install`
+6.  Start the frontend by running the following
 
     ```bash
     $ DEBUG=1 ./entrypoint.sh
