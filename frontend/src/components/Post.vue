@@ -27,28 +27,70 @@
       </p>
     </v-card-text>
     <v-card-actions class="pa-0">
-      <v-btn text>
-        <v-icon color = "red">mdi-heart</v-icon>
-        {{ likes }}
-      </v-btn>
 
-      <v-btn
-        color="purple" icon>
-        <v-icon>mdi-bookmark</v-icon>
-      </v-btn>
-      <v-btn
-        color="white" icon>
-        <v-icon>mdi-link</v-icon>
-      </v-btn>
+      <v-tooltip top>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            color="white"
+            icon
+            v-bind="attrs"
+            v-on="on"
+          ><v-icon>mdi-thumb-up</v-icon></v-btn>
+        </template>
+        <span>Like</span>
+      </v-tooltip>
+
+      <v-tooltip top>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            color="white"
+            icon
+            v-bind="attrs"
+            v-on="on"
+          ><v-icon>mdi-thumb-down</v-icon></v-btn>
+        </template>
+        <span>Dislike</span>
+      </v-tooltip>
+
+      <v-tooltip top>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            color="purple"
+            icon
+            v-bind="attrs"
+            v-on="on"
+          ><v-icon>mdi-bookmark</v-icon></v-btn>
+        </template>
+        <span>Favorite</span>
+      </v-tooltip>
+
+      <v-tooltip top>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            color="white"
+            icon
+            v-bind="attrs"
+            v-on="on"
+          ><v-icon>mdi-link</v-icon></v-btn>
+        </template>
+        <span>Link</span>
+      </v-tooltip>
+
       <v-spacer></v-spacer>
-      <v-btn
-        color="blue darken-2"
-        @click="show = !show"
-        icon
-      >
-        <v-icon>mdi-comment</v-icon>
-      </v-btn>
 
+      <v-tooltip top>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            color="blue darken-2"
+            @click="show = !show"
+            icon
+            v-bind="attrs"
+            v-on="on"
+          ><v-icon>mdi-comment</v-icon></v-btn>
+        </template>
+        <span>Comment</span>
+      </v-tooltip>
+      
     </v-card-actions>
      <v-expand-transition>
       <div v-show="show">

@@ -29,7 +29,7 @@
           fixed-tabs
         >
         <v-tabs-slider></v-tabs-slider>
-        
+          
           <v-tab 
           class="primary--text"
           v-for="item in menu"
