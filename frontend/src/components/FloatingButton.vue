@@ -23,43 +23,31 @@
 
         <div v-else>
           <div v-for="item in categories" :key="item.title">
-            <v-tooltip left>
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn
-                  v-if="item.title === currPage"
-                  v-model="fab"
-                  fab
-                  dark
-                  :color="item.color"
-                  @click="openSheet(item.title)"
-                  v-bind="attrs"
-                  v-on="on"
-                >
-                  <v-icon>{{ item.icon }}</v-icon></v-btn>
-              </template>
-              <span>Add {{ item.title }}</span>
-            </v-tooltip>
-          </div>
-        </div>
-      </template>
-      
-      <div v-for="item in categories" :key="item.title">
-        <v-tooltip left>
-          <template v-slot:activator="{ on, attrs }">
             <v-btn
-              v-if="item.title !== currPage"
+              v-if="item.title === currPage"
               v-model="fab"
               fab
               dark
               :color="item.color"
               @click="openSheet(item.title)"
-              v-bind="attrs"
-              v-on="on"
             >
-              <v-icon>{{ item.icon }}</v-icon></v-btn>
-          </template>
-          <span>Add {{ item.title }}</span>
-        </v-tooltip>
+              <v-icon>{{ item.icon }}</v-icon>
+            </v-btn>
+          </div>
+        </div>
+      </template>
+      
+      <div v-for="item in categories" :key="item.title">
+        <v-btn
+            v-if="item.title !== currPage"
+            fab
+            dark
+            small
+            :color="item.color"
+            @click="openSheet(item.title)"
+        >
+          <v-icon>{{ item.icon }}</v-icon>
+        </v-btn>
       </div>
 
     </v-speed-dial>
