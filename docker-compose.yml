@@ -54,7 +54,7 @@ services:
                 volumes:
                         - web-root:/home/node/app/dist
                         - ./frontend:/home/node/app
-                        - node-modules:/home/node/app/node_modules
+                        - /home/node/app/node_modules
                 environment:
                         NODE_ENV: $NODE_ENV 
                         PORT: 8080
@@ -86,6 +86,5 @@ networks:
 
 volumes:
         web-root:
-        node-modules:
         db_vol:
 
