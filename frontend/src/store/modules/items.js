@@ -1,7 +1,22 @@
 import itemsApi from "../../api/items";
 
 const state = () => ({
-    data: {}
+    data: {
+        "5ef34628ab0e5c2b04ddf1c5": {
+            _id: "5ef34628ab0e5c2b04ddf1c5",
+            flags: [],
+            hidden: false,
+            title: "test2",
+            url: "http://test.com",
+            year_release: 2010,
+            genres: [],
+            seasons: 2,
+            episode_length: 3,
+            season_length: 3,
+            streaming: null,
+            category: "anime"
+        }
+    }
 });
 
 const getters = {
@@ -23,12 +38,20 @@ const actions = {
     async updateItem({ commit }, item) {
         // TODO: implement update item
     },
-    async fetchItems({ commit }, categoryId) {
-        // TODO: implement fetch items and commit ADD_ITEM for all
+    async fetchItems({ commit, rootState }, categoryId) {
+        await itemsApi
+            .getItems(categoryId)
+            .then(items => {
+                items.data.forEach(item => {
+                    commit("ADD_ITEM", {
+                        item: { data: { ...item, category: categoryId } }
+                    });
+                });
+            })
+            .catch(err => console.error(err));
 
-        // Set likes and rating for them this should be in then
-        commit("SET_LIKES");
-        commit("SET_RATINGS");
+        commit("SET_LIKES", { likes: rootState.likes });
+        commit("SET_RATINGS", { ratings: rootState.ratings });
     }
 };
 
