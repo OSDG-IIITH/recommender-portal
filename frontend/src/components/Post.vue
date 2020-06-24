@@ -1,7 +1,8 @@
 <template>
    <v-card
     class="xs-12 sm-6 md-4 lg-3 xl-2 elevation-20"
-    color="green darken-2"
+    color="#4d2600"
+    shaped
     dark
   >
     <v-img
@@ -11,7 +12,7 @@
     ></v-img>
     <v-card-title class="display-1">{{name}} &nbsp; <v-chip small light>{{ $route.name }}</v-chip></v-card-title>
     <v-card-text>
-      {{description}}
+      {{ description }}
       <p>
       <span class="text--lighten-2 display-0">
         ({{ rating }})
@@ -26,28 +27,70 @@
       </p>
     </v-card-text>
     <v-card-actions class="pa-0">
-      <v-btn text>
-        <v-icon color = "red">mdi-heart</v-icon>
-        {{ likes }}
-      </v-btn>
 
-      <v-btn
-        color="purple" icon>
-        <v-icon>mdi-bookmark</v-icon>
-      </v-btn>
-      <v-btn
-        color="white" icon>
-        <v-icon>mdi-link</v-icon>
-      </v-btn>
+      <v-tooltip top>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            color="white"
+            icon
+            v-bind="attrs"
+            v-on="on"
+          ><v-icon>mdi-thumb-up</v-icon></v-btn>
+        </template>
+        <span>Like</span>
+      </v-tooltip>
+
+      <v-tooltip top>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            color="white"
+            icon
+            v-bind="attrs"
+            v-on="on"
+          ><v-icon>mdi-thumb-down</v-icon></v-btn>
+        </template>
+        <span>Dislike</span>
+      </v-tooltip>
+
+      <v-tooltip top>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            color="purple"
+            icon
+            v-bind="attrs"
+            v-on="on"
+          ><v-icon>mdi-bookmark</v-icon></v-btn>
+        </template>
+        <span>Favorite</span>
+      </v-tooltip>
+
+      <v-tooltip top>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            color="white"
+            icon
+            v-bind="attrs"
+            v-on="on"
+          ><v-icon>mdi-link</v-icon></v-btn>
+        </template>
+        <span>Link</span>
+      </v-tooltip>
+
       <v-spacer></v-spacer>
-      <v-btn
-        color="blue darken-2"
-        @click="show = !show"
-        icon
-      >
-        <v-icon>mdi-comment</v-icon>
-      </v-btn>
 
+      <v-tooltip top>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            color="blue darken-2"
+            @click="show = !show"
+            icon
+            v-bind="attrs"
+            v-on="on"
+          ><v-icon>mdi-comment</v-icon></v-btn>
+        </template>
+        <span>Comment</span>
+      </v-tooltip>
+      
     </v-card-actions>
      <v-expand-transition>
       <div v-show="show">
@@ -61,7 +104,7 @@
             align="center"
             justify="center"
           >
-            <CommentTimeline/>
+            <!-- <CommentTimeline/> -->
           </v-row>
         </v-container>
       </div>
@@ -91,3 +134,9 @@ export default {
   })
 }
 </script>
+
+<style scoped>
+  .v-card--shaped {
+  border-radius: 2em 0em;
+  }
+</style>
