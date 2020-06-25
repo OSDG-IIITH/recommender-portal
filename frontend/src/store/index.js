@@ -1,20 +1,31 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-import category from './modules/category'
-import search from './modules/search'
-import user from './modules/user'
-import createLogger from '../plugins/logger'
+import Vue from "vue";
+import Vuex from "vuex";
+import rootActions from "./actions";
+import rootMutaions from "./mutations";
+import items from "./modules/items";
+import likes from "./modules/likes";
+import ratings from "./modules/ratings";
+import user from "./modules/user";
+import createLogger from "../plugins/logger";
+import updateItem from "../plugins/updateItem";
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
-const debug = process.env.NODE_ENV !== 'production'
+const debug = process.env.NODE_ENV !== "production";
 
 export default new Vuex.Store({
+    // root level state
+    state: {
+        categories: []
+    },
+    actions: rootActions,
+    mutations: rootMutaions,
     modules: {
-        category,
-        search,
+        items,
+        likes,
+        ratings,
         user
     },
     strict: debug,
-    plugins: debug ? [createLogger()] : []
-})
+    plugins: debug ? [createLogger(), updateItem] : []
+});

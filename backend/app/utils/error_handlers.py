@@ -33,7 +33,8 @@ async def http_422_error_handler(request: Request, exc: HTTPException) -> JSONRe
     else:
         errors["body"].append(exc.detail)
 
-    return JSONResponse({"errors": errors}, status_code=HTTP_422_UNPROCESSABLE_ENTITY)
+    return JSONResponse({"errors": errors},
+                        status_code=HTTP_422_UNPROCESSABLE_ENTITY)
 
 
 validation_error_definition["properties"] = {

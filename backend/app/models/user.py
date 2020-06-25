@@ -1,11 +1,8 @@
-from enum import IntEnum
+from typing import Dict
 
-from pydantic import SecretStr, Field
-from typing import List, Dict
+from pydantic import Field
 
-from bson.objectid import ObjectId
-
-from .base import Base, ObjectID, LikeEnum
+from .base import Base, ObjectID, LikeEnum, CategoryEnum
 
 
 class UserRating(Base):
@@ -22,5 +19,5 @@ class User(Base):
     username: str
     first_login: str
     last_login: str
-    ratings: List[UserRating] = list()
+    ratings: Dict[str, Dict[ObjectID, UserRating]] = dict()
     likes: Dict[str, Dict[ObjectID, LikeEnum]] = dict()

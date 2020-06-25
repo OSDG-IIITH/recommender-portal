@@ -1,46 +1,43 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import CategoryPage from '@/views/CategoryPage.vue'
-import SearchPage from '@/views/SearchPage.vue'
-import Home from '@/views/Home.vue'
 
 Vue.use(VueRouter)
 
-  const routes = [
+const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: () => import('@/views/Home.vue')
   },
   {
     path: '/books',
     name: 'Books',
-    component: CategoryPage
+    component: () => import('@/views/CategoryPage.vue')
   },
   {
     path: '/movies',
     name: 'Movies',
-    component: CategoryPage
+    component: () => import('@/views/CategoryPage.vue')
   },
   {
     path: '/music',
     name: 'Music',
-    component: CategoryPage
+    component: () => import('@/views/CategoryPage.vue')
   },
   {
     path: '/anime',
     name: 'Anime',
-    component: CategoryPage
+    component: () => import('@/views/CategoryPage.vue')
   },
   {
     path: '/shows',
     name: 'Shows',
-    component: CategoryPage
+    component: () => import('@/views/CategoryPage.vue')
   },
   {
     path: '/search',
     name: 'Search',
-    component: SearchPage
+    component: () => import('@/views/SearchPage.vue')
   }
 ]
 

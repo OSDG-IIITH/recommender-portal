@@ -12,7 +12,7 @@ services:
                 volumes:
                         - db_vol:/data/db
 
-        db-interface:
+        db_interface:
                 image: mongo-express
                 restart: always
                 environment:
@@ -74,7 +74,7 @@ services:
                 depends_on:
                         - frontend
                         - backend
-                        - db-interface
+                        - db_interface
                 networks:
                         - web_network
 
