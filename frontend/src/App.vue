@@ -1,10 +1,12 @@
 <template>
   <v-app color="#EDEBD7">
     <Navbar :current="$route.name" />
-    <v-content>
-      <router-view />
-      <AddPost :currPage="$route.name" />
-    </v-content>
+    <v-main>
+      <v-content>
+        <router-view />
+        <AddPost :currPage="$route.name" />
+      </v-content>
+    </v-main>
   </v-app>
 </template>
 

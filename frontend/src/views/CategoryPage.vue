@@ -1,13 +1,15 @@
 <template>
-    <ItemsDisplay/>
+  <v-content>
+    <ItemsDisplay />
+  </v-content>
 </template>
 
 <script>
-import ItemsDisplay from '@/components/ItemsDisplay.vue'
+import ItemsDisplay from "@/components/ItemsDisplay.vue";
 export default {
-    name: 'CategoryPage',
-    components:{
-        ItemsDisplay
-    }
-}
+  name: "CategoryPage",
+  components: {
+    ItemsDisplay
+  }
+};
 </script>

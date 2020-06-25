@@ -1,10 +1,12 @@
 <template>
-  <v-content>
-    <FloatingButton :openSheet="openSheet" :currPage="currPage" />
-    <v-bottom-sheet v-model="sheet" inset>
-      <StepperSheet :closeSheet="closeSheet" :sheetType="sheetType" :stepNum="stepNum" />
-    </v-bottom-sheet>
-  </v-content>
+  <div class="add-post">
+    <v-content>
+      <FloatingButton :openSheet="openSheet" :currPage="currPage" />
+      <v-bottom-sheet v-model="sheet" inset>
+        <StepperSheet :closeSheet="closeSheet" :sheetType="sheetType" :stepNum="stepNum" />
+      </v-bottom-sheet>
+    </v-content>
+  </div>
 </template>
 
 <script>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="navbar">
     <div v-for="page in menu" :key="page.title">
       <div v-if="page.title === current">
         <v-app-bar app :color="page.color">
