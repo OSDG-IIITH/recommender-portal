@@ -22,7 +22,14 @@
             <v-tabs class="hidden-sm-and-down" v-model="tabs" fixed-tabs>
               <v-tabs-slider></v-tabs-slider>
               <v-tab class="primary--text" v-for="item in menu" :key="item.title" :to="item.path">
-                <v-icon>{{ item.icon }}</v-icon>
+                <v-tooltip bottom>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn flat icon v-bind="attrs" v-on="on">
+                      <v-icon>{{ item.icon }}</v-icon>
+                    </v-btn>
+                  </template>
+                  <span>{{ item.title }}</span>
+                </v-tooltip>
               </v-tab>
             </v-tabs>
           </template>
@@ -55,10 +62,10 @@
           :mini-variant.sync="mini"
         >
           <v-list-item>
-            <v-list-item-title>Reco@IIIT-H</v-list-item-title>
             <v-btn icon @click.stop="mini = !mini">
-              <v-icon>mdi-chevron-left</v-icon>
+              <v-icon>{mini? mdi-chevron-right : mdi-chevron-left }</v-icon>
             </v-btn>
+            <v-list-item-title>Reco@IIIT-H</v-list-item-title>
           </v-list-item>
           <v-list nav dense>
             <v-list-item-group>
