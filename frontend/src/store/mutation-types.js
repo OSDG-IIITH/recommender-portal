@@ -1,3 +1,6 @@
+// root level
+export const INIT_CATEGORIES = "INIT_CATEGORIES";
+
 // items
 export const ADD_ITEM = "ADD_ITEM";
 export const DEL_ITEM = "DEL_ITEM";
