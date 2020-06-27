@@ -6,12 +6,10 @@
       <small>Common details</small>
     </v-stepper-step>
     <v-stepper-content step="1">
-      <!-- TODO add common fields form     -->
-      <v-textarea>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio
-        omnis dolorum, enim eum vitae rem iusto adipisci cumque perspiciatis
-        illo unde facere aperiam aliquam est voluptates doloribus nobis tempora totam.
-      </v-textarea>
+      <!-- Common fields form -->
+
+      <FormCommon/>
+      
       <v-btn color="secondary" @click="stepNum = 2">Continue</v-btn>
       <v-btn text @click="closeSheet">Cancel</v-btn>
     </v-stepper-content>
@@ -21,12 +19,10 @@
       <small>Extra details</small>
     </v-stepper-step>
     <v-stepper-content step="2">
-      <!-- TODO add actual schema depending on $route.name -->
-      <v-textarea>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio
-        omnis dolorum, enim eum vitae rem iusto adipisci cumque perspiciatis
-        illo unde facere aperiam aliquam est voluptates doloribus nobis tempora totam.
-      </v-textarea>
+      <!-- Actual schema depending on $route.name -->
+      
+      <FormSpecific :sheetType="sheetType"/>
+
       <v-btn color="secondary" @click="closeSheet">Submit</v-btn>
       <v-btn text @click="closeSheet">Cancel</v-btn>
     </v-stepper-content>
@@ -34,8 +30,15 @@
 </template>
 
 <script>
+import FormCommon from "@/components/FormCommon";
+import FormSpecific from "@/components/FormSpecific";
+
 export default {
   name: "StepperSheetTemp",
+  components:{
+    FormCommon,
+    FormSpecific
+  },
   props: {
     stepNum: Number,
     closeSheet: Function,
