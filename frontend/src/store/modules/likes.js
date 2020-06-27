@@ -25,8 +25,9 @@ const mutations = {
     ADD_LIKE: (state, like) => {
         // TODO: Add like to state
     },
-    DEL_LIKE: (state, like) => {
-        // TODO: Del like from state
+    DEL_LIKE: (state, payload) => {
+        index = state.findIndex(likes => likes["_id"] == payload.item_id)
+        state.splice(index, 1)
     }
 };
 
