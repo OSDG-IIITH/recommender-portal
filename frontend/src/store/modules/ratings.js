@@ -21,8 +21,11 @@ const mutations = {
         }
         state.push(...rating_list);
     },
-    ADD_RATING: (state, rating) => {
-        // TODO: add rating to state
+    ADD_RATING: (state, payload) => {
+        state.push({
+            _id: payload.item_id,
+            rating: payload.rating
+        });
     },
     DEL_RATING: (state, rating) => {
         // TODO: delete rating to state
