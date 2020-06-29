@@ -24,8 +24,9 @@ const mutations = {
     ADD_RATING: (state, rating) => {
         // TODO: add rating to state
     },
-    DEL_RATING: (state, rating) => {
-        // TODO: delete rating to state
+    DEL_RATING: (state, payload) => {
+        index = state.findIndex(rating_list => rating_list["_id"] == payload.item_id)
+        state.splice(index, 1)
     }
 };
 
