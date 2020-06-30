@@ -1,6 +1,6 @@
 <template>
 <div>
-    <div v-if="sheetType === 'Movies'">
+    <div v-if="sheetType === 'movies'">
         <v-form
             ref="form"
             v-model="valid"
@@ -26,7 +26,7 @@
 
         </v-form>
     </div>
-    <div v-else-if="sheetType === 'Anime'">
+    <div v-else-if="sheetType === 'anime'">
         <v-form
             ref="form"
             v-model="valid"
@@ -58,7 +58,7 @@
 
         </v-form>
     </div>
-    <div v-else-if="sheetType === 'Shows'">
+    <div v-else-if="sheetType === 'shows'">
         <v-form
             ref="form"
             v-model="valid"
@@ -90,7 +90,7 @@
 
         </v-form>
     </div>
-    <div v-else-if="sheetType === 'Music'">
+    <div v-else-if="sheetType === 'music'">
         <v-form
             ref="form"
             v-model="valid"
@@ -117,7 +117,7 @@
 
         </v-form>
     </div>
-    <div v-else-if="sheetType === 'Books'">
+    <div v-else-if="sheetType === 'books'">
         <v-form
             ref="form"
             v-model="valid"

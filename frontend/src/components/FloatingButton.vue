@@ -9,7 +9,7 @@
       transition="slide-y-reverse-transition"
     >
       <template v-slot:activator>
-        <div v-if="currPage === 'Home' || currPage==='Search'">
+        <div v-if="currPage === 'home' || currPage === 'search'">
           <v-btn v-model="fab" color="!$vuetify.theme.primary" dark="$vuetify.theme.dark" fab>
             <v-icon v-if="fab">mdi-close</v-icon>
             <v-icon v-else>mdi-plus</v-icon>
@@ -32,7 +32,7 @@
                   <template #activator="{ on }">
                     <v-icon v-on="on">{{ item.icon }}</v-icon>
                   </template>
-                  <span>Add {{ item.title }}</span>
+                  <span>Add {{ item.name }}</span>
                 </v-tooltip>
               </v-btn>
           </div>
@@ -55,7 +55,7 @@
               <v-icon>{{ item.icon }}</v-icon>
             </v-btn>
           </template>
-          <span>Add {{ item.title }}</span>
+          <span>Add {{ item.name }}</span>
         </v-tooltip>
       </div>
     </v-speed-dial>
@@ -72,22 +72,25 @@ export default {
   data: () => ({
     fab: false,
     categories: [
-      { title: "Books", path: "/books", icon: "mdi-book", color: "#2D4654" },
+      { title: "books", name: "Books", path: "/books", icon: "mdi-book", color: "#2D4654" },
       {
-        title: "Movies",
+        title: "movies",
+        name: "Movies",
         path: "/movies",
         icon: "mdi-movie",
         color: "#05668d"
       },
       {
-        title: "Music",
+        title: "music",
+        name: "Music",
         path: "/music",
         icon: "mdi-music-note",
         color: "#D00000"
       },
-      { title: "Anime", path: "/anime", icon: "mdi-fire", color: "#F48C06" },
+      { title: "anime", name: "Anime", path: "/anime", icon: "mdi-fire", color: "#F48C06" },
       {
-        title: "Shows",
+        title: "shows",
+        name: "Shows",
         path: "/shows",
         icon: "mdi-television-classic",
         color: "#FFBA08"
