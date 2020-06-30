@@ -22,8 +22,10 @@ const mutations = {
         }
         state.push(...likes_list);
     },
-    ADD_LIKE: (state, like) => {
-        // TODO: Add like to state
+    ADD_LIKE: (state, payload) => {
+        state.push({
+            _id: payload.item_id, 
+            value: payload.value})
     },
     DEL_LIKE: (state, payload) => {
         index = state.findIndex(likes => likes["_id"] == payload.item_id)
