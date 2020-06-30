@@ -20,11 +20,14 @@ const state = () => ({
 });
 
 const getters = {
-    getItemsByCategory: state => category => {
-        if (!category) return Object.values(state.data)
-        return Object.values(state.data).filter(item => item.category === category)
+    getKeysByCategory: state => category => {
+        if (!category) return Object.keys(state.data);
+
+        return Object.keys(state.data).filter(
+            key => state.data[key].category === category
+        );
     },
-    getItemsById: state => id => state.data[id]
+    getItemById: state => id => state.data[id]
 };
 
 const actions = {

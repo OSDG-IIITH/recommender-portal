@@ -20,14 +20,14 @@
                 <p>
                     <!-- TODO: Add click to add rating  -->
                     <v-rating
-                        v-model="rating"
+                        v-model="post.rating"
                         color="yellow accent-4"
                         dense
                         half-increments
                         hover
                     ></v-rating>
                     <span class="text--lighten-2 display-0"
-                        >({{ rating }})</span
+                        >({{ post.rating }})</span
                     >
                 </p>
             </v-card-text>
@@ -107,6 +107,8 @@
 
 <script>
 // import CommentTimeline from "@/components/CommentTimeline";
+import { mapState } from "vuex";
+
 export default {
     name: "Post",
 
@@ -115,16 +117,14 @@ export default {
     },
 
     props: {
-        post: Object
+        post_id: Number
     },
-
-    data: () => ({
-        description: "lorem ipsum",
-        hover: false,
-        name: "Example title",
-        rating: 4.3,
-        show: false,
-        menu: false
-    })
+    computed: {
+        ...mapState({
+            post(state) {
+                return state.items.data[`${this.post_id}`];
+            }
+        })
+    }
 };
 </script>
