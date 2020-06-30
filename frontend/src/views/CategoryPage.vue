@@ -1,7 +1,5 @@
 <template>
-  <v-content>
-    <ItemsDisplay />
-  </v-content>
+  <ItemsDisplay />
 </template>
 
 <script>

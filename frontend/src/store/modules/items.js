@@ -21,7 +21,8 @@ const state = () => ({
 
 const getters = {
     getItemsByCategory: state => category => {
-        // TODO: filter state items for category
+        if (!category) return Object.values(state.data)
+        return Object.values(state.data).filter(item => item.category === category)
     },
     getItemsById: state => id => state.data[id]
 };

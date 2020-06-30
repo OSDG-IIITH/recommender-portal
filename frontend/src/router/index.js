@@ -6,37 +6,37 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'Home',
+    name: 'home',
     component: () => import('@/views/Home.vue')
   },
   {
     path: '/books',
-    name: 'Books',
+    name: 'books',
     component: () => import('@/views/CategoryPage.vue')
   },
   {
     path: '/movies',
-    name: 'Movies',
+    name: 'movies',
     component: () => import('@/views/CategoryPage.vue')
   },
   {
     path: '/music',
-    name: 'Music',
+    name: 'music',
     component: () => import('@/views/CategoryPage.vue')
   },
   {
     path: '/anime',
-    name: 'Anime',
+    name: 'anime',
     component: () => import('@/views/CategoryPage.vue')
   },
   {
     path: '/shows',
-    name: 'Shows',
+    name: 'shows',
     component: () => import('@/views/CategoryPage.vue')
   },
   {
     path: '/search',
-    name: 'Search',
+    name: 'search',
     component: () => import('@/views/SearchPage.vue')
   }
 ]

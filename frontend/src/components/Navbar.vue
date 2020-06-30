@@ -28,7 +28,7 @@
                       <v-icon>{{ item.icon }}</v-icon>
                     </v-btn>
                   </template>
-                  <span>{{ item.title }}</span>
+                  <span>{{ item.name }}</span>
                 </v-tooltip>
               </v-tab>
             </v-tabs>
@@ -73,7 +73,7 @@
                 <v-list-item-icon>
                   <v-icon>{{ item.icon }}</v-icon>
                 </v-list-item-icon>
-                <v-list-item-title>{{ item.title }}</v-list-item-title>
+                <v-list-item-title>{{ item.name }}</v-list-item-title>
               </v-list-item>
             </v-list-item-group>
           </v-list>
@@ -100,23 +100,26 @@ export default {
       drawer: false,
       mini: true,
       menu: [
-        { title: "Home", path: "/", icon: "mdi-home", color: "#4e4d5c" },
-        { title: "Books", path: "/books", icon: "mdi-book", color: "#2D4654" },
+        { title: "home", name: "Home", path: "/", icon: "mdi-home", color: "#4e4d5c" },
+        { title: "books", name: "Books", path: "/books", icon: "mdi-book", color: "#2D4654" },
         {
-          title: "Movies",
+          title: "movies",
+          name: "Movies",
           path: "/movies",
           icon: "mdi-movie",
           color: "#05668d"
         },
         {
-          title: "Music",
+          title: "music",
+          name: "Music",
           path: "/music",
           icon: "mdi-music-note",
           color: "#D00000"
         },
-        { title: "Anime", path: "/anime", icon: "mdi-fire", color: "#F48C06" },
+        { title: "anime", name: "Anime", path: "/anime", icon: "mdi-fire", color: "#F48C06" },
         {
-          title: "Shows",
+          title: "shows",
+          name: "Shows",
           path: "/shows",
           icon: "mdi-television-classic",
           color: "#FFBA08"
