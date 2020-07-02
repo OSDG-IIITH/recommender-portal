@@ -68,6 +68,7 @@ const mutations = {
     },
     DEL_ITEM: (state, { itemId }) => {
         // TODO: DEL item mutation
+        delete state.data[itemId]
     },
     SET_LIKES: (state, { likes }) => {
         likes
