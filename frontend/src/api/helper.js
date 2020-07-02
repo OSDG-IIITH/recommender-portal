@@ -17,7 +17,6 @@ export default {
         return axios.get(url, getConfig(payload));
     },
     post(url, payload) {
-        console.log(url, payload);
         return axios.post(url, payload.body, getConfig(payload));
     },
     put(url, payload) {

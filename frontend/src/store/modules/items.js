@@ -63,7 +63,11 @@ const mutations = {
     ADD_ITEM: (state, { item: { data } }) => {
         state.data = {
             ...state.data,
-            [data._id]: data
+            [data._id]: {
+                ...data,
+                rating: 0,
+                like: 0
+            }
         };
     },
     DEL_ITEM: (state, { itemId }) => {
