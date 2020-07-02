@@ -1,10 +1,24 @@
+import itemsApi from "../../api/items";
+
 const state = () => [];
 
 const getters = {};
 
 const actions = {
     async upsertRating({ commit }, payload) {
-        // TODO upsetRating to DB using itemsApi.rateItem function and commit ADD_RATING and DEL_RATING
+        const { _id: item_id, rating, category_id } = payload;
+
+        // Call the API first
+        await itemsApi
+            .rateItem(category_id, item_id, rating)
+            .then(rating_res => {
+                // Del the prev rating
+                commit("DEL_RATING", { item_id });
+
+                // add new rating
+                commit("ADD_RATING", { item_id, rating });
+            })
+            .catch(err => console.error(err));
     }
 };
 
@@ -28,8 +42,10 @@ const mutations = {
         });
     },
     DEL_RATING: (state, payload) => {
-        index = state.findIndex(rating_list => rating_list["_id"] == payload.item_id)
-        state.splice(index, 1)
+        const index = state.findIndex(
+            rating_list => rating_list["_id"] === payload.item_id
+        );
+        if (index !== -1) state.splice(index, 1);
     }
 };
 
