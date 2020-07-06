@@ -60,24 +60,18 @@
       <v-card-actions class="pa-0">
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
-            <!-- TODO Add click listener on below items to like/unlike item -->
-
-            <!-- Like -->
-            <v-btn color="red" icon v-bind="attrs" v-on="on">
+            <v-btn color="red" icon v-bind="attrs" v-on="on" @click="like({ _id: post._id, value: 1, category_id: post.category })">
               <v-icon>mdi-thumb-up</v-icon>
             </v-btn>
-            <!-- /Like -->
           </template>
           <span>Like</span>
         </v-tooltip>
 
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
-            <!-- Unlike -->
-            <v-btn color="red" icon v-bind="attrs" v-on="on">
+            <v-btn color="red" icon v-bind="attrs" v-on="on" @click="like({ _id: post._id, value: -1, category_id: post.category })">
               <v-icon>mdi-thumb-down</v-icon>
             </v-btn>
-            <!-- /Unlike -->
           </template>
           <span>Dislike</span>
         </v-tooltip>
@@ -129,6 +123,7 @@
 // import CommentTimeline from "@/components/CommentTimeline";
 import PostDetails from "@/components/PostDetails";
 import { mapState } from "vuex";
+import { mapActions } from "vuex";
 
 export default {
   name: "Post",
@@ -146,6 +141,11 @@ export default {
       post(state) {
         return state.items.data[`${this.post_id}`];
       }
+    })
+  },
+  methods: {
+    ...mapActions({
+      like: 'likes/upsertLike'
     })
   }
 };
