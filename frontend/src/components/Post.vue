@@ -52,8 +52,7 @@
       <v-card-text>
         {{ description }}
         <p>
-          <!-- TODO: Add click to add rating  -->
-          <v-rating v-model="post.rating" color="yellow accent-4" dense half-increments hover></v-rating>
+          <v-rating v-model="post.rating" color="yellow accent-4" dense half-increments hover @click="rating({ _id: post._id, rating: post.rating, category_id: post.category })"></v-rating>
           <span class="text--lighten-2 display-0">({{ post.rating }})</span>
         </p>
       </v-card-text>
@@ -129,6 +128,7 @@
 // import CommentTimeline from "@/components/CommentTimeline";
 import PostDetails from "@/components/PostDetails";
 import { mapState } from "vuex";
+import { mapActions } from "vuex";
 
 export default {
   name: "Post",
@@ -146,6 +146,11 @@ export default {
       post(state) {
         return state.items.data[`${this.post_id}`];
       }
+    })
+  },
+  methods: {
+    ...mapActions({
+      rating: 'ratings/upsertRating'
     })
   }
 };
