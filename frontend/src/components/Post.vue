@@ -52,8 +52,7 @@
       <v-card-text>
         {{ description }}
         <p>
-          <!-- TODO: Add click to add rating  -->
-          <v-rating v-model="post.rating" color="yellow accent-4" dense half-increments hover></v-rating>
+          <v-rating v-model="post.rating" color="yellow accent-4" dense half-increments hover @click="rating({ _id: post._id, rating: post.rating, category_id: post.category })"></v-rating>
           <span class="text--lighten-2 display-0">({{ post.rating }})</span>
         </p>
       </v-card-text>
@@ -145,7 +144,8 @@ export default {
   },
   methods: {
     ...mapActions({
-      like: 'likes/upsertLike'
+      like: 'likes/upsertLike',
+      rating: 'ratings/upsertRating'
     })
   }
 };
