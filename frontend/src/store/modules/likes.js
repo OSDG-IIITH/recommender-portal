@@ -1,3 +1,5 @@
+import itemsApi from "../../api/items";
+
 const state = () => [];
 
 const getters = {};
