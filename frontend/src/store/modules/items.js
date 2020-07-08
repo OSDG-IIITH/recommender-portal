@@ -32,10 +32,14 @@ const getters = {
 
 const actions = {
     async addItem({ commit }, item) {
+        const category = item.category;
+        delete item.category;
         await itemsApi
-            .addItem(item.category, item)
+            .addItem(category, item)
             .then(item_res => {
-                commit("ADD_ITEM", { item: item_res });
+                commit("ADD_ITEM", {
+                    item: { data: { ...item_res.data, category } }
+                });
             })
             .catch(err => console.error(err));
     },
