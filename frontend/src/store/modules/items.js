@@ -39,8 +39,20 @@ const actions = {
             })
             .catch(err => console.error(err));
     },
-    async updateItem({ commit }, item) {
-        // TODO: implement update item
+    async updateItem({ commit, rootState }, item) {
+        const category = item.category;
+        delete item.category;
+        // Call the api first
+        await itemsApi.updateItem(category, item._id, item).then(item_res => {
+            // Delete first
+            commit("DEL_ITEM", { itemId: item._id });
+            // then add
+            commit("ADD_ITEM", {
+                item: { data: { ...item_res.data, category } }
+            });
+        });
+        commit("SET_LIKES", { likes: rootState.likes });
+        commit("SET_RATINGS", { ratings: rootState.ratings });
     },
     async fetchItems({ commit, rootState }, categoryId) {
         await itemsApi
@@ -71,8 +83,7 @@ const mutations = {
         };
     },
     DEL_ITEM: (state, { itemId }) => {
-        // TODO: DEL item mutation
-        delete state.data[itemId]
+        delete state.data[itemId];
     },
     SET_LIKES: (state, { likes }) => {
         likes
