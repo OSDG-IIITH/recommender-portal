@@ -1,9 +1,7 @@
 <template>
     <v-stepper v-model="stepNum" vertical dark>
         <v-overlay :absolute="true" :value="overlay">
-            <v-btn color="success" @click="overlay = false">
-                Hide Overlay
-            </v-btn>
+            <v-progress-circular indeterminate size="64"></v-progress-circular>
         </v-overlay>
         <h3 class="pa-2 ma-1 text-center text-sm-left text-overline">
             Add {{ sheetType }}
