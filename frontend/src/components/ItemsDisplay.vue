@@ -12,14 +12,14 @@
                     v-for="post_key in post_keys"
                     :key="post_key"
                 >
-                    <Post :post_id="post_key" />
+                    <Item :post_id="post_key" />
                 </v-col>
             </v-row>
     </v-container>
 </template>
 
 <script>
-import Post from '@/components/Post'
+import Item from '@/components/Item'
 
 var msnry = new Masonry('.masonry', {
   // options
@@ -29,7 +29,7 @@ var msnry = new Masonry('.masonry', {
 export default {
   name: 'ItemsDisplay',
   components: {
-    Post
+    Item
   },
   mounted: async function () {
     await this.$store.dispatch('items/fetchItems', this.$route.name)

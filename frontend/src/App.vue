@@ -4,7 +4,7 @@
         <v-main>
             <v-content>
                 <router-view />
-                <AddPost :currPage="$route.name" />
+                <AddItem :currPage="$route.name" />
             </v-content>
         </v-main>
     </v-app>
@@ -12,7 +12,7 @@
 
 <script>
 import Navbar from '@/components/Navbar'
-import AddPost from '@/components/AddPost'
+import AddItem from '@/components/AddItem'
 export default {
   name: 'App',
   props: {
@@ -20,7 +20,7 @@ export default {
   },
   components: {
     Navbar,
-    AddPost
+    AddItem
   },
   data: () => ({
     drawer: null,

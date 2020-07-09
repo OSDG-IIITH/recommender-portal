@@ -12,7 +12,7 @@
         </v-stepper-step>
         <v-stepper-content step="1">
             <!-- Common fields form -->
-            <FormCommon v-on:continue="submit1" v-on:cancel="closeSheet" />
+            <ItemCommonForm v-on:continue="submit1" v-on:cancel="closeSheet" />
         </v-stepper-content>
 
         <v-stepper-step step="2">
@@ -22,7 +22,7 @@
         <v-stepper-content step="2">
             <!-- Actual schema depending on $route.name -->
 
-            <FormSpecific
+            <ItemSpecificForm
                 :sheetType="sheetType"
                 v-on:continue="submit2"
                 v-on:cancel="closeSheet"
@@ -32,14 +32,14 @@
 </template>
 
 <script>
-import FormCommon from '@/components/FormCommon'
-import FormSpecific from '@/components/FormSpecific'
+import ItemCommonForm from '@/components/ItemCommonForm'
+import ItemSpecificForm from '@/components/ItemSpecificForm'
 
 export default {
-  name: 'StepperSheetTemp',
+  name: 'AddPostSheetTemp',
   components: {
-    FormCommon,
-    FormSpecific
+    ItemCommonForm,
+    ItemSpecificForm
   },
   props: {
     stepNum: Number,

@@ -64,7 +64,7 @@
 
 <script>
 export default {
-  name: 'FloatingButton',
+  name: 'AddItemButton',
   props: {
     openSheet: Function,
     currPage: String

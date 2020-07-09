@@ -43,7 +43,7 @@
 
 <script>
 export default {
-  name: 'FormCommon',
+  name: 'ItemCommonForm',
   data: () => ({
     valid: false,
     nameRules: [v => !!v || 'Required'],

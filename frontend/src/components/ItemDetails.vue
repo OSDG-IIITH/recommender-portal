@@ -135,7 +135,7 @@
 
 <script>
 export default {
-  name: 'PostDetails',
+  name: 'ItemDetails',
   props: ['post']
 }
 </script>

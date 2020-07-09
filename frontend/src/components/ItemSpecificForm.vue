@@ -145,14 +145,14 @@
 
 <script>
 export default {
-    name: "FormSpecific",
-    props: {
-        sheetType: String
-    },
-    data: () => ({
-        valid: true,
-        form: {},
-        required: [v => !!v || "Required"]
-    })
-};
+  name: 'ItemSpecificForm',
+  props: {
+    sheetType: String
+  },
+  data: () => ({
+    valid: true,
+    form: {},
+    required: [v => !!v || 'Required']
+  })
+}
 </script>

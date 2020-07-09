@@ -91,7 +91,7 @@
         </v-card-actions>
         <v-expand-transition>
           <div v-show="show">
-            <PostDetails :post="post" />
+            <ItemDetails :post="post" />
           </div>
         </v-expand-transition>
       </v-card>
@@ -100,14 +100,14 @@
 
 <script>
 // import CommentTimeline from "@/components/CommentTimeline";
-import PostDetails from '@/components/PostDetails'
+import ItemDetails from '@/components/ItemDetails'
 import { mapState, mapActions } from 'vuex'
 
 export default {
-  name: 'Post',
+  name: 'Item',
 
   components: {
-    PostDetails
+    ItemDetails
   },
 
   data: function () {

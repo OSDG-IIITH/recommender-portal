@@ -1,9 +1,9 @@
 <template>
     <div class="add-post">
         <v-content>
-            <FloatingButton :openSheet="openSheet" :currPage="currPage" />
+            <AddItemButton :openSheet="openSheet" :currPage="currPage" />
             <v-bottom-sheet v-model="sheet" inset>
-                <StepperSheet
+                <AddItemSheet
                     :closeSheet="closeSheet"
                     :sheetType="sheetType"
                     :stepNum="stepNum"
@@ -14,17 +14,17 @@
 </template>
 
 <script>
-import FloatingButton from './FloatingButton'
-import StepperSheet from './StepperSheet'
+import AddItemButton from './AddItemButton'
+import AddItemSheet from './AddItemSheet'
 
 export default {
-  name: 'AddPost',
+  name: 'AddItem',
   props: {
     currPage: String
   },
   components: {
-    FloatingButton,
-    StepperSheet
+    AddItemButton,
+    AddItemSheet
   },
   data: () => ({
     drawer: null,
