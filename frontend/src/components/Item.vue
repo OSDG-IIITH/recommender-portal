@@ -30,8 +30,8 @@
             </div>
           </p>
           <p>
-            <v-rating v-model="post.rating" color="yellow accent-4" dense half-increments hover @click="rating({ _id: post._id, rating: post.rating, category_id: post.category })"></v-rating>
-            <span class="text--lighten-2 display-0">({{ post.rating }})</span>
+            <v-rating v-model="rating" color="yellow accent-4" dense half-increments hover @click="rating({  })"></v-rating>
+            <span class="text--lighten-2 display-0">({{ rating }})</span>
           </p>
         </v-card-text>
         <v-card-actions class="pa-0">
@@ -124,12 +124,26 @@ export default {
       post (state) {
         return state.items.data[`${this.post_id}`]
       }
-    })
+    }),
+    rating: {
+        get() {
+            return this.post.rating
+        },
+        set(newValue) {
+            this.setRating(
+                {
+                    _id: this.post._id, 
+                    rating: newValue,
+                    category_id: this.post.category
+                }
+            )
+        }
+    }
   },
   methods: {
     ...mapActions({
       like: 'likes/upsertLike',
-      rating: 'ratings/upsertRating'
+      setRating: 'ratings/upsertRating'
     })
   }
 }

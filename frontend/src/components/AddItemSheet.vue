@@ -1,9 +1,8 @@
 <template>
     <v-stepper v-model="stepNum" vertical dark>
-        <v-overlay :absolute="true" :value="overlay">
-            <v-progress-circular indeterminate size="64"></v-progress-circular>
-        </v-overlay>
-        <h3 class="pa-2 ma-1 text-center text-sm-left text-overline white--text">
+        <h3
+            class="pa-2 ma-1 text-center text-sm-left text-overline white--text"
+        >
             Add {{ sheetType }}
         </h3>
         <v-stepper-step :complete="stepNum > 1" step="1">
@@ -32,68 +31,68 @@
 </template>
 
 <script>
-import ItemCommonForm from '@/components/ItemCommonForm'
-import ItemSpecificForm from '@/components/ItemSpecificForm'
+import ItemCommonForm from "@/components/ItemCommonForm";
+import ItemSpecificForm from "@/components/ItemSpecificForm";
 
 export default {
-  name: 'AddPostSheetTemp',
-  components: {
-    ItemCommonForm,
-    ItemSpecificForm
-  },
-  props: {
-    stepNum: Number,
-    closeSheet: Function,
-    sheetType: String
-  },
-  data () {
-    return {
-      overlay: false,
-      formData: {}
-    }
-  },
-  methods: {
-    submit1: function (data) {
-      // get back data
-      this.formData = JSON.parse(data)
-
-      // convert flags to array
-      if (this.formData.flags) {
-        this.formData.flags = this.formData.flags
-          .split(',')
-          .map(a => a.trim())
-      }
-
-      // convert genres to array
-      if (this.formData.genres) {
-        this.formData.genres = this.formData.genres
-          .split(',')
-          .map(a => a.trim())
-      }
-
-      this.stepNum = 2
+    name: "AddPostSheetTemp",
+    components: {
+        ItemCommonForm,
+        ItemSpecificForm
     },
+    props: {
+        stepNum: Number,
+        closeSheet: Function,
+        sheetType: String
+    },
+    data() {
+        return {
+            overlay: false,
+            formData: {}
+        };
+    },
+    methods: {
+        submit1: function(data) {
+            // get back data
+            this.formData = JSON.parse(data);
 
-    submit2: async function (data) {
-      this.formData = {
-        ...this.formData,
-        ...JSON.parse(data)
-      }
-      console.log(this.formData)
+            // convert flags to array
+            if (this.formData.flags) {
+                this.formData.flags = this.formData.flags
+                    .split(",")
+                    .map(a => a.trim());
+            }
 
-      // start loading
-      this.overlay = true
+            // convert genres to array
+            if (this.formData.genres) {
+                this.formData.genres = this.formData.genres
+                    .split(",")
+                    .map(a => a.trim());
+            }
 
-      // call the action
-      await this.$store.dispatch('items/addItem', {
-        // so as to remove __ob__
-        ...JSON.parse(JSON.stringify(this.formData)),
-        category: this.sheetType
-      })
+            this.stepNum = 2;
+        },
 
-      // stop loading
-      this.overlay = false
+        submit2: async function(data) {
+            this.formData = {
+                ...this.formData,
+                ...JSON.parse(data)
+            };
+            console.log(this.formData);
+
+            // start loading
+            this.overlay = true;
+
+            // call the action
+            await this.$store.dispatch("items/addItem", {
+                // so as to remove __ob__
+                ...JSON.parse(JSON.stringify(this.formData)),
+                category: this.sheetType
+            });
+
+            // stop loading
+            this.overlay = false;
+        }
     }
-  }
-}
+};
 </script>
