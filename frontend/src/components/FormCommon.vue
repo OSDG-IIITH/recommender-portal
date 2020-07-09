@@ -1,6 +1,5 @@
 <template>
     <v-form v-model="valid">
-        <v-checkbox v-model="form.hidden" label="Hidden"></v-checkbox>
 
         <v-text-field
             v-model="form.title"
@@ -44,11 +43,11 @@
 
 <script>
 export default {
-    name: "FormCommon",
-    data: () => ({
-        valid: true,
-        nameRules: [v => !!v || "Required"],
-        form: {}
-    })
-};
+  name: 'FormCommon',
+  data: () => ({
+    valid: false,
+    nameRules: [v => !!v || 'Required'],
+    form: {}
+  })
+}
 </script>
