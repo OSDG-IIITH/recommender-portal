@@ -1,108 +1,86 @@
 <template>
-  <div>
-  <v-app-bar app>
-    <span class="hidden-md-and-up">
-      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-    </span>
+  <div class="navbar">
+    <div v-for="page in menu" :key="page.title">
+      <div v-if="page.title === current">
+        <v-app-bar app :color="page.color">
+          <span class="hidden-md-and-up">
+            <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+          </span>
+          <span class="hidden-sm-and-down">
+            <v-toolbar-title>
+              <router-link to="/" tag="span" color="primary">
+                <b>{{ appTitle }}</b>
+              </router-link>
+            </v-toolbar-title>
+          </span>
 
-    <v-toolbar-title>
-      <router-link to="/" tag="span" style="cursor: pointer">
-        {{ appTitle }}
-      </router-link>
-    </v-toolbar-title>
+          <v-spacer></v-spacer>
+          <SearchBox />
+          <v-spacer></v-spacer>
 
-    <v-spacer></v-spacer>
-    <SearchBox/>
-    <v-spacer></v-spacer>
-    <template v-slot:extension class="hidden-md-and-down">
-        <v-tabs
-          v-model="tabs"
-          fixed-tabs
+          <template v-slot:extension>
+            <v-tabs class="hidden-sm-and-down" v-model="tabs" fixed-tabs>
+              <v-tabs-slider></v-tabs-slider>
+              <v-tab class="primary--text" v-for="item in menu" :key="item.title" :to="item.path">
+                <v-tooltip bottom>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn text icon v-bind="attrs" v-on="on">
+                      <v-icon>{{ item.icon }}</v-icon>
+                    </v-btn>
+                  </template>
+                  <span>{{ item.name }}</span>
+                </v-tooltip>
+              </v-tab>
+            </v-tabs>
+          </template>
+
+          <v-toolbar-items>
+            <v-menu offset-y open-on-hover transition="slide-x-reverse-transition">
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn dark icon v-bind="attrs" v-on="on" class="mr-2">
+                  <v-icon>mdi-account-circle</v-icon>
+                </v-btn>
+              </template>
+
+              <v-list nav>
+                <v-list-item v-for="(item, index) in profileitems" :key="index" :to="item.path">
+                  <v-list-item-title>{{ item.title }}</v-list-item-title>
+                </v-list-item>
+              </v-list>
+            </v-menu>
+            <v-btn>
+              <v-switch v-model="$vuetify.theme.dark" hide-details inset></v-switch>
+              <v-icon>mdi-brightness-4</v-icon>
+            </v-btn>
+          </v-toolbar-items>
+        </v-app-bar>
+        <v-navigation-drawer
+          v-model="drawer"
+          absolute
+          temporary
+          :color="page.color"
+          :mini-variant.sync="mini"
+          app
         >
-          <v-tabs-slider></v-tabs-slider>
-          <v-tab class="primary--text">
-            <v-icon>mdi-home</v-icon>
-          </v-tab>
-<v-tab class="primary--text">
-            <v-icon>mdi-book</v-icon>
-          </v-tab>
-<v-tab class="primary--text">
-            <v-icon>mdi-movie</v-icon>
-          </v-tab>
-<v-tab class="primary--text">
-            <v-icon>mdi-music-note</v-icon>
-          </v-tab>
-<v-tab class="primary--text">
-            <v-icon>mdi-fire</v-icon>
-          </v-tab>
-<v-tab class="primary--text">
-            <v-icon>mdi-television-classic</v-icon>
-          </v-tab>
-        </v-tabs>
-      </template>
-
-    <v-toolbar-items>
-      <v-menu offset-y>
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn
-            class="hidden-sm-and-down"
-            color="primary"
-            dark
-            v-bind="attrs"
-            v-on="on"
-          >
-            <span class="hidden-sm-and-down">My Profile</span>
-            <v-icon class="hidden-md-and-up">mdi-account</v-icon>
-          </v-btn>
-        </template>
-      </v-menu>
-    </v-toolbar-items>
-  </v-app-bar>
-  <v-navigation-drawer
-    v-model="drawer"
-    absolute
-    temporary
-  >
-    <v-list
-      nav
-      dense
-    >
-      <v-list-item-group
-        v-model="group"
-        active-class="deep-purple--text text--accent-4"
-      >
-        <v-list-item v-for="item in menu" :key="item.title" :to="item.path">
-          <v-list-item-icon>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-icon>
-          <v-list-item-title>{{ item.title }}</v-list-item-title>
-        </v-list-item>
-      </v-list-item-group>
-    </v-list>
-    <v-menu offset-y>
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn
-          color="primary"
-          dark
-          v-bind="attrs"
-          v-on="on"
-          style="width:95%; margin-left:2.5%;"
-        >
-          My Profile
-        </v-btn>
-      </template>
-
-      <v-list nav>
-        <v-list-item
-          v-for="(item, index) in profileitems"
-          :key="index"
-          :to="item.path"
-        >
-          <v-list-item-title>{{ item.title }}</v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-menu>
-  </v-navigation-drawer>
+          <v-list-item>
+            <v-btn icon @click.stop="mini = !mini">
+              <v-icon>{mini? mdi-chevron-right : mdi-chevron-left }</v-icon>
+            </v-btn>
+            <v-list-item-title>Reco@IIIT-H</v-list-item-title>
+          </v-list-item>
+          <v-list nav dense>
+            <v-list-item-group>
+              <v-list-item v-for="item in menu" :key="item.title" :to="item.path">
+                <v-list-item-icon>
+                  <v-icon>{{ item.icon }}</v-icon>
+                </v-list-item-icon>
+                <v-list-item-title>{{ item.name }}</v-list-item-title>
+              </v-list-item>
+            </v-list-item-group>
+          </v-list>
+        </v-navigation-drawer>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -113,22 +91,45 @@ export default {
   components: {
     SearchBox
   },
+  props: {
+    current: String
+  },
   data () {
     return {
-      appTitle: 'Recommender @ IIIT-H',
+      tabs: null,
+      appTitle: 'Recommender@IIIT-H',
       drawer: false,
+      mini: true,
       menu: [
-        // { title: 'Home', path: '/', icon: 'mdi-home'},
-        { title: 'Books', path: '/books', icon: 'mdi-book'},
-        { title: 'Movies', path: '/movies', icon: 'mdi-movie'},
-        { title: 'Music', path: '/music', icon: 'mdi-music-note'},
-        { title: 'Anime', path: '/anime', icon: 'mdi-fire'},
-        { title: 'Shows', path: '/shows', icon: 'mdi-television-classic'}
+        { title: 'home', name: 'Home', path: '/', icon: 'mdi-home', color: '#4e4d5c' },
+        { title: 'books', name: 'Books', path: '/books', icon: 'mdi-book', color: '#2D4654' },
+        {
+          title: 'movies',
+          name: 'Movies',
+          path: '/movies',
+          icon: 'mdi-movie',
+          color: '#05668d'
+        },
+        {
+          title: 'music',
+          name: 'Music',
+          path: '/music',
+          icon: 'mdi-music-note',
+          color: '#D00000'
+        },
+        { title: 'anime', name: 'Anime', path: '/anime', icon: 'mdi-fire', color: '#F48C06' },
+        {
+          title: 'shows',
+          name: 'Shows',
+          path: '/shows',
+          icon: 'mdi-television-classic',
+          color: '#FFBA08'
+        }
       ],
       profileitems: [
         { index: 1, title: 'Profile', path: '#' },
-        { index: 2, title: 'Settings', path: '#'},
-        { index: 3, title: 'Logout', path: '#'}
+        { index: 2, title: 'Settings', path: '#' },
+        { index: 3, title: 'Logout', path: '#' }
       ]
     }
   }

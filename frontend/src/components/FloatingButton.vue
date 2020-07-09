@@ -1,93 +1,115 @@
 <template>
   <div id="float-button">
     <v-speed-dial
+      :open-on-hover="true"
       v-model="fab"
-      :top="top"
-      :bottom="bottom"
-      :right="right"
-      :left="left"
-      :direction="direction"
-      :open-on-hover="hover"
-      :transition="transition"
+      bottom
+      right
+      direction="top"
+      transition="slide-y-reverse-transition"
     >
       <template v-slot:activator>
-        <v-btn v-model="fab" color="blue darken-3" dark fab>
-          <v-icon v-if="fab">mdi-close</v-icon>
-          <v-icon v-else>mdi-plus</v-icon>
-        </v-btn>
+        <div v-if="currPage === 'home' || currPage === 'search'">
+          <v-btn v-model="fab" color="!$vuetify.theme.primary" :dark="$vuetify.theme.dark" fab>
+            <v-icon v-if="fab">mdi-close</v-icon>
+            <v-icon v-else>mdi-plus</v-icon>
+          </v-btn>
+        </div>
+
+        <div v-else>
+          <div v-for="item in categories" :key="item.title">
+              <v-btn
+                v-if="item.title === currPage"
+                v-model="fab"
+                fab
+                dark
+                v-bind="attrs"
+                v-on="on"
+                :color="item.color"
+                @click="openSheet(item.title)"
+              >
+                <v-tooltip left>
+                  <template #activator="{ on }">
+                    <v-icon v-on="on">{{ item.icon }}</v-icon>
+                  </template>
+                  <span>Add {{ item.name }}</span>
+                </v-tooltip>
+              </v-btn>
+          </div>
+        </div>
       </template>
 
-      <v-tooltip left>
-        <template v-slot:activator="{on,attrs}">
-          <v-btn fab dark small color="grey darken-2" @click="openSheet('Shows')">
-            <v-icon>mdi-film</v-icon>
-          </v-btn>
-        </template>
-        <span>Add Show</span>
-      </v-tooltip>
-
-      <v-btn fab dark small color="yellow darken-3" @click="openSheet('Anime')">
-        <v-icon>mdi-fire</v-icon>
-      </v-btn>
-
-      <v-btn fab dark small color="indigo" @click="openSheet('Music')">
-        <v-icon>mdi-music-note</v-icon>
-      </v-btn>
-
-      <v-btn fab dark small color="pink" @click="openSheet('Movies')">
-        <v-icon>mdi-movie</v-icon>
-      </v-btn>
-
-      <v-btn fab dark small color="green darken-2" @click="openSheet('Books')">
-        <v-icon>mdi-book</v-icon>
-      </v-btn>
+      <div v-for="item in categories" :key="item.title">
+        <v-tooltip left>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              v-if="item.title !== currPage"
+              fab
+              dark
+              v-bind="attrs"
+              v-on="on"
+              small
+              :color="item.color"
+              @click="openSheet(item.title)"
+            >
+              <v-icon>{{ item.icon }}</v-icon>
+            </v-btn>
+          </template>
+          <span>Add {{ item.name }}</span>
+        </v-tooltip>
+      </div>
     </v-speed-dial>
   </div>
 </template>
 
 <script>
 export default {
-  name: "FloatingButtonTemp",
+  name: 'FloatingButton',
   props: {
-    openSheet: Function
+    openSheet: Function,
+    currPage: String
   },
   data: () => ({
-    direction: "top",
     fab: false,
-    fling: false,
-    hover: true,
-    tabs: null,
-    top: false,
-    right: true,
-    bottom: true,
-    left: false,
-    transition: "slide-y-reverse-transition"
-  }),
-
-  computed: {
-    activeFab() {
-      switch (this.tabs) {
-        case "one":
-          return { class: "purple", icon: "account_circle" };
-        case "two":
-          return { class: "red", icon: "edit" };
-        case "three":
-          return { class: "green", icon: "keyboard_arrow_up" };
-        default:
-          return {};
+    attrs: null,
+    on: null,
+    categories: [
+      { title: 'books', name: 'Books', path: '/books', icon: 'mdi-book', color: '#2D4654' },
+      {
+        title: 'movies',
+        name: 'Movies',
+        path: '/movies',
+        icon: 'mdi-movie',
+        color: '#05668d'
+      },
+      {
+        title: 'music',
+        name: 'Music',
+        path: '/music',
+        icon: 'mdi-music-note',
+        color: '#D00000'
+      },
+      { title: 'anime', name: 'Anime', path: '/anime', icon: 'mdi-fire', color: '#F48C06' },
+      {
+        title: 'shows',
+        name: 'Shows',
+        path: '/shows',
+        icon: 'mdi-television-classic',
+        color: '#FFBA08'
       }
-    }
-  }
-};
+    ]
+  })
+}
 </script>
 
 <style>
-#float-button .v-btn--floating {
-  position: absolute;
-  bottom: 0.5rem;
-  right: 0.5rem;
+#float-button {
+  position: fixed;
+  bottom: 0;
+  right: 0;
 }
-#float-button .v-speed-dial {
+
+.v-speed-dial {
   position: absolute;
 }
 </style>

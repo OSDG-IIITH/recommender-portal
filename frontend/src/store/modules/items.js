@@ -20,23 +20,43 @@ const state = () => ({
 });
 
 const getters = {
-    getItemsByCategory: state => category => {
-        // TODO: filter state items for category
+    getKeysByCategory: state => category => {
+        if (!category) return Object.keys(state.data);
+
+        return Object.keys(state.data).filter(
+            key => state.data[key].category === category
+        );
     },
-    getItemsById: state => id => state.data[id]
+    getItemById: state => id => state.data[id]
 };
 
 const actions = {
     async addItem({ commit }, item) {
+        const category = item.category;
+        delete item.category;
         await itemsApi
-            .addItem(item.category, item)
+            .addItem(category, item)
             .then(item_res => {
-                commit("ADD_ITEM", { item: item_res });
+                commit("ADD_ITEM", {
+                    item: { data: { ...item_res.data, category } }
+                });
             })
             .catch(err => console.error(err));
     },
-    async updateItem({ commit }, item) {
-        // TODO: implement update item
+    async updateItem({ commit, rootState }, item) {
+        const category = item.category;
+        delete item.category;
+        // Call the api first
+        await itemsApi.updateItem(category, item._id, item).then(item_res => {
+            // Delete first
+            commit("DEL_ITEM", { itemId: item._id });
+            // then add
+            commit("ADD_ITEM", {
+                item: { data: { ...item_res.data, category } }
+            });
+        });
+        commit("SET_LIKES", { likes: rootState.likes });
+        commit("SET_RATINGS", { ratings: rootState.ratings });
     },
     async fetchItems({ commit, rootState }, categoryId) {
         await itemsApi
@@ -59,11 +79,15 @@ const mutations = {
     ADD_ITEM: (state, { item: { data } }) => {
         state.data = {
             ...state.data,
-            [data._id]: data
+            [data._id]: {
+                ...data,
+                rating: 0,
+                like: 0
+            }
         };
     },
     DEL_ITEM: (state, { itemId }) => {
-        // TODO: DEL item mutation
+        delete state.data[itemId];
     },
     SET_LIKES: (state, { likes }) => {
         likes

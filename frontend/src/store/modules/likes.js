@@ -1,10 +1,20 @@
+import itemsApi from "../../api/items";
+
 const state = () => [];
 
 const getters = {};
 
 const actions = {
     async upsertLike({ commit }, payload) {
-        // TODO upsetLike to DB using itemsApi.likeItem function and commit ADD_LIKE and DEL_LIKE
+        const {_id: item_id, value, category_id} = payload;
+
+        await itemsApi
+            .likeItem(category_id, item_id, value)
+            .then(res_item => {
+                commit("DEL_LIKE", {item_id});
+                commit("ADD_LIKE", {item_id, value});
+            })
+            .catch(err => console.log(err));
     }
 };
 
@@ -22,11 +32,16 @@ const mutations = {
         }
         state.push(...likes_list);
     },
-    ADD_LIKE: (state, like) => {
-        // TODO: Add like to state
+    ADD_LIKE: (state, payload) => {
+        state.push({
+            _id: payload.item_id, 
+            value: payload.value});
     },
-    DEL_LIKE: (state, like) => {
-        // TODO: Del like from state
+    DEL_LIKE: (state, payload) => {
+        const index = state.findIndex(
+            likes => likes["_id"] === payload.item_id
+        );
+        if(index !== -1) state.splice(index, 1);
     }
 };
 
