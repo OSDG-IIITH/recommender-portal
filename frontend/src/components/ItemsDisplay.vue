@@ -1,5 +1,8 @@
 <template>
     <v-container fluid>
+        <v-overlay :absolute="true" :value="loading">
+            <v-progress-circular indeterminate size="64"></v-progress-circular>
+        </v-overlay>
         <v-row class="masonry" align="start" justify="space-between" dark>
             <v-col
                 class="child"
@@ -31,8 +34,15 @@ export default {
     components: {
         Item
     },
+    data() {
+        return {
+            loading: false
+        };
+    },
     created: async function() {
+        this.loading = true;
         await this.$store.dispatch("items/fetchItems", this.$route.name);
+        this.loading = false;
     },
     computed: {
         post_keys: function() {
