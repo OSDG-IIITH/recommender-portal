@@ -24,7 +24,7 @@
               <v-tab class="primary--text" v-for="item in menu" :key="item.title" :to="item.path">
                 <v-tooltip bottom>
                   <template v-slot:activator="{ on, attrs }">
-                    <v-btn flat icon v-bind="attrs" v-on="on">
+                    <v-btn text icon v-bind="attrs" v-on="on">
                       <v-icon>{{ item.icon }}</v-icon>
                     </v-btn>
                   </template>
@@ -60,6 +60,7 @@
           temporary
           :color="page.color"
           :mini-variant.sync="mini"
+          app
         >
           <v-list-item>
             <v-btn icon @click.stop="mini = !mini">
@@ -83,54 +84,54 @@
   </div>
 </template>
 
-
 <script>
-import SearchBox from "@/components/SearchBox";
+import SearchBox from '@/components/SearchBox'
 export default {
-  name: "Navbar",
+  name: 'Navbar',
   components: {
     SearchBox
   },
   props: {
     current: String
   },
-  data() {
+  data () {
     return {
-      appTitle: "Recommender@IIIT-H",
+      tabs: null,
+      appTitle: 'Recommender@IIIT-H',
       drawer: false,
       mini: true,
       menu: [
-        { title: "home", name: "Home", path: "/", icon: "mdi-home", color: "#4e4d5c" },
-        { title: "books", name: "Books", path: "/books", icon: "mdi-book", color: "#2D4654" },
+        { title: 'home', name: 'Home', path: '/', icon: 'mdi-home', color: '#4e4d5c' },
+        { title: 'books', name: 'Books', path: '/books', icon: 'mdi-book', color: '#2D4654' },
         {
-          title: "movies",
-          name: "Movies",
-          path: "/movies",
-          icon: "mdi-movie",
-          color: "#05668d"
+          title: 'movies',
+          name: 'Movies',
+          path: '/movies',
+          icon: 'mdi-movie',
+          color: '#05668d'
         },
         {
-          title: "music",
-          name: "Music",
-          path: "/music",
-          icon: "mdi-music-note",
-          color: "#D00000"
+          title: 'music',
+          name: 'Music',
+          path: '/music',
+          icon: 'mdi-music-note',
+          color: '#D00000'
         },
-        { title: "anime", name: "Anime", path: "/anime", icon: "mdi-fire", color: "#F48C06" },
+        { title: 'anime', name: 'Anime', path: '/anime', icon: 'mdi-fire', color: '#F48C06' },
         {
-          title: "shows",
-          name: "Shows",
-          path: "/shows",
-          icon: "mdi-television-classic",
-          color: "#FFBA08"
+          title: 'shows',
+          name: 'Shows',
+          path: '/shows',
+          icon: 'mdi-television-classic',
+          color: '#FFBA08'
         }
       ],
       profileitems: [
-        { index: 1, title: "Profile", path: "#" },
-        { index: 2, title: "Settings", path: "#" },
-        { index: 3, title: "Logout", path: "#" }
+        { index: 1, title: 'Profile', path: '#' },
+        { index: 2, title: 'Settings', path: '#' },
+        { index: 3, title: 'Logout', path: '#' }
       ]
-    };
+    }
   }
-};
+}
 </script>

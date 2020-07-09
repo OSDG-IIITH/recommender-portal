@@ -1,7 +1,7 @@
 <template>
   <div id="float-button">
     <v-speed-dial
-      open-on-hover="true"
+      :open-on-hover="true"
       v-model="fab"
       bottom
       right
@@ -10,7 +10,7 @@
     >
       <template v-slot:activator>
         <div v-if="currPage === 'home' || currPage === 'search'">
-          <v-btn v-model="fab" color="!$vuetify.theme.primary" dark="$vuetify.theme.dark" fab>
+          <v-btn v-model="fab" color="!$vuetify.theme.primary" :dark="$vuetify.theme.dark" fab>
             <v-icon v-if="fab">mdi-close</v-icon>
             <v-icon v-else>mdi-plus</v-icon>
           </v-btn>
@@ -64,40 +64,42 @@
 
 <script>
 export default {
-  name: "FloatingButton",
+  name: 'FloatingButton',
   props: {
     openSheet: Function,
     currPage: String
   },
   data: () => ({
     fab: false,
+    attrs: null,
+    on: null,
     categories: [
-      { title: "books", name: "Books", path: "/books", icon: "mdi-book", color: "#2D4654" },
+      { title: 'books', name: 'Books', path: '/books', icon: 'mdi-book', color: '#2D4654' },
       {
-        title: "movies",
-        name: "Movies",
-        path: "/movies",
-        icon: "mdi-movie",
-        color: "#05668d"
+        title: 'movies',
+        name: 'Movies',
+        path: '/movies',
+        icon: 'mdi-movie',
+        color: '#05668d'
       },
       {
-        title: "music",
-        name: "Music",
-        path: "/music",
-        icon: "mdi-music-note",
-        color: "#D00000"
+        title: 'music',
+        name: 'Music',
+        path: '/music',
+        icon: 'mdi-music-note',
+        color: '#D00000'
       },
-      { title: "anime", name: "Anime", path: "/anime", icon: "mdi-fire", color: "#F48C06" },
+      { title: 'anime', name: 'Anime', path: '/anime', icon: 'mdi-fire', color: '#F48C06' },
       {
-        title: "shows",
-        name: "Shows",
-        path: "/shows",
-        icon: "mdi-television-classic",
-        color: "#FFBA08"
+        title: 'shows',
+        name: 'Shows',
+        path: '/shows',
+        icon: 'mdi-television-classic',
+        color: '#FFBA08'
       }
     ]
   })
-};
+}
 </script>
 
 <style>
