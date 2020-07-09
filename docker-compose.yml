@@ -59,6 +59,7 @@ services:
                         NODE_ENV: $NODE_ENV 
                         PORT: 8080
                         DEBUG: $DEBUG
+                        AUTH_TOKEN: $AUTH_TOKEN
                 depends_on:
                         - backend
                 networks:
