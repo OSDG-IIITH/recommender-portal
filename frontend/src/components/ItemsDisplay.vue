@@ -50,6 +50,13 @@ export default {
                 this.$route.name
             );
         }
+    },
+    watch: {
+        $route: async function(to, from) {
+            this.loading = true;
+            await this.$store.dispatch("items/fetchItems", to.name);
+            this.loading = false;
+        }
     }
 };
 </script>
