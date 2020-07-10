@@ -70,6 +70,11 @@ export default {
                     .map(a => a.trim());
             }
 
+            // normalize URL (add https://)
+            const url = this.formData.url;
+            if (!url.includes("http://") && !url.includes("https://"))
+                this.formData.url = "https://" + url;
+
             this.stepNum = 2;
         },
 
