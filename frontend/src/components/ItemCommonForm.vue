@@ -30,13 +30,10 @@
             :error-messages="year_releaseErrors"
         ></v-text-field>
 
-        <v-btn
-            color="secondary"
-            @click="$emit('continue', JSON.stringify(form))"
-            :disabled="$v.form.$invalid"
+        <v-btn color="secondary" @click="submit" :disabled="$v.form.$invalid"
             >Continue</v-btn
         >
-        <v-btn text @click="$emit('cancel')">Cancel</v-btn>
+        <v-btn text @click="cancel">Cancel</v-btn>
     </v-form>
 </template>
 
@@ -95,6 +92,31 @@ export default {
             !this.$v.form.year_release.numeric &&
                 errors.push("Year should be a number");
             return errors;
+        }
+    },
+    methods: {
+        submit: function() {
+            const formData = JSON.stringify(this.form);
+            this.form = {
+                title: "",
+                url: "",
+                genres: "",
+                year_release: "",
+                flags: ""
+            };
+            this.$v.$reset();
+            this.$emit("continue", formData);
+        },
+        cancel: function() {
+            this.form = {
+                title: "",
+                url: "",
+                genres: "",
+                year_release: "",
+                flags: ""
+            };
+            this.$v.$reset();
+            this.$emit("cancel");
         }
     }
 };
