@@ -1,5 +1,5 @@
 <template>
-    <v-form ref="form" v-model="valid">
+    <v-form ref="form" v-model="valid" :lazy-validation="true">
         <v-container fluid>
             <v-row align="start" justify="space-around">
                 <template v-if="sheetType !== 'books'">
@@ -217,7 +217,7 @@ const getNumErrors = (check, field) => {
 export default {
   name: 'ItemSpecificForm',
   mixins: [validationMixin],
-  props: ['sheetType'],
+  props: ['sheetType', 'isCommonValid'],
   data () {
     const data = {
       valid: true,
@@ -306,6 +306,9 @@ export default {
     }
   },
   computed: {
+    isValid () {
+      return !this.$v.form.$invalid
+    },
     languageErrors () {
       let errors = []
       if (!this.$v.form.language.$dirty) return errors

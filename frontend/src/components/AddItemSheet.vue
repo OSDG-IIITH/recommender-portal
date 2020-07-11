@@ -3,25 +3,31 @@
         <v-overlay :absolute="true" :value="overlay">
             <v-progress-circular indeterminate size="64"></v-progress-circular>
         </v-overlay>
-        <h3 class="pa-2 ma-1 text-center text-sm-left text-overline white--text">
+        <h3 class="pa-2 ma-1 text-center text-sm-left text-overline">
             Add {{ sheetType }}
         </h3>
-        <v-stepper-step editable :complete="stepNum > 1" step="1"> Step 1 <small>Common details</small></v-stepper-step>
+        <v-stepper-step editable :complete="stepNum > 1" step="1" :rules="[() => this.commonValid]">
+           Compulsory <small>Common details</small>
+        </v-stepper-step>
         <v-stepper-content step="1">
             <ItemCommonForm
-              v-on:continue="commonSubmit"
-              v-on:next="goToSpecific"
-              v-on:cancel="cancel"
+              :isValid="commonValid"
+              @continue="commonSubmit"
+              @next="goToSpecific"
+              @cancel="cancel"
             />
         </v-stepper-content>
 
-        <v-stepper-step editable step="2">Step 2 <small>Extra details</small></v-stepper-step>
+        <v-stepper-step editable step="2" :rules="[() => this.specificValid]">
+          Optional <small>Extra details</small>
+        </v-stepper-step>
         <v-stepper-content step="2">
             <ItemSpecificForm
                 :sheetType="sheetType"
-                v-on:continue="specificSubmit"
-                v-on:previous="goToCommon"
-                v-on:cancel="cancel"
+                :isCommonValid="!commonValid"
+                @continue="specificSubmit"
+                @previous="goToCommon"
+                @cancel="cancel"
             />
         </v-stepper-content>
     </v-stepper>
@@ -45,6 +51,8 @@ export default {
   data () {
     return {
       overlay: false,
+      commonValid: true,
+      specificValid: true,
       formData: {}
     }
   },
