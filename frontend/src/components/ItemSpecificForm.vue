@@ -218,11 +218,13 @@ export default {
             this.form = templates[this.sheetType];
             this.$v.$reset();
             this.$emit("continue", formData);
+            this.$root.$emit("ItemCommonForm");
         },
         cancel: function() {
             this.form = templates[this.sheetType];
             this.$v.$reset();
             this.$emit("cancel");
+            this.$root.$emit("ItemCommonForm");
         }
     },
     watch: {

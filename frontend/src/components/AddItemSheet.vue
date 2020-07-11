@@ -8,7 +8,7 @@
         >
             Add {{ sheetType }}
         </h3>
-        <v-stepper-step :complete="stepNum > 1" step="1">
+        <v-stepper-step editable :complete="stepNum > 1" step="1">
             Step 1
             <small>Common details</small>
         </v-stepper-step>

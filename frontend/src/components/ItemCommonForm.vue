@@ -97,13 +97,13 @@ export default {
     methods: {
         submit: function() {
             const formData = JSON.stringify(this.form);
-            this.form = {
-                title: "",
-                url: "",
-                genres: "",
-                year_release: "",
-                flags: ""
-            };
+            // this.form = {
+            //     title: "",
+            //     url: "",
+            //     genres: "",
+            //     year_release: "",
+            //     flags: ""
+            // };
             this.$v.$reset();
             this.$emit("continue", formData);
         },
@@ -118,6 +118,11 @@ export default {
             this.$v.$reset();
             this.$emit("cancel");
         }
+    },
+    mounted() {
+        this.$root.$on("ItemCommonForm", () => {
+            this.cancel();
+        });
     }
 };
 </script>
