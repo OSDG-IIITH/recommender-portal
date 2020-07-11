@@ -1,5 +1,5 @@
 <template>
-    <v-form ref="form" v-model="valid">
+    <v-form ref="form" v-model="valid" :lazy-validation="true">
         <v-container fluid>
             <v-row align="start" justify="space-around">
                 <v-col md="12" cols="12">
@@ -101,7 +101,7 @@ export default {
   mixins: [validationMixin],
   name: 'ItemCommonForm',
   data: () => ({
-    valid: false,
+    valid: true,
     genre_options: ['Gaming', 'Programming', 'Vue', 'Vuetify'],
     search: null,
     nameRules: [v => !!v || 'Required'],
@@ -130,6 +130,9 @@ export default {
     }
   },
   computed: {
+    isValid () {
+      return !this.$v.form.$invalid
+    },
     titleErrors: function () {
       const errors = []
       if (!this.$v.form.title.$dirty) return errors
