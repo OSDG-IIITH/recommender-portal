@@ -1,17 +1,20 @@
 <template>
     <v-stepper v-model="stepNum" vertical dark>
+        <v-overlay :absolute="true" :value="overlay">
+            <v-progress-circular indeterminate size="64"></v-progress-circular>
+        </v-overlay>
         <h3
             class="pa-2 ma-1 text-center text-sm-left text-overline white--text"
         >
             Add {{ sheetType }}
         </h3>
-        <v-stepper-step :complete="stepNum > 1" step="1">
+        <v-stepper-step editable :complete="stepNum > 1" step="1">
             Step 1
             <small>Common details</small>
         </v-stepper-step>
         <v-stepper-content step="1">
             <!-- Common fields form -->
-            <ItemCommonForm v-on:continue="submit1" v-on:cancel="closeSheet" />
+            <ItemCommonForm v-on:continue="submit1" v-on:cancel="cancel" />
         </v-stepper-content>
 
         <v-stepper-step step="2">
@@ -24,7 +27,7 @@
             <ItemSpecificForm
                 :sheetType="sheetType"
                 v-on:continue="submit2"
-                v-on:cancel="closeSheet"
+                v-on:cancel="cancel"
             />
         </v-stepper-content>
     </v-stepper>
@@ -70,6 +73,11 @@ export default {
                     .map(a => a.trim());
             }
 
+            // normalize URL (add https://)
+            const url = this.formData.url;
+            if (!url.includes("http://") && !url.includes("https://"))
+                this.formData.url = "https://" + url;
+
             this.stepNum = 2;
         },
 
@@ -92,6 +100,14 @@ export default {
 
             // stop loading
             this.overlay = false;
+
+            // close the sheet
+            this.formData = {};
+            this.closeSheet();
+        },
+        cancel: function() {
+            this.formData = {};
+            this.closeSheet();
         }
     }
 };
