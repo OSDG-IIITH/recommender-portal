@@ -18,10 +18,25 @@
                   .map(val => val.substring(0, 1))
                   .join('')}`
           ">
-          <v-card-title class="display-1">
-            {{ post.title }} &nbsp;
-            <v-chip x-small light>{{ $route.name }}</v-chip>
-          </v-card-title>
+
+          <template v-if="editmode">
+            <v-card-title class="display-1">
+              <v-text-field
+                label="Title"
+                :placeholder="post.title"
+                outlined>
+              </v-text-field> 
+              &nbsp;
+              <v-chip x-small light>{{ $route.name }}</v-chip>
+            </v-card-title>
+          </template>
+          <tempate v-else>
+            <v-card-title class="display-1">
+              {{ post.title }} &nbsp;
+              <v-chip x-small light>{{ $route.name }}</v-chip>
+            </v-card-title>
+          </tempate>
+
         </v-img>
         <v-card-text>
           <p>
@@ -35,6 +50,35 @@
           </p>
         </v-card-text>
         <v-card-actions class="pa-0">
+          <template v-if="editmode">
+            <v-tooltip top>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn small @click="editmode = !editmode; show = false" color="orange darken-2" icon v-bind="attrs" v-on="on">
+                  <v-icon>mdi-chevron-left</v-icon>
+                </v-btn>
+              </template>
+              <span>Back</span>
+            </v-tooltip>
+            <v-tooltip top>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn small @click="editmode = !editmode; show = false" color="green darken-2" icon v-bind="attrs" v-on="on">
+                  <v-icon>mdi-check</v-icon>
+                </v-btn>
+              </template>
+              <span>Save</span>
+            </v-tooltip>
+          </template>
+          <template v-else>
+            <v-tooltip top>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn @click="editmode = !editmode; show = true" color="purple darken-2" icon v-bind="attrs" v-on="on">
+                  <v-icon>mdi-border-color</v-icon>
+                </v-btn>
+              </template>
+              <span>Edit</span>
+            </v-tooltip>
+          </template>
+
           <v-tooltip top>
             <template v-slot:activator="{ on, attrs }">
               <v-btn color="red darken-2" icon v-bind="attrs" v-on="on" @click="like({ _id: post._id, value: 1, category_id: post.category })">
@@ -91,7 +135,12 @@
         </v-card-actions>
         <v-expand-transition>
           <div v-show="show">
-            <ItemDetails :post="post" />
+            <template v-if="editmode">
+              <EditItemDetails :post="post" :editmode="editmode" />
+            </template>
+            <template v-else>
+              <ItemDetails :post="post" :editmode="editmode" />
+            </template>
           </div>
         </v-expand-transition>
       </v-card>
@@ -101,18 +150,21 @@
 <script>
 // import CommentTimeline from "@/components/CommentTimeline";
 import ItemDetails from '@/components/ItemDetails'
+import EditItemDetails from '@/components/EditItemDetails'
 import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'Item',
 
   components: {
-    ItemDetails
+    ItemDetails,
+    EditItemDetails
   },
 
   data: function () {
     return {
-      show: false
+      show: false,
+      editmode: false
     }
   },
 
