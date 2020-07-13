@@ -136,6 +136,9 @@
 <script>
 export default {
   name: 'ItemDetails',
-  props: ['post']
+  props: {
+    post: Object,
+    editmode: Boolean
+  }
 }
 </script>

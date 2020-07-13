@@ -36,24 +36,23 @@
           <v-speed-dial
               v-model="fab"
               open-on-hover
-              flat
               top
               right
               direction="left"
               transition="slide-x-reverse-transition"
             >
               <template v-slot:activator>
-                <v-btn v-model="fab" flat depressed icon text>
+                <v-btn v-model="fab" depressed icon text>
                   <v-icon v-if="fab">mdi-close</v-icon>
                   <v-icon v-else>mdi-dots-vertical</v-icon>
                 </v-btn>
               </template>
               <v-btn-toggle rounded>
-                <v-btn text flat depressed>
+                <v-btn text depressed>
                   <v-switch v-model="$vuetify.theme.dark" hide-details flat inset></v-switch>
                   <v-icon>mdi-brightness-4</v-icon>
                 </v-btn>
-                <v-btn text flat depressed icon to="/profile">
+                <v-btn text depressed icon to="/profile">
                   <v-tooltip bottom>
                     <template #activator="{ on }">
                       <v-icon v-on="on">mdi-account-circle</v-icon>
@@ -61,7 +60,7 @@
                     <span>Profile</span>
                   </v-tooltip>
                 </v-btn>
-                <v-btn text flat depressed icon to="/settings">
+                <v-btn text depressed icon to="/settings">
                   <v-tooltip bottom>
                     <template #activator="{ on }">
                       <v-icon v-on="on">mdi-cog</v-icon>
@@ -69,7 +68,7 @@
                     <span>Settings</span>
                   </v-tooltip>
                 </v-btn>
-                <v-btn text flat depressed icon @click="() => {isAuthenticated ? logout() : login()}">
+                <v-btn text depressed icon @click="() => {isAuthenticated ? logout() : login()}">
                   <v-tooltip bottom>
                     <template #activator="{ on }">
                       <v-icon v-on="on">{{ isAuthenticated? "mdi-logout" : "mdi-login"}}</v-icon>

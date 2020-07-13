@@ -12,7 +12,6 @@
         </v-content>
     </div>
 </template>
-
 <script>
 import AddItemButton from './AddItemButton'
 import AddItemSheet from './AddItemSheet'
