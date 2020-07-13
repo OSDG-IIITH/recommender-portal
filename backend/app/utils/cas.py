@@ -5,7 +5,7 @@ class CAS:
     client: CASClient = CASClient(
         version=3,
         # TODO replace with relevant url
-        service_url="http://0.0.0.0:8000/api/core/login?next=%2F",
+        service_url="http://0.0.0.0:8000/login",
         server_url="https://login.iiit.ac.in/cas/"
     )
 

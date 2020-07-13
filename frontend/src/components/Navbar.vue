@@ -33,26 +33,52 @@
               </v-tab>
             </v-tabs>
           </template>
-
-          <v-toolbar-items>
-            <v-menu offset-y open-on-hover transition="slide-x-reverse-transition">
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn dark icon v-bind="attrs" v-on="on" class="mr-2">
-                  <v-icon>mdi-account-circle</v-icon>
+          <v-speed-dial
+              v-model="fab"
+              open-on-hover
+              flat
+              top
+              right
+              direction="left"
+              transition="slide-x-reverse-transition"
+            >
+              <template v-slot:activator>
+                <v-btn v-model="fab" flat depressed icon text>
+                  <v-icon v-if="fab">mdi-close</v-icon>
+                  <v-icon v-else>mdi-dots-vertical</v-icon>
                 </v-btn>
               </template>
-
-              <v-list nav>
-                <v-list-item v-for="(item, index) in profileitems" :key="index" :to="item.path">
-                  <v-list-item-title>{{ item.title }}</v-list-item-title>
-                </v-list-item>
-              </v-list>
-            </v-menu>
-            <v-btn>
-              <v-switch v-model="$vuetify.theme.dark" hide-details inset></v-switch>
-              <v-icon>mdi-brightness-4</v-icon>
-            </v-btn>
-          </v-toolbar-items>
+              <v-btn-toggle rounded>
+                <v-btn text flat depressed>
+                  <v-switch v-model="$vuetify.theme.dark" hide-details flat inset></v-switch>
+                  <v-icon>mdi-brightness-4</v-icon>
+                </v-btn>
+                <v-btn text flat depressed icon to="/profile">
+                  <v-tooltip bottom>
+                    <template #activator="{ on }">
+                      <v-icon v-on="on">mdi-account-circle</v-icon>
+                    </template>
+                    <span>Profile</span>
+                  </v-tooltip>
+                </v-btn>
+                <v-btn text flat depressed icon to="/settings">
+                  <v-tooltip bottom>
+                    <template #activator="{ on }">
+                      <v-icon v-on="on">mdi-cog</v-icon>
+                    </template>
+                    <span>Settings</span>
+                  </v-tooltip>
+                </v-btn>
+                <v-btn text flat depressed icon @click="() => {isAuthenticated ? logout() : login()}">
+                  <v-tooltip bottom>
+                    <template #activator="{ on }">
+                      <v-icon v-on="on">{{ isAuthenticated? "mdi-logout" : "mdi-login"}}</v-icon>
+                    </template>
+                    <span>{{ isAuthenticated? "Logout" : "Login"}}</span>
+                  </v-tooltip>
+                </v-btn>
+              </v-btn-toggle>
+            </v-speed-dial>
         </v-app-bar>
         <v-navigation-drawer
           v-model="drawer"
@@ -85,7 +111,9 @@
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex'
 import SearchBox from '@/components/SearchBox'
+
 export default {
   name: 'Navbar',
   components: {
@@ -94,9 +122,21 @@ export default {
   props: {
     current: String
   },
+  computed: mapState({
+    isAuthenticated: state => state.isAuthenticated
+  }),
+  methods: {
+    ...mapActions({
+      logout: 'logOut'
+    }),
+    login: function () {
+      window.location.replace('https://login.iiit.ac.in/cas/login?service=http://0.0.0.0:8000/login')
+    }
+  },
   data () {
     return {
       tabs: null,
+      fab: null,
       appTitle: 'Recommender@IIIT-H',
       drawer: false,
       mini: true,
@@ -125,11 +165,6 @@ export default {
           icon: 'mdi-television-classic',
           color: '#FFBA08'
         }
-      ],
-      profileitems: [
-        { index: 1, title: 'Profile', path: '#' },
-        { index: 2, title: 'Settings', path: '#' },
-        { index: 3, title: 'Logout', path: '#' }
       ]
     }
   }

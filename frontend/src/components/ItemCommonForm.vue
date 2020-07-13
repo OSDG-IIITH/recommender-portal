@@ -80,7 +80,7 @@
                 <v-col cols="12" xs="12" class="align-center">
                   <v-btn-toggle rounded>
                     <v-btn outlined large @click="$emit('next', !$v.form.$invalid)" :color="isValid? 'success': 'error'">
-                        <v-icon>mdi-chevron-down</v-icon>
+                        <v-icon>mdi-chevron-double-down</v-icon>
                     </v-btn>
                     <v-btn outlined large :color="$v.form.$invalid? 'warning' : 'error'" @click="$v.form.$invalid? 'reset' : 'cancel'">
                         <v-icon left>{{$v.form.$invalid? 'mdi-refresh' : 'mdi-close'}}</v-icon>

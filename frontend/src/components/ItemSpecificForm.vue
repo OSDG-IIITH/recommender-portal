@@ -155,7 +155,7 @@
                 <v-col cols="12" xs="12" class="align-center">
                   <v-btn-toggle rounded>
                      <v-btn outlined large @click="$emit('previous', !$v.form.$invalid)" :color="$v.form.$invalid? 'error' : 'success'">
-                        <v-icon>mdi-chevron-up</v-icon>
+                        <v-icon>mdi-chevron-double-up</v-icon>
                     </v-btn>
                     <v-btn outlined large color="accent" @click="submit" :disabled="isCommonValid">
                         <v-icon left>mdi-cloud-upload-outline</v-icon> Add Post
