@@ -32,6 +32,7 @@ async def login_route(next: str = "/", ticket: str = None, cas_client: CASClient
         return RedirectResponse(url=cas_login_url)
 
     _user, attributes, _ = cas_client.verify_ticket(ticket)
+    print(ticket)
     if not _user:
         return ResponseBase(success=False, error=[
                             f"Invalid user! {_user}", attributes])

@@ -32,6 +32,9 @@ const actions = {
 const mutations = {
     ADD_USERDATA: (state, { userData }) => {
         state.userData = userData;
+    },
+    REMOVE_USERDATA: state => {
+        state.userData = {};
     }
 };
 

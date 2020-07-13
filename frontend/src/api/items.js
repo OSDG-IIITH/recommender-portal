@@ -9,8 +9,7 @@ export default {
     async getItems(categoryId) {
         return await api
             .get(`/api/${categoryId}`, {
-                json: false,
-                auth: false
+                json: false
             })
             .then(res => res.data)
             .then(items => {
@@ -26,8 +25,7 @@ export default {
     async getItem(categoryId, itemId) {
         return await api
             .get(`/api/${categoryId}/${itemId}`, {
-                json: false,
-                auth: false
+                json: false
             })
             .then(res => res.data)
             .then(item => {
@@ -44,7 +42,6 @@ export default {
         return await api
             .post(`/api/${categoryId}`, {
                 body: JSON.stringify(data),
-                auth: true,
                 json: true
             })
             .then(res => res.data)
@@ -62,7 +59,6 @@ export default {
         return await api
             .patch(`/api/${categoryId}/${itemId}`, {
                 body: JSON.stringify(data),
-                auth: true,
                 json: true
             })
             .then(res => res.data)
@@ -80,7 +76,6 @@ export default {
         return await api
             .post(`/api/${categoryId}/rate/${itemId}`, {
                 body: JSON.stringify({ rating }),
-                auth: true,
                 json: true
             })
             .then(res => res.data)
@@ -98,7 +93,6 @@ export default {
         return await api
             .post(`/api/user/like/${categoryId}/${itemId}`, {
                 body: JSON.stringify({ value }),
-                auth: true,
                 json: true
             })
             .then(res => res.data)

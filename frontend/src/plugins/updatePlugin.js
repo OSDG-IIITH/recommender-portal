@@ -9,6 +9,11 @@ export default function(store) {
             case "ratings/ADD_RATING":
                 store.commit("items/SET_RATINGS", { ratings: state.ratings });
                 break;
+            case "ADD_TOKEN":
+                store.dispatch("user/getCurrentUserData");
+                break;
+            case "REMOVE_TOKEN":
+                store.commit("user/REMOVE_USERDATA");
         }
     });
 }
