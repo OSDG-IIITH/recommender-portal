@@ -3,7 +3,7 @@ import api from "./helper";
 export default {
     async getCategories() {
         return await api
-            .get("/api/core/categories", { json: false, auth: true })
+            .get("/api/core/categories", { json: false })
             .then(res => {
                 console.log(res);
                 return res.data;

@@ -3,11 +3,9 @@ import axios from "axios";
 function getConfig(payload) {
     const config = {
         headers: {
-            "Content-Type": "application/json",
-            Authorization: process.env.AUTH_TOKEN
+            "Content-Type": "application/json"
         }
     };
-    if (!payload.auth) delete config.headers.Authorization;
     if (!payload.json) delete config.headers["Content-Type"];
     return config;
 }

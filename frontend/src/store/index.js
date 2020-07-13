@@ -7,7 +7,7 @@ import likes from "./modules/likes";
 import ratings from "./modules/ratings";
 import user from "./modules/user";
 import createLogger from "../plugins/logger";
-import updateItem from "../plugins/updateItem";
+import updatePlugin from "../plugins/updatePlugin";
 
 Vue.use(Vuex);
 
@@ -16,7 +16,10 @@ const debug = process.env.NODE_ENV !== "production";
 export default new Vuex.Store({
     // root level state
     state: {
-        categories: []
+        categories: [],
+        token: null,
+        isAuthenticated: false,
+        loading: false
     },
     actions: rootActions,
     mutations: rootMutaions,
@@ -27,5 +30,5 @@ export default new Vuex.Store({
         user
     },
     strict: debug,
-    plugins: debug ? [createLogger(), updateItem] : []
+    plugins: debug ? [createLogger(), updatePlugin] : []
 });
