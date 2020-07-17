@@ -130,10 +130,10 @@
         <v-expand-transition>
           <div v-show="show">
             <template v-if="editmode">
-              <EditItemDetails :post="post" :editmode="editmode" />
+              <EditItemDetails :post="post" :editmode="editmode" @mode="mode"/>
             </template>
             <template v-else>
-              <ItemDetails :post="post" :editmode="editmode" @mode="mode"/>
+              <ItemDetails :post="post" :editmode="editmode" />
             </template>
           </div>
         </v-expand-transition>
