@@ -149,7 +149,7 @@ export default {
     genreErrors: function () {
       const errors = []
       if (!this.$v.form.genres.$dirty) return errors
-      !this.$v.genres.required && errors.push('At least ONE genre is required!')
+      !this.$v.form.genres.required && errors.push('At least ONE genre is required!')
       return errors
     },
     year_releaseErrors: function () {
