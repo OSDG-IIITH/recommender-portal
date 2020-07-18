@@ -82,7 +82,7 @@
                     <v-btn outlined large @click="$emit('next', !$v.form.$invalid)" :color="isValid? 'success': 'error'">
                         <v-icon>mdi-chevron-double-down</v-icon>
                     </v-btn>
-                    <v-btn outlined large :color="$v.form.$invalid? 'warning' : 'error'" @click="$v.form.$invalid? 'reset' : 'cancel'">
+                    <v-btn outlined large :color="$v.form.$invalid? 'warning' : 'error'" @click="() => {$v.form.$invalid? reset() : cancel() }">
                         <v-icon left>{{$v.form.$invalid? 'mdi-refresh' : 'mdi-close'}}</v-icon>
                         {{$v.form.$invalid? 'Reset' : 'Cancel'}}
                     </v-btn>
