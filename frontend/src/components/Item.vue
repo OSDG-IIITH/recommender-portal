@@ -21,12 +21,6 @@
 
           <template v-if="editmode">
             <v-card-title class="display-1">
-              <v-text-field
-                label="Title"
-                :placeholder="post.title"
-                outlined>
-              </v-text-field>
-              &nbsp;
               <v-chip x-small light>{{ $route.name }}</v-chip>
             </v-card-title>
           </template>
@@ -136,7 +130,7 @@
         <v-expand-transition>
           <div v-show="show">
             <template v-if="editmode">
-              <EditItemDetails :post="post" :editmode="editmode" />
+              <EditItemDetails :post="post" :editmode="editmode" @mode="mode"/>
             </template>
             <template v-else>
               <ItemDetails :post="post" :editmode="editmode" />
@@ -196,7 +190,11 @@ export default {
     ...mapActions({
       like: 'likes/upsertLike',
       setRating: 'ratings/upsertRating'
-    })
+    }),
+    mode: function(val) {
+      this.editmode = val; 
+      this.show = val;
+    }
   }
 }
 </script>
