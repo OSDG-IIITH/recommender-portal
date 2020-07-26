@@ -22,6 +22,13 @@ class ItemBase(Base):
     genres: List[str] = list()
 
 
+class Movie(ItemBase):
+    """Movie category definition"""
+    language: Optional[str]
+    director: Optional[List[str]]
+    streaming: Optional[List[VideoEnum]]
+
+
 class Show(ItemBase):
     """Shows category definition"""
     seasons: Optional[int]
@@ -34,13 +41,6 @@ class Anime(Show):
     """Anime category defintion"""
     # NOTE update if any other fields required
     pass
-
-
-class Movie(ItemBase):
-    """Movie category definition"""
-    language: Optional[str]
-    director: Optional[str]
-    streaming: Optional[List[VideoEnum]]
 
 
 class Music(ItemBase):
