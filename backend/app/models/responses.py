@@ -19,7 +19,7 @@ class ItemInResponse(ResponseBase):
 
 class ItemsInResponse(ResponseBase):
     """Wrapper for list of items"""
-    data: List[Union[Anime, Movie, Music, Show, Book]] = list()
+    data: List[Union[Movie, Anime, Music, Show, Book]] = list()
 
 
 class UserInResponse(ResponseBase):

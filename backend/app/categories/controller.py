@@ -30,7 +30,7 @@ async def get_category_route(category_id: CategoryEnum,
         loader = Show
     elif category_id == CategoryEnum.books:
         loader = Book
-    items = [loader(**item) async for item in db[category_id]["data"].find()]
+    items = [loader(**item) async for item in db[category_id]["data"].find().limit(20)]
     return ItemsInResponse(data=items)
 
 

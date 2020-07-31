@@ -17,17 +17,24 @@ class ItemBase(Base):
     flags: List[str] = list()
     hidden: bool = False
     title: str
-    url: AnyUrl
+    link: AnyUrl
     year_release: int
     genres: List[str] = list()
 
 
+class Movie(ItemBase):
+    """Movie category definition"""
+    language: Optional[str]
+    director: Optional[List[str]]
+    streaming: Optional[List[VideoEnum]]
+
+
 class Show(ItemBase):
     """Shows category definition"""
-    seasons: int
-    episode_length: int
-    season_length: int
-    streaming: Optional[VideoEnum]
+    seasons: Optional[int]
+    episode_length: Optional[int]
+    season_length: Optional[int]
+    streaming: Optional[List[VideoEnum]]
 
 
 class Anime(Show):
@@ -36,19 +43,12 @@ class Anime(Show):
     pass
 
 
-class Movie(ItemBase):
-    """Movie category definition"""
-    language: str
-    director: str
-    streaming: Optional[VideoEnum]
-
-
 class Music(ItemBase):
     """Music category definiton"""
-    artist: str
+    artist: Optional[str]
     album: Optional[str]
-    streaming: Optional[MusicEnum]
+    streaming: Optional[List[MusicEnum]]
 
 
 class Book(ItemBase):
-    author: str
+    author: Optional[str]
