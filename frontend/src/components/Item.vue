@@ -53,14 +53,6 @@
               </template>
               <span>Back</span>
             </v-tooltip>
-            <v-tooltip top>
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn small @click="editmode = !editmode; show = false" color="green darken-2" icon v-bind="attrs" v-on="on">
-                  <v-icon>mdi-check</v-icon>
-                </v-btn>
-              </template>
-              <span>Save</span>
-            </v-tooltip>
           </template>
           <template v-else>
             <v-tooltip top>
