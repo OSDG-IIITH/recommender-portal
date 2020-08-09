@@ -163,6 +163,13 @@ export default {
           path: '/shows',
           icon: 'mdi-television-classic',
           color: '#FFBA08'
+        },
+        {
+          title: 'search',
+          name: 'Search',
+          path: '/search',
+          icon: 'mdi-magnify',
+          color: '#4e4d5c'
         }
       ]
     }
