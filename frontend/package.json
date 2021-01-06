@@ -12,7 +12,7 @@
     "serve": "npx serve dist -p 8080"
   },
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "serve": "^11.3.0",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
