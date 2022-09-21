@@ -17,7 +17,7 @@
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
     "vuelidate": "^0.7.5",
-    "vuetify": "^2.2.29",
+    "vuetify": "^2.6.10",
     "vuex": "^3.4.0"
   },
   "devDependencies": {
